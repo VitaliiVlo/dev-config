@@ -1,0 +1,10 @@
+[user]
+	email = vitalii.vlo@gmail.com
+	name = vitalii-vlo
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
+[core]
+	autocrlf = input
+	safecrlf = warn
+	excludesfile = ~/.gitignore_global

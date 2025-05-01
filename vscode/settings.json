@@ -1,0 +1,57 @@
+{
+    /* ────────────── Visual & Window ────────────── */
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.iconTheme": "material-icon-theme",
+    "window.zoomPerWindow": false,
+    "window.zoomLevel": 1,
+    /* ────────────── Editor UX ────────────── */
+    "editor.cursorBlinking": "expand",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.detectIndentation": true,
+    "editor.wordWrap": "on",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.minimap.enabled": true,
+    "editor.bracketPairColorization.enabled": true,
+    "breadcrumbs.enabled": true,
+    "files.autoSave": "off",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+    },
+    /* ──────────────── Go tooling ──────────────── */
+    "go.useLanguageServer": true,
+    "gopls": {
+        "ui.semanticTokens": true,
+    },
+    "go.testFlags": [
+        "-v",
+        "-count=1"
+    ],
+    "go.testOnSave": false,
+    "go.toolsManagement.autoUpdate": true,
+    /* In-editor hints */
+    "go.inlayHints.parameterNames": true,
+    "go.inlayHints.rangeVariableTypes": true,
+    "go.inlayHints.constantValues": true,
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.compositeLiteralFields": true,
+    /* Context-menu helpers */
+    "go.editorContextMenuCommands": {
+        "generateTestForFile": true,
+        "testFile": true
+    },
+    /* Coverage glyphs */
+    "go.coverageDecorator": {
+        "type": "gutter"
+    },
+    /* ─────────────── AI & Git ─────────────── */
+    "github.gitProtocol": "ssh",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:claude-3.7-sonnet",
+    "gitlens.plusFeatures.enabled": false,
+    "gitlens.virtualRepositories.enabled": false,
+    /* ────────────── Telemetry ───────────── */
+    "telemetry.telemetryLevel": "crash"
+}
