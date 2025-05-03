@@ -9,16 +9,21 @@
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.detectIndentation": true,
     "editor.wordWrap": "on",
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
     "editor.minimap.enabled": true,
     "editor.bracketPairColorization.enabled": true,
     "breadcrumbs.enabled": true,
-    "files.autoSave": "off",
+    "editor.trimAutoWhitespace": true,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
     },
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    /* ────────────── Files ────────────── */
+    "files.autoSave": "off",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
     /* ──────────────── Go tooling ──────────────── */
     "go.useLanguageServer": true,
     "gopls": {
@@ -46,12 +51,13 @@
         "type": "gutter"
     },
     /* ─────────────── AI & Git ─────────────── */
-    "github.gitProtocol": "ssh",
     "github.copilot.nextEditSuggestions.enabled": true,
+    "chat.agent.enabled": true,
+    "github.gitProtocol": "ssh",
     "gitlens.ai.model": "vscode",
     "gitlens.ai.vscode.model": "copilot:claude-3.7-sonnet",
     "gitlens.plusFeatures.enabled": false,
     "gitlens.virtualRepositories.enabled": false,
     /* ────────────── Telemetry ───────────── */
-    "telemetry.telemetryLevel": "crash"
+    "telemetry.telemetryLevel": "crash",
 }

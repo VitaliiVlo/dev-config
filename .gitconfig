@@ -3,7 +3,6 @@
 	name = vitalii-vlo
 [url "git@github.com:"]
 	insteadOf = https://github.com/
-
 [core]
 	autocrlf = input
 	safecrlf = warn

@@ -21,7 +21,7 @@ alias ll='ls -lah'
 alias python='python3'
 alias pip='pip3'
 alias tf='terraform'
-alias k='kubectl'
+alias kk='kubectl'
 
 # History settings
 HISTFILE=~/.zsh_history
@@ -34,11 +34,11 @@ setopt inc_append_history
 setopt hist_verify
 
 # Use bat if available for better cat
-if command -v bat &> /dev/null; then
+if command -v bat &>/dev/null; then
   alias cat='bat'
 fi
 
 # Use lsd if available for better ls
-if command -v lsd &> /dev/null; then
+if command -v lsd &>/dev/null; then
   alias ls='lsd'
 fi
