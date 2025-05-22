@@ -37,7 +37,10 @@ brew install bat lsd k9s go@v.v
 ### Applications
 Install the following via Homebrew Cask or their official installers:
 - Docker Desktop + k8s + kubectl
-- VSCode (Enable settings sync with GitHub)
+- VSCode (Enable settings sync with GitHub, install code command to PATH)
 - iTerm2
 - Chrome
+- MongoDB Compass
+- Postman
+- Notion
 - Mermaid or PUML for diagrams
