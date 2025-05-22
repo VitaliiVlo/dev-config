@@ -66,14 +66,34 @@
     "go.coverageDecorator": {
         "type": "gutter"
     },
-    /* ─────────────── AI & Git ─────────────── */
+    /* ─────────────── AI ─────────────── */
     "github.copilot.nextEditSuggestions.enabled": false,
+    "github.copilot.chat.codesearch.enabled": true,
     "chat.agent.enabled": true,
+    /* ─────────────── Git ─────────────── */
     "github.gitProtocol": "ssh",
     "git.confirmSync": false,
+    "git.autofetch": true,
+    "git.autorefresh": true,
+    "git.autofetchPeriod": 300,
+    "git.autoStash": false,
+    "git.autoRepositoryDetection": true,
+    "git.enableStatusBarSync": true,
+    "git.fetchOnPull": true,
+    "git.pruneOnFetch": true,
+    "git.pullBeforeCheckout": true,
+    "git.showPushSuccessNotification": true,
+    "git.useCommitInputAsStashMessage": true,
     "git.openRepositoryInParentFolders": "never",
-    "gitlens.plusFeatures.enabled": false,
-    "gitlens.virtualRepositories.enabled": false,
+    "git.blame.editorDecoration.enabled": true,
+    "git.blame.editorDecoration.template": "${authorName} (${authorDateAgo})",
+    "git.blame.statusBarItem.enabled": true,
+    "git.blame.statusBarItem.template": "${authorName} (${authorDateAgo})",
+    "git.branchProtection": [
+        "main"
+    ],
+    // "gitlens.plusFeatures.enabled": false,
+    // "gitlens.virtualRepositories.enabled": false,
     /* ────────────── Liveshare ────────────── */
     "liveshare.languages.allowGuestCommandControl": true,
     "liveshare.allowGuestDebugControl": true,
