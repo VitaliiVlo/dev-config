@@ -8,7 +8,7 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # ───────────── Prompt style ───────────────
-PROMPT='%F{green}%n%f:%F{yellow}%~%f$ '
+PROMPT='%F{magenta}%n%f:%F{yellow}%~%f %B%F{white}$%f%b '
 
 # ──────────── Editor choice ───────────────
 export EDITOR='code --wait'
@@ -52,6 +52,8 @@ if [ -f "$HSS_PATH" ]; then
   source "$HSS_PATH"
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
+  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=yellow'   # or underline, bold, etc.
+  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red'
 fi
 
 # zsh-autosuggestions (inline suggestions from history)
