@@ -23,7 +23,8 @@ The following files are automatically symlinked by running `./setup_symlinks.sh`
 - Custom `.zprofile` - Shell environment variables
 - Custom `.zshrc` - Shell configuration and aliases
 - Custom `.gitconfig` - Git user and global settings
-- Custom `.config/lsd/config.yaml` - LSD (LSDeluxe) configuration
+- Custom `.config/lsd/config.yaml` - LSDeluxe configuration
+- Custom `.config/ghostty/config` - Ghostty configuration
 
 ### CLI Tools (via Homebrew)
 ```
@@ -38,7 +39,7 @@ brew install bat lsd k9s go@v.v
 Install the following via Homebrew Cask or their official installers:
 - Docker Desktop + k8s + kubectl
 - VSCode (Enable settings sync with GitHub, install code command to PATH)
-- iTerm2
+- Ghostty
 - Chrome
 - MongoDB Compass
 - Postman

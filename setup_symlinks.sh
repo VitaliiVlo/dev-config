@@ -18,8 +18,10 @@ ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
 # Ensure ~/.config/lsd directory exists
 mkdir -p "$HOME/.config/lsd"
-
-# Link only the lsd config.yaml file
 ln -sf "$DOTFILES_DIR/.config/lsd/config.yaml" "$HOME/.config/lsd/config.yaml"
+
+# Ensure ~/.config/ghostty directory exists
+mkdir -p "$HOME/.config/ghostty"
+ln -sf "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
 
 echo "✅ Symbolic links created successfully!"
