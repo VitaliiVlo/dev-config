@@ -7,3 +7,10 @@
 	autocrlf = input
 	safecrlf = warn
 	excludesfile = ~/.gitignore_global
+[fetch]
+	prune = true
+[pull]
+	rebase = true
+	ff = only
+[rebase]
+	autostash = true

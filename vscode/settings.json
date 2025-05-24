@@ -1,10 +1,13 @@
 {
-    /* ────────────── Visual & Window ────────────── */
-    "workbench.colorTheme": "One Dark Pro",
     "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Atom One Dark",
     "window.zoomPerWindow": false,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 0.8,
+    "settingsSync.ignoredSettings": [
+        "-window.zoomLevel"
+    ],
     /* ────────────── Editor UX ────────────── */
+    "editor.fontSize": 14,
     "editor.linkedEditing": true,
     "editor.guides.bracketPairs": "active",
     "editor.guides.bracketPairsHorizontal": "active",
@@ -31,15 +34,24 @@
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     /* ──────────────── Go tooling ──────────────── */
+    "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
     "gopls": {
         "ui.semanticTokens": true,
+        "codelenses": {
+            "generate": true,
+            "tidy": true,
+            "upgrade_dependency": true,
+            "vendor": true,
+            "test": true,
+        }
     },
     "go.buildTags": "integration",
     "go.buildFlags": [
         "-ldflags=-checklinkname=0",
         "-race",
     ],
+    "go.testOnSave": false,
     "go.testTags": "integration",
     "go.testFlags": [
         "-v",
@@ -49,19 +61,21 @@
         "-timeout=5m",
         "-ldflags=-checklinkname=0",
     ],
-    "go.testOnSave": false,
-    "go.toolsManagement.autoUpdate": true,
+    "go.lintOnSave": "package",
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--new-from-rev=origin/main",
+        "-v",
+        "--concurrency=0"
+    ],
     /* In-editor hints */
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.compositeLiteralFields": false,
+    "go.inlayHints.compositeLiteralTypes": false,
+    "go.inlayHints.constantValues": true,
+    "go.inlayHints.functionTypeParameters": false,
     "go.inlayHints.parameterNames": false,
     "go.inlayHints.rangeVariableTypes": true,
-    "go.inlayHints.constantValues": true,
-    "go.inlayHints.assignVariableTypes": false,
-    "go.inlayHints.compositeLiteralFields": false,
-    /* Context-menu helpers */
-    "go.editorContextMenuCommands": {
-        "generateTestForFile": true,
-        "testFile": true
-    },
     /* Coverage glyphs */
     "go.coverageDecorator": {
         "type": "gutter"
@@ -76,11 +90,12 @@
     "git.autofetch": true,
     "git.autorefresh": true,
     "git.autofetchPeriod": 300,
-    "git.autoStash": false,
     "git.autoRepositoryDetection": true,
     "git.enableStatusBarSync": true,
+    "git.autoStash": true,
     "git.fetchOnPull": true,
     "git.pruneOnFetch": true,
+    "git.rebaseWhenSync": true,
     "git.pullBeforeCheckout": true,
     "git.showPushSuccessNotification": true,
     "git.useCommitInputAsStashMessage": true,
@@ -92,6 +107,9 @@
     "git.branchProtection": [
         "main"
     ],
+    // "workbench.colorCustomizations": {
+    //     "git.blame.editorDecorationForeground": "#88888833"
+    // },
     // "gitlens.plusFeatures.enabled": false,
     // "gitlens.virtualRepositories.enabled": false,
     /* ────────────── Liveshare ────────────── */
