@@ -21,7 +21,7 @@ working-directory = home
 # fullscreen = true
 
 # UI
-theme = catppuccin-frappe
+theme = dracula
 unfocused-split-opacity = 0.5
 background-opacity = 0.8
 background-blur = true
