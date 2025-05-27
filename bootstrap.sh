@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Script to create symbolic links from dev-config to home directory
-# Created: May 1, 2025
-
 set -e # Exit immediately if a command exits with a non-zero status
 
 # Resolve the directory where the script is located

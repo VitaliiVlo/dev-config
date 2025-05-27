@@ -19,7 +19,7 @@
 - **Install Homebrew**
 
 ### Configuration Files
-The following files are automatically symlinked by running `./setup_symlinks.sh`:
+The following files are automatically symlinked by running `./bootstrap.sh`:
 - Custom `.zprofile` - Shell environment variables
 - Custom `.zshrc` - Shell configuration and aliases
 - Custom `.gitconfig` - Git user and global settings
