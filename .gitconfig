@@ -1,16 +1,22 @@
 [user]
 	email = vitalii.vlo@gmail.com
 	name = vitalii-vlo
+
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
 [core]
 	autocrlf = input
 	safecrlf = warn
 	excludesfile = ~/.gitignore_global
+	editor = code --wait
+
 [fetch]
 	prune = true
+
 [pull]
 	rebase = true
 	ff = only
+
 [rebase]
 	autostash = true
