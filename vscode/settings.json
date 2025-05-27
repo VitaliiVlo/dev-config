@@ -93,6 +93,7 @@
     "git.autoRepositoryDetection": true,
     "git.enableStatusBarSync": true,
     "git.autoStash": true,
+    "git.ignoreRebaseWarning": true,
     "git.fetchOnPull": true,
     "git.pruneOnFetch": true,
     "git.rebaseWhenSync": true,
