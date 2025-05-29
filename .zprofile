@@ -1,5 +1,8 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Core
+export EDITOR="code --wait"
+
 # Go env
 export GOROOT="/opt/homebrew/opt/go@1.23/libexec"
 export GOPATH="$HOME/go"
