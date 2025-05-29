@@ -1,3 +1,12 @@
+add_newline = false
+
+[cmd_duration]
+min_time = 500
+show_milliseconds = true
+
+[username]
+show_always = true
+
 [character]
 success_symbol = "[>](bold green)"
 error_symbol = "[x](bold red)"
@@ -7,6 +16,7 @@ vimcmd_symbol = "[<](bold green)"
 tag_symbol = " tag "
 
 [git_status]
+disabled = true
 ahead = ">"
 behind = "<"
 diverged = "<>"
@@ -60,6 +70,7 @@ symbol = ".NET "
 
 [directory]
 read_only = " ro"
+truncation_symbol = "…/"
 
 [docker_context]
 symbol = "docker "
