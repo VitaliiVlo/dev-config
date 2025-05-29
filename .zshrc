@@ -1,64 +1,70 @@
-# ─────────────── Core setup ───────────────
-autoload -Uz compinit promptinit
-compinit
-promptinit
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt append_history
+setopt share_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+setopt hist_verify
 
-# ──────── Improved completions/UI ─────────
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# Specific options
+setopt globdots
+setopt correct
 
-# ───────────── Prompt style ───────────────
-PROMPT='%F{magenta}%n%f:%F{yellow}%~%f %B%F{white}$%f%b '
+# Keybindings
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
 
-# ──────────── Editor choice ───────────────
-export EDITOR='code --wait'
-
-# ───────────── Aliases ────────────────────
+# Aliases
 alias ll='ls -lah'
 alias python='python3'
 alias pip='pip3'
 alias tf='terraform'
 alias kk='kubectl'
+alias c='clear'
 
-# ─────────── Fancy replacements ────────────
+# Advanced aliases
 if command -v bat &>/dev/null; then alias cat='bat'; fi
 if command -v lsd &>/dev/null; then alias ls='lsd'; fi
 
-# ───────────── History setup ──────────────
-HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
-setopt append_history
-setopt hist_ignore_dups
-setopt share_history
-setopt inc_append_history
-setopt hist_verify
-setopt correct
-# setopt correct_all
-# setopt autocd
-
-# ─── Homebrew-installed Zsh plugins ───
 BREW_PREFIX=$(brew --prefix)
 
-# zsh-syntax-highlighting (live syntax coloring)
-ZSHL_PATH="$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if [ -f "$ZSHL_PATH" ]; then
-  source "$ZSHL_PATH"
+# zsh-completions
+ZSH_COMP_PATH="$BREW_PREFIX/share/zsh-completions"
+if [ -d "$ZSH_COMP_PATH" ]; then
+  FPATH="$ZSH_COMP_PATH:$FPATH"
 fi
 
-# zsh-history-substring-search (case-insensitive, substring search)
-HSS_PATH="$BREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
-if [ -f "$HSS_PATH" ]; then
-  source "$HSS_PATH"
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
-  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=yellow'   # or underline, bold, etc.
-  HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red'
+# Enable completion
+autoload -Uz compinit
+compinit
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select
+
+# zsh-autosuggestions
+ZSH_AS_PATH="$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [ -f "$ZSH_AS_PATH" ]; then
+  source "$ZSH_AS_PATH"
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 fi
 
-# zsh-autosuggestions (inline suggestions from history)
-ZAS_PATH="$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-if [ -f "$ZAS_PATH" ]; then
-  source "$ZAS_PATH"
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+# fzf key bindings and fuzzy completion
+if command -v fzf &>/dev/null; then
+  eval "$(fzf --zsh)"
+fi
+
+# Starship prompt
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+# zsh-syntax-highlighting
+ZSH_SH_PATH="$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [ -f "$ZSH_SH_PATH" ]; then
+  source "$ZSH_SH_PATH"
 fi
