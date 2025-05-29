@@ -23,23 +23,24 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 - Custom `.zprofile` - Shell environment variables
 - Custom `.zshrc` - Shell configuration and aliases
 - Custom `.gitconfig` - Git user and global settings
+- Custom `.gitignore_global` - Global gitignore
 - Custom `.config/lsd/config.yaml` - LSDeluxe configuration
 - Custom `.config/ghostty/config` - Ghostty configuration
+- Custom `.config/starship.toml` - Starship configuration
 
 ### CLI Tools (via Homebrew)
-```
-brew install bat lsd k9s go@v.v
-brew install zsh-history-substring-search
-brew install zsh-syntax-highlighting
-brew install zsh-autosuggestions
-```
-- **bat**: Better alternative to `cat` with syntax highlighting
-- **lsd**: Modern alternative to `ls` with icons and colors
-- **k9s**: Terminal UI for Kubernetes
-- **Go**
-- **zsh-history-substring-search**
-- **zsh-syntax-highlighting**
-- **zsh-autosuggestions**
+- Create or update the Brewfile:
+  ```
+  brew bundle dump --global --force
+  ```
+- Check Brewfile missing dependencies:
+  ```
+  brew bundle check --global
+  ```
+- Install from Brewfile:
+  ```
+  brew bundle install --global
+  ```
 
 ### Applications
 Install the following via Homebrew Cask or their official installers:

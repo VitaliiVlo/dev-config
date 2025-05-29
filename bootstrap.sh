@@ -15,6 +15,8 @@ ln -sf "$DOTFILES_DIR/.gitignore_global" "$HOME/.gitignore_global"
 ln -sf "$DOTFILES_DIR/.zprofile" "$HOME/.zprofile"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
+ln -sf "$DOTFILES_DIR/.Brewfile" "$HOME/.Brewfile"
+
 mkdir -p "$HOME/.config/lsd"
 ln -sf "$DOTFILES_DIR/.config/lsd/config.yaml" "$HOME/.config/lsd/config.yaml"
 
