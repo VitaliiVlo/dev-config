@@ -52,14 +52,15 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
   ```
 
 ### Applications
-Install the following via Homebrew Cask or their official installers:
-- Docker Desktop / k8s / kubectl
+Install the following via official installers or Homebrew Cask:
+- Browser (Chrome, Firefox, Brave)
 - VSCode
   - Enable settings sync with GitHub
-  - Install code command to PATH
-- Ghostty
-- Chrome
-- MongoDB Compass
-- Postman
-- Notion
-- Mermaid and PUML
+  - Enable Copilot account
+  - Install `code` command to PATH
+- Jetbrains IDE (Golang, PyCharm, DataGrip)
+- Terminal emulator (Ghostty, Wezterm, Kitty, Alacritty)
+- Database viewer (Beekeeper studio, TablePlus, MongoDB Compass, VSCode SQL Tools)
+- API testing (Insomnia, Hoppscotch, Bruno, HTTPie, Postman)
+- Diagrams (Excalidraw, draw.io, tldraw, Mermaid, PUML)
+- Docker Desktop
