@@ -32,7 +32,7 @@ if command -v lsd &>/dev/null; then alias ls='lsd'; fi
 BREW_PREFIX=$(brew --prefix)
 
 # docker completions
-DOCKER_COMP_PATH="~/.docker/completions"
+DOCKER_COMP_PATH="${HOME}/.docker/completions"
 if [ -d "$DOCKER_COMP_PATH" ]; then
   FPATH="$DOCKER_COMP_PATH:$FPATH"
 fi
