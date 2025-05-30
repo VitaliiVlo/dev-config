@@ -26,9 +26,6 @@
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
     },
-    "[dockerfile]": {
-        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
-    },
     /* ────────────── Files ────────────── */
     "files.autoSave": "off",
     "files.insertFinalNewline": true,
