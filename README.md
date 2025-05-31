@@ -53,14 +53,41 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 
 ### Applications
 Install the following via official installers or Homebrew Cask:
-- Browser (Chrome, Firefox, Brave)
+- Browser
+  - Chrome
+  - Firefox
+  - Brave
 - VSCode
   - Enable settings sync with GitHub
   - Enable Copilot account
   - Install `code` command to PATH
-- Jetbrains IDE (Golang, PyCharm, DataGrip)
-- Terminal emulator (Ghostty, Wezterm, Kitty, Alacritty)
-- Database viewer (Beekeeper studio, TablePlus, MongoDB Compass, VSCode SQL Tools)
-- API testing (Insomnia, Hoppscotch, Bruno, HTTPie, Postman)
-- Diagrams (Excalidraw, draw.io, tldraw, Mermaid, PUML)
+- Jetbrains IDE
+  - Golang
+  - PyCharm
+- Terminal emulator
+  - Ghostty
+  - Wezterm
+  - Kitty
+  - Alacritty
+- Database viewer
+  - Beekeeper studio
+  - TablePlus
+  - DataGrip
+  - VSCode SQL Tools
+  - VSCode MongoDB
+  - Mongo Compass
+- API testing
+  - Insomnia
+  - Hoppscotch
+  - Bruno
+  - HTTPie
+  - VSCode Thunder Client
+  - VSCode REST Client
+  - Postman
+- Diagrams
+  - Excalidraw
+  - tldraw
+  - draw.io
+  - Mermaid
+  - PUML
 - Docker Desktop
