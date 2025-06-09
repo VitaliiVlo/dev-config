@@ -1,4 +1,5 @@
 {
+    /* Window */
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "Atom One Dark",
     "window.zoomPerWindow": false,
@@ -6,7 +7,7 @@
     "settingsSync.ignoredSettings": [
         "-window.zoomLevel"
     ],
-    /* ────────────── Editor UX ────────────── */
+    /* Editor UX */
     "editor.fontSize": 14,
     "editor.linkedEditing": true,
     "editor.guides.bracketPairs": "active",
@@ -26,11 +27,11 @@
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
     },
-    /* ────────────── Files ────────────── */
+    /* Files */
     "files.autoSave": "off",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    /* ──────────────── Go tooling ──────────────── */
+    /* Go tooling */
     "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
     "gopls": {
@@ -65,7 +66,6 @@
         "-v",
         "--concurrency=0"
     ],
-    /* In-editor hints */
     "go.inlayHints.assignVariableTypes": true,
     "go.inlayHints.compositeLiteralFields": false,
     "go.inlayHints.compositeLiteralTypes": false,
@@ -73,15 +73,14 @@
     "go.inlayHints.functionTypeParameters": false,
     "go.inlayHints.parameterNames": false,
     "go.inlayHints.rangeVariableTypes": true,
-    /* Coverage glyphs */
     "go.coverageDecorator": {
         "type": "gutter"
     },
-    /* ─────────────── AI ─────────────── */
+    /* AI */
     "github.copilot.nextEditSuggestions.enabled": false,
     "github.copilot.chat.codesearch.enabled": true,
     "chat.agent.enabled": true,
-    /* ─────────────── Git ─────────────── */
+    /* Git */
     "github.gitProtocol": "ssh",
     "git.confirmSync": false,
     "git.autofetch": true,
@@ -98,38 +97,52 @@
     "git.showPushSuccessNotification": true,
     "git.useCommitInputAsStashMessage": true,
     "git.openRepositoryInParentFolders": "never",
-    "git.blame.editorDecoration.enabled": true,
-    "git.blame.editorDecoration.template": "${authorName} (${authorDateAgo})",
-    "git.blame.statusBarItem.enabled": true,
-    "git.blame.statusBarItem.template": "${authorName} (${authorDateAgo})",
+    // turned off to avoid conflicts with GitLens
+    "git.blame.editorDecoration.enabled": false,
+    // "git.blame.editorDecoration.template": "${authorName} (${authorDateAgo})",
+    "git.blame.statusBarItem.enabled": false,
+    // "git.blame.statusBarItem.template": "${authorName} (${authorDateAgo})",
     "git.branchProtection": [
         "main"
     ],
-    // "workbench.colorCustomizations": {
-    //     "git.blame.editorDecorationForeground": "#88888833"
-    // },
-    // "gitlens.plusFeatures.enabled": false,
-    // "gitlens.virtualRepositories.enabled": false,
-    /* ────────────── Liveshare ────────────── */
+    /* GitLens */
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+    "gitlens.plusFeatures.enabled": false,
+    "gitlens.virtualRepositories.enabled": false,
+    "gitlens.hovers.enabled": false,
+    "gitlens.home.preview.enabled": false,
+    "gitlens.launchpad.staleThreshold": 5,
+    "gitlens.launchpad.indicator.useColors": true,
+    "gitlens.telemetry.enabled": false,
+    /* Liveshare */
     "liveshare.languages.allowGuestCommandControl": true,
     "liveshare.allowGuestDebugControl": true,
     "liveshare.allowGuestTaskControl": true,
     "liveshare.notebooks.allowGuestExecuteCells": true,
-    /* ────────────── Telemetry ───────────── */
+    /* Telemetry */
     "telemetry.telemetryLevel": "crash",
-    /* ────────────── Clipboard ───────────── */
+    /* Clipboard */
     "clipboard-manager.avoidDuplicates": true,
     "clipboard-manager.maxClips": 20,
     "clipboard-manager.moveToTop": true,
     "clipboard-manager.preview": true,
     "clipboard-manager.onlyWindowFocused": true,
     "clipboard-manager.snippet.enabled": false,
-    /* ────────────── Terminal ───────────── */
+    /* Terminal */
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.cursorWidth": 2,
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.smoothScrolling": true,
-    "terminal.integrated.suggest.enabled": true,
+    "terminal.integrated.suggest.enabled": false,
+    /* ErrorLens */
+    "errorLens.messageEnabled": false,
+    "errorLens.followCursor": "activeLine",
+    "errorLens.followCursorMore": 3,
+    "errorLens.gutterIconsEnabled": true,
+    "errorLens.gutterIconsFollowCursorOverride": true,
+    "errorLens.gutterIconSet": "letter",
+    "errorLens.gutterIconSize": "100%",
 }
