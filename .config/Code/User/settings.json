@@ -115,6 +115,11 @@
     "gitlens.launchpad.staleThreshold": 5,
     "gitlens.launchpad.indicator.useColors": true,
     "gitlens.telemetry.enabled": false,
+    "gitlens.codeLens.scopes": [
+        "document",
+        "containers",
+        "blocks"
+    ],
     /* Liveshare */
     "liveshare.languages.allowGuestCommandControl": true,
     "liveshare.allowGuestDebugControl": true,
