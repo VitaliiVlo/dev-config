@@ -3,7 +3,7 @@
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "Atom One Dark",
     "window.zoomPerWindow": false,
-    "window.zoomLevel": 0.8,
+    "window.zoomLevel": 0.5,
     "settingsSync.ignoredSettings": [
         "-window.zoomLevel"
     ],
@@ -150,4 +150,5 @@
     "errorLens.gutterIconsFollowCursorOverride": true,
     "errorLens.gutterIconSet": "letter",
     "errorLens.gutterIconSize": "100%",
+    "redhat.telemetry.enabled": false,
 }
