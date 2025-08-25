@@ -4,7 +4,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export EDITOR="code --wait"
 
 # Go env
-export GOROOT="/opt/homebrew/opt/go@1.23/libexec"
+export GOROOT="/opt/homebrew/opt/go@1.24/libexec"
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export GOPRIVATE="github.com/vitalii-vlo/*"

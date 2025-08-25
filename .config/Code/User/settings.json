@@ -1,7 +1,7 @@
 {
     /* Window */
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Atom One Dark",
+    "workbench.colorTheme": "Dracula Theme",
     "window.zoomPerWindow": false,
     "window.zoomLevel": 0.5,
     "settingsSync.ignoredSettings": [
