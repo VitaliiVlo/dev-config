@@ -91,3 +91,4 @@ Install the following via official installers or Homebrew Cask:
   - Mermaid
   - PUML
 - Docker Desktop
+- Lens (k8s)
