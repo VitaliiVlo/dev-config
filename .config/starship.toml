@@ -89,6 +89,7 @@ symbol = "fossil "
 
 [gcloud]
 symbol = "gcp "
+format = 'on [$symbol($project)]($style) '
 
 [git_branch]
 symbol = "git "

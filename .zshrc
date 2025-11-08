@@ -24,6 +24,7 @@ alias pip='pip3'
 alias tf='terraform'
 alias kk='kubectl'
 alias c='clear'
+alias kctx='kubectl config current-context'
 
 # Advanced aliases
 if command -v bat &>/dev/null; then alias cat='bat'; fi
