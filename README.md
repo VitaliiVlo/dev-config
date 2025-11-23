@@ -40,7 +40,7 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 ### CLI Tools (via Homebrew)
 - Create or update the Brewfile:
   ```
-  brew bundle dump --global --force
+  brew bundle dump --global --force --no-go --no-vscode
   ```
 - Check Brewfile missing dependencies:
   ```
