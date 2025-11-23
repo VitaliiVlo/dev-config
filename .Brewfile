@@ -1,6 +1,7 @@
 brew "bat"
 brew "fzf"
 brew "go"
+brew "httpie"
 brew "k9s"
 brew "kubernetes-cli"
 brew "lsd"

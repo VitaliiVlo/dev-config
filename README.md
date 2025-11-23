@@ -3,7 +3,7 @@
 ### System Configuration
 - **OS Configuration**
   ```
-  TODO: Add some basic configuration script
+  bootstrap-defaults.sh
   ```
 - **Install Xcode Command Line Tools:** git, make, grep, tar etc.
   ```
@@ -61,7 +61,7 @@ Install the following via official installers or Homebrew Cask:
   - Enable settings sync with GitHub
   - Enable Copilot account
   - Install `code` command to PATH
-- Jetbrains IDE
+- Jetbrains
   - Golang
   - PyCharm
 - Terminal emulator
@@ -72,22 +72,17 @@ Install the following via official installers or Homebrew Cask:
 - Database viewer
   - Beekeeper studio
   - TablePlus
-  - DataGrip
-  - VSCode SQL Tools
-  - VSCode MongoDB
   - Mongo Compass
 - API testing
-  - Insomnia
-  - Hoppscotch
-  - Bruno
-  - HTTPie
-  - VSCode Thunder Client
-  - VSCode REST Client
   - Postman
+  - Insomnia
+  - Bruno
+  - Yaak
+  - HTTPie
 - Diagrams
   - Excalidraw
   - tldraw
-  - draw.io
+  - Lucidchart
   - Mermaid
   - PUML
 - Docker Desktop
