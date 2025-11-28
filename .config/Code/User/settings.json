@@ -1,8 +1,8 @@
 {
     /* Theme */
     "workbench.colorTheme": "Catppuccin Macchiato",
-    "catppuccin.accentColor": "teal",
-    "workbench.iconTheme": "material-icon-theme",
+    "catppuccin.accentColor": "mauve",
+    "workbench.iconTheme": "symbols",
     "material-icon-theme.folders.theme": "classic",
     "material-icon-theme.hidesExplorerArrows": false,
     /* Window */
