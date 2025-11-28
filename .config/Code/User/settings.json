@@ -1,7 +1,12 @@
 {
-    /* Window */
+    /* Theme */
+    "workbench.colorTheme": "Catppuccin Frappé",
+    "catppuccin.accentColor": "teal",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Dracula Theme Soft",
+    "material-icon-theme.folders.theme": "classic",
+    "material-icon-theme.hidesExplorerArrows": false,
+    /* Window */
+    "window.titleBarStyle": "custom",
     "window.zoomPerWindow": false,
     "window.zoomLevel": 0.5,
     "settingsSync.ignoredSettings": [
@@ -21,6 +26,10 @@
     "editor.wordWrap": "on",
     "editor.minimap.enabled": true,
     "editor.bracketPairColorization.enabled": true,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.autoIndentOnPaste": true,
+    "editor.autoIndentOnPasteWithinString": true,
+    "editor.semanticHighlighting.enabled": true,
     "breadcrumbs.enabled": true,
     "editor.trimAutoWhitespace": true,
     "editor.formatOnSave": true,
@@ -97,11 +106,11 @@
     "git.showPushSuccessNotification": true,
     "git.useCommitInputAsStashMessage": true,
     "git.openRepositoryInParentFolders": "never",
-    // turned off to avoid conflicts with GitLens
-    "git.blame.editorDecoration.enabled": false,
-    // "git.blame.editorDecoration.template": "${authorName} (${authorDateAgo})",
-    "git.blame.statusBarItem.enabled": false,
-    // "git.blame.statusBarItem.template": "${authorName} (${authorDateAgo})",
+    // blame settings
+    "git.blame.editorDecoration.enabled": true,
+    "git.blame.editorDecoration.template": "${authorName} (${authorDateAgo})",
+    "git.blame.statusBarItem.enabled": true,
+    "git.blame.statusBarItem.template": "${authorName} (${authorDateAgo})",
     "git.branchProtection": [
         "main"
     ],
