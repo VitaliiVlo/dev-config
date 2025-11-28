@@ -32,8 +32,9 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 - Custom `.gitconfig` - Git user and global settings
 - Custom `.gitignore_global` - Global gitignore
 - Custom `.config/lsd/config.yaml` - LSDeluxe configuration
-- Custom `.config/ghostty/config` - Ghostty configuration
 - Custom `.config/starship.toml` - Starship configuration
+- Custom `.config/ghostty/config` - Ghostty configuration
+- Custom `.config/bat/config` - Bat configuration
 - Custom `.config/Code/User/settings.json` - VSCode configuration
 - Custom `.Brewfile` - Global Brewfile
 

@@ -26,6 +26,9 @@ ln -sf "$DOTFILES_DIR/.config/starship.toml" "$HOME/.config/starship.toml"
 mkdir -p "$HOME/.config/ghostty"
 ln -sf "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
 
+mkdir -p "$HOME/.config/bat"
+ln -sf "$DOTFILES_DIR/.config/bat/config" "$HOME/.config/bat/config"
+
 VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
 ln -sf "$DOTFILES_DIR/.config/Code/User/settings.json" "$VSCODE_USER_DIR/settings.json"
 
