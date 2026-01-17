@@ -10,6 +10,7 @@
 	safecrlf = warn
 	excludesfile = ~/.gitignore_global
 	editor = code --wait
+	pager = less -FRX
 
 [fetch]
 	prune = true
@@ -20,3 +21,39 @@
 
 [rebase]
 	autostash = true
+
+[init]
+	defaultBranch = main
+
+[diff]
+	colorMoved = default
+	algorithm = histogram
+
+[merge]
+	conflictstyle = diff3
+
+[rerere]
+	enabled = true
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+	# Daily basics
+	st = status
+	df = diff
+	dfs = diff --staged
+	# Commits
+	cm = commit -m
+	ca = commit --amend --no-edit
+	# Log
+	lg = log --oneline --graph --decorate
+	# Undo
+	undo = reset --soft HEAD~1
+	wipe = reset --hard HEAD
+
+[log]
+	date = relative
+
+[branch]
+	sort = -committerdate

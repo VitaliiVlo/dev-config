@@ -1,3 +1,41 @@
+# IDE
 .idea/
 .vscode/
+*.sublime-*
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Go
+vendor/
+
+# Python virtual environments
+.venv/
+venv/
+
+# Terraform
+.terraform/
+*.tfstate*
+
+# Build
+dist/
+build/
+coverage/

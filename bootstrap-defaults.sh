@@ -27,7 +27,7 @@ if confirm "Clean up .DS_Store?"; then
   killall Finder >/dev/null 2>&1 || true
 fi
 
-if confirm "Tweak Dock (auto-hide, no recents, faster animation…)?"; then
+if confirm "Tweak Dock (no recents, faster animation…)?"; then
   heading "→ Configuring Dock…"
   defaults write com.apple.dock autohide               -bool  false
   defaults write com.apple.dock autohide-delay         -float 0

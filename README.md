@@ -1,90 +1,84 @@
 # macOS Development Configuration Guide
 
-### System Configuration
-- **OS Configuration**
-  ```
-  bootstrap-defaults.sh
-  ```
+## Quick Start
+
+1. Clone this repository
+2. Run `./bootstrap.sh` to symlink configuration files
+3. Run `./bootstrap-defaults.sh` to configure macOS settings
+4. Run `brew bundle install --global` to install CLI tools
+
+## Prerequisites
+
 - **Install Xcode Command Line Tools:** git, make, grep, tar etc.
   ```
   xcode-select --install
-  ```
-- **Configure sudo with Touch ID**
-  ```
-  cd /etc/pam.d
-  cp sudo_local.template sudo_local
-  Uncomment last line
-  ```
-- **Generate SSH key for Git**
-  ```
-  ssh-keygen -t ed25519 -C "your_email@example.com"
-  cat ~/.ssh/id_ed25519.pub | pbcopy
   ```
 - **Install Homebrew**
   ```
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   ```
+- **Generate SSH key for Git**
+  ```
+  ssh-keygen -t ed25519 -C "your_email@example.com"
+  pbcopy < ~/.ssh/id_ed25519.pub
+  ```
+- **Configure sudo with Touch ID**
+  ```bash
+  sudo cp /etc/pam.d/sudo_local.template /etc/pam.d/sudo_local
+  sudo nano /etc/pam.d/sudo_local
+  # Uncomment: auth sufficient pam_tid.so
+  ```
 
-### Configuration Files
+## Configuration Files
+
 The following files are automatically symlinked by running `./bootstrap.sh`:
-- Custom `.zprofile` - Shell environment variables
-- Custom `.zshrc` - Shell configuration and aliases
-- Custom `.gitconfig` - Git user and global settings
-- Custom `.gitignore_global` - Global gitignore
-- Custom `.config/lsd/config.yaml` - LSDeluxe configuration
-- Custom `.config/starship.toml` - Starship configuration
-- Custom `.config/ghostty/config` - Ghostty configuration
-- Custom `.config/bat/config` - Bat configuration
-- Custom `.config/Code/User/settings.json` - VSCode configuration
-- Custom `.Brewfile` - Global Brewfile
+- `.zprofile` - Shell environment variables
+- `.zshrc` - Shell configuration and aliases
+- `.gitconfig` - Git user and global settings
+- `.gitignore_global` - Global gitignore
+- `.Brewfile` - Global Brewfile
+- `.config/lsd/config.yaml` - LSDeluxe configuration
+- `.config/starship.toml` - Starship configuration
+- `.config/ghostty/config` - Ghostty configuration
+- `.config/bat/config` - Bat configuration
+- `.config/Code/User/settings.json` - VSCode configuration
 
-### CLI Tools (via Homebrew)
-- Create or update the Brewfile:
-  ```
-  brew bundle dump --global --force --no-go --no-vscode
-  ```
-- Check Brewfile missing dependencies:
-  ```
-  brew bundle check --global
-  ```
-- Install from Brewfile:
-  ```
-  brew bundle install --global
-  ```
+## macOS Settings
 
-### Applications
-Install the following via official installers or Homebrew Cask:
-- Browser
-  - Chrome
-  - Firefox
-  - Brave
-- VSCode
-  - Enable settings sync with GitHub
-  - Enable Copilot account
-  - Install `code` command to PATH
-- Jetbrains
-  - Golang
-  - PyCharm
-- Terminal emulator
-  - Ghostty
-  - Wezterm
-  - Kitty
-  - Alacritty
-- Database viewer
-  - Beekeeper studio
-  - TablePlus
-  - Mongo Compass
-- API testing
-  - Postman
-  - Insomnia
-  - Bruno
-  - Yaak
-  - HTTPie
-- Diagrams
-  - Excalidraw
-  - tldraw
-  - Lucidchart
-  - Mermaid
-  - PUML
-- Docker Desktop
-- Lens (k8s)
+Run `./bootstrap-defaults.sh` to configure:
+- Finder (list view, path bar, show extensions)
+- Dock (no recents, faster animation)
+- Screenshots (save to ~/Screenshots)
+
+## CLI Tools
+
+Managed via Homebrew Brewfile:
+```bash
+# Install from Brewfile
+brew bundle install --global
+
+# Check for missing dependencies
+brew bundle check --global
+
+# Update Brewfile from installed packages
+brew bundle dump --global --force --no-go --no-vscode
+```
+
+## Applications
+
+Install via official installers or Homebrew Cask:
+
+| Category | Apps |
+|----------|------|
+| Browser | Chrome, Firefox, Brave |
+| Editor | VSCode, GoLand, PyCharm |
+| Terminal | Ghostty, Wezterm, Kitty, Alacritty |
+| Database | Beekeeper Studio, TablePlus, MongoDB Compass |
+| API Testing | Postman, Insomnia, Bruno, Yaak, HTTPie |
+| Diagrams | Excalidraw, tldraw, Mermaid, PlantUML |
+| Containers | Docker Desktop, Lens |
+
+**VSCode setup:**
+- Enable settings sync with GitHub
+- Enable Copilot
+- Install `code` command to PATH (Cmd+Shift+P → "Shell Command")

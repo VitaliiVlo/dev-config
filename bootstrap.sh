@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit immediately if a command exits with a non-zero status
-set -e
+set -euo pipefail
 
 # Resolve the directory where the script is located
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"

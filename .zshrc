@@ -1,17 +1,21 @@
 # History
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 setopt append_history
 setopt share_history
 setopt hist_ignore_all_dups
-setopt hist_ignore_dups
 setopt hist_find_no_dups
 setopt hist_verify
+setopt hist_reduce_blanks
+setopt hist_ignore_space
 
 # Specific options
 setopt globdots
 setopt correct
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
 
 # Keybindings
 bindkey '^[[A' history-search-backward
@@ -25,12 +29,13 @@ alias tf='terraform'
 alias kk='kubectl'
 alias c='clear'
 alias kctx='kubectl config current-context'
+alias grep='grep --color=auto'
 
 # Advanced aliases
 if command -v bat &>/dev/null; then alias cat='bat'; fi
 if command -v lsd &>/dev/null; then alias ls='lsd'; fi
 
-BREW_PREFIX=$(brew --prefix)
+BREW_PREFIX="/opt/homebrew"
 
 # docker completions
 DOCKER_COMP_PATH="${HOME}/.docker/completions"
@@ -50,14 +55,13 @@ compinit
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu select
 
 # zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 ZSH_AS_PATH="$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [ -f "$ZSH_AS_PATH" ]; then
   source "$ZSH_AS_PATH"
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 fi
 
 # fzf key bindings and fuzzy completion

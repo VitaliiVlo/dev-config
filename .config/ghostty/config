@@ -17,8 +17,13 @@ quit-after-last-window-closed = true
 window-theme = system
 window-subtitle = working-directory
 working-directory = home
-# maximize = true
-# fullscreen = true
+window-inherit-working-directory = true
+maximize = true
+window-save-state = always
+shell-integration = zsh
+macos-option-as-alt = true
+window-padding-x = 4
+window-padding-y = 4
 
 # UI
 theme = Catppuccin Macchiato
@@ -41,3 +46,4 @@ adjust-cursor-height = +20%
 adjust-cursor-thickness = 3
 cursor-style = bar
 cursor-opacity = 0.8
+keybind = shift+enter=text:\x1b\r
