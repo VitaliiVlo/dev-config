@@ -2,6 +2,8 @@
     /* Theme */
     "workbench.colorTheme": "Catppuccin Macchiato",
     "catppuccin.accentColor": "mauve",
+    "catppuccin.italicComments": true,
+    "catppuccin.italicKeywords": true,
     "workbench.iconTheme": "symbols",
     "workbench.list.smoothScrolling": true,
     "workbench.editor.highlightModifiedTabs": true,
@@ -19,6 +21,7 @@
     /* Editor UX */
     "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco'",
     "editor.fontSize": 14,
+    "editor.lineHeight": 1.5,
     "editor.fontLigatures": true,
     "editor.renderWhitespace": "selection",
     "editor.linkedEditing": true,
@@ -28,7 +31,9 @@
     "editor.guides.highlightActiveBracketPair": true,
     "editor.guides.highlightActiveIndentation": true,
     "editor.guides.indentation": true,
-    "editor.cursorBlinking": "expand",
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorStyle": "line",
+    "editor.cursorWidth": 2,
     "editor.cursorSurroundingLines": 5,
     "editor.renderLineHighlight": "all",
     "editor.cursorSmoothCaretAnimation": "on",
@@ -48,6 +53,8 @@
         "strings": "on"
     },
     "editor.suggest.preview": true,
+    "editor.inlayHints.fontSize": 12,
+    "editor.inlayHints.padding": true,
     "editor.tabCompletion": "on",
     "editor.hover.delay": 200,
     "editor.formatOnSave": true,

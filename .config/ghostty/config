@@ -22,9 +22,10 @@ maximize = true
 window-save-state = always
 shell-integration = zsh
 macos-option-as-alt = true
-window-padding-x = 12
-window-padding-y = 12
+window-padding-x = 16
+window-padding-y = 16
 window-padding-balance = true
+window-padding-color = extend
 
 # UI
 theme = Catppuccin Macchiato
@@ -35,16 +36,17 @@ bold-is-bright = true
 selection-invert-fg-bg = true
 focus-follows-mouse = false
 mouse-hide-while-typing = true
-font-family = "JetBrains Mono"
-font-family = "Fira Code"
-font-family = "Menlo"
-font-family = "Monaco"
+font-family = JetBrains Mono
+font-family = Fira Code
+font-family = Menlo
+font-family = Monaco
 font-size = 14
+font-thicken = true
 
 # Cursor
 cursor-click-to-move = true
-adjust-cursor-height = +20%
-adjust-cursor-thickness = 3
+adjust-cursor-thickness = 2
 cursor-style = bar
-cursor-opacity = 0.8
+cursor-style-blink = true
+cursor-opacity = 1
 keybind = shift+enter=text:\x1b\r
