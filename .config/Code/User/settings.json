@@ -130,6 +130,7 @@
     "go.diagnostic.vulncheck": "Imports",
     "go.toolsManagement.autoUpdate": true,
     "gopls": {
+        "formatting.gofumpt": true,
         "ui.semanticTokens": true,
         "codelenses": {
             "generate": true,
