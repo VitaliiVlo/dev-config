@@ -19,7 +19,7 @@ brew bundle dump --global --force --no-go --no-vscode  # Update Brewfile from in
 
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
-- `.zshrc` / `.zprofile` - Zsh config (starship prompt, fzf, syntax-highlighting, autosuggestions)
+- `.zshrc` / `.zprofile` - Zsh config (starship prompt, fzf with bat preview, syntax-highlighting, autosuggestions)
 - `.gitconfig` - Git settings (rebase workflow, SSH for GitHub, diff3 conflicts, rerere)
 - `.config/ghostty/config` - Terminal emulator
 - `.config/bat/config` - Cat replacement with syntax highlighting
@@ -27,6 +27,7 @@ brew bundle dump --global --force --no-go --no-vscode  # Update Brewfile from in
 - `.config/starship.toml` - Shell prompt (no nerd fonts preset)
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
+- `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.editorconfig` - Project-level editor config template (not symlinked, copy to projects)
 
 ## Symlink Destinations
@@ -39,6 +40,7 @@ brew bundle dump --global --force --no-go --no-vscode  # Update Brewfile from in
 | `.config/{bat,lsd,ghostty}/*` | `~/.config/` |
 | `.config/starship.toml` | `~/.config/` |
 | `.config/Code/User/settings.json` | `~/Library/Application Support/Code/User/` |
+| `.claude/settings.json` | `~/.claude/` |
 
 ## Config Validation
 
@@ -52,7 +54,28 @@ git config --list --show-origin         # Verify git config loaded
 ## VSCode Settings
 
 When modifying `.config/Code/User/settings.json`:
-- Compare against `default.jsonc` to check if a setting matches the default (redundant)
+- Compare against `defaultSettings.jsonc` to check if a setting matches the default (redundant)
 - Settings use JSONC format (JSON with comments and trailing commas allowed)
 - Configured for Go, Python, and Node.js backend development
 - Uses Prettier for JS/TS/JSON/YAML/Markdown, Ruff for Python
+
+## Claude Code Settings
+
+The `.claude/settings.json` configures permissions for Claude Code CLI.
+
+**Allowed (no prompts):**
+- Web: `WebSearch`, `WebFetch` for github.com, stackoverflow.com, pkg.go.dev, pypi.org, npmjs.com, MDN, official docs
+- Git (read-only): `status`, `diff`, `log`, `branch`, `show`
+- Docker (read-only): `ps`, `logs`, `images`, `compose ps`, `compose logs`
+- Go: `build`, `test`, `mod`, `get`, `fmt`, `vet`, `golangci-lint`
+- Python: `pip`, `pytest`, `ruff`, `uv`
+- Node: `npm run/test/install/ci`, `yarn`, `pnpm`, `bun`
+
+**Denied (blocked):**
+- Env files: `.env`, `.env.*`, `*.env`
+- Secrets: `*credentials*`, `*secret*`, `*.pem`, `*.key`, `*_rsa`, `*_ed25519`, `*.tfvars`
+
+**Requires approval:**
+- Direct code execution: `python`, `node`, `npx`, `go run`
+- Git write operations: `commit`, `push`, `checkout`
+- Docker mutations: `run`, `rm`, `compose up/down`

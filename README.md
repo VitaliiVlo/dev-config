@@ -42,6 +42,7 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 - `.config/ghostty/config` - Ghostty configuration
 - `.config/bat/config` - Bat configuration
 - `.config/Code/User/settings.json` - VSCode configuration
+- `.claude/settings.json` - Claude Code permissions
 
 ## macOS Settings
 
@@ -82,3 +83,13 @@ Install via official installers or Homebrew Cask:
 - Enable settings sync with GitHub
 - Enable Copilot
 - Install `code` command to PATH (Cmd+Shift+P → "Shell Command")
+
+## Claude Code
+
+The `.claude/settings.json` configures pre-approved and blocked permissions:
+
+**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node docs), git/docker read-only commands, build/test/lint tools
+
+**Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
+
+**Requires approval:** Direct code execution (`python`, `node`, `npx`, `go run`), git writes, docker mutations

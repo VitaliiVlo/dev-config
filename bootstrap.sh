@@ -29,6 +29,9 @@ ln -sf "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
 mkdir -p "$HOME/.config/bat"
 ln -sf "$DOTFILES_DIR/.config/bat/config" "$HOME/.config/bat/config"
 
+mkdir -p "$HOME/.claude"
+ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+
 VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
 ln -sf "$DOTFILES_DIR/.config/Code/User/settings.json" "$VSCODE_USER_DIR/settings.json"
 

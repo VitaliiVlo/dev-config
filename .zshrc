@@ -66,7 +66,11 @@ fi
 
 # fzf key bindings and fuzzy completion
 if command -v fzf &>/dev/null; then
-  eval "$(fzf --zsh)"
+  export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --border"
+  export FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,__pycache__,.venv --preview '[[ -d {} ]] && lsd --tree --depth=2 --color=always {} || bat --color=always --style=numbers --line-range=:500 {}'"
+  export FZF_ALT_C_OPTS="--preview 'lsd --tree --depth=2 --color=always {}'"
+  export FZF_CTRL_R_OPTS="--no-preview --height=50%"
+  source <(fzf --zsh)
 fi
 
 # Starship prompt
