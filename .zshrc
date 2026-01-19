@@ -12,7 +12,6 @@ setopt hist_ignore_space
 
 # Specific options
 setopt globdots
-setopt correct
 setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
@@ -35,17 +34,15 @@ alias grep='grep --color=auto'
 if command -v bat &>/dev/null; then alias cat='bat'; fi
 if command -v lsd &>/dev/null; then alias ls='lsd'; fi
 
-BREW_PREFIX="/opt/homebrew"
-
 # docker completions
 DOCKER_COMP_PATH="${HOME}/.docker/completions"
-if [ -d "$DOCKER_COMP_PATH" ]; then
+if [[ -d "$DOCKER_COMP_PATH" ]]; then
   FPATH="$DOCKER_COMP_PATH:$FPATH"
 fi
 
 # zsh-completions
 ZSH_COMP_PATH="$BREW_PREFIX/share/zsh-completions"
-if [ -d "$ZSH_COMP_PATH" ]; then
+if [[ -d "$ZSH_COMP_PATH" ]]; then
   FPATH="$ZSH_COMP_PATH:$FPATH"
 fi
 
@@ -60,7 +57,7 @@ zstyle ':completion:*' menu select
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 ZSH_AS_PATH="$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-if [ -f "$ZSH_AS_PATH" ]; then
+if [[ -f "$ZSH_AS_PATH" ]]; then
   source "$ZSH_AS_PATH"
 fi
 
@@ -80,6 +77,6 @@ fi
 
 # zsh-syntax-highlighting
 ZSH_SH_PATH="$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if [ -f "$ZSH_SH_PATH" ]; then
+if [[ -f "$ZSH_SH_PATH" ]]; then
   source "$ZSH_SH_PATH"
 fi
