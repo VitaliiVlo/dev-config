@@ -11,7 +11,12 @@
     "workbench.tree.indent": 16,
     "workbench.editor.revealIfOpen": true,
     "workbench.editor.closeOnFileDelete": true,
+    "workbench.navigationControl.enabled": false,
+    "workbench.layoutControl.enabled": true,
+    "workbench.layoutControl.type": "menu",
+    "workbench.activityBar.location": "bottom",
     /* Window */
+    "window.commandCenter": false,
     "window.titleBarStyle": "custom",
     "window.zoomPerWindow": false,
     "window.zoomLevel": 0.5,
@@ -172,6 +177,7 @@
     "github.copilot.nextEditSuggestions.enabled": false,
     "github.copilot.chat.codesearch.enabled": true,
     "chat.agent.enabled": true,
+    "chat.commandCenter.enabled": false,
     /* Git */
     "github.gitProtocol": "ssh",
     "git.confirmSync": false,

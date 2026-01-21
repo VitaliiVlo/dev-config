@@ -59,6 +59,15 @@ When modifying `.config/Code/User/settings.json`:
 - Configured for Go, Python, and Node.js backend development
 - Uses Prettier for JS/TS/JSON/YAML/Markdown, Ruff for Python
 
+**Layout (settings.json):**
+- `workbench.sideBar.location`: left (primary side bar)
+- `workbench.activityBar.location`: bottom (compact, under primary side bar)
+
+**Layout (UI only, View → Appearance / Customize Layout):**
+- Quick input position: center (drag or Customize Layout menu)
+- Panel alignment: justify (full window width)
+- Secondary side bar: right (toggle with `Cmd+Option+B`)
+
 ## Claude Code Settings
 
 The `.claude/settings.json` configures permissions for Claude Code CLI.

@@ -83,6 +83,10 @@ Install via official installers or Homebrew Cask:
 - Enable settings sync with GitHub
 - Enable Copilot
 - Install `code` command to PATH (Cmd+Shift+P → "Shell Command")
+- Configure layout (View → Appearance / Customize Layout):
+  - Quick input position: center
+  - Panel alignment: justify
+  - Secondary side bar: right
 
 ## Claude Code
 
