@@ -57,16 +57,18 @@ When modifying `.config/Code/User/settings.json`:
 - Compare against `defaultSettings.jsonc` to check if a setting matches the default (redundant)
 - Settings use JSONC format (JSON with comments and trailing commas allowed)
 - Configured for Go, Python, and Node.js backend development
-- Uses Prettier for JS/TS/JSON/YAML/Markdown, Ruff for Python
+- Uses Ruff for Python formatting/linting
 
 **Layout (settings.json):**
-- `workbench.sideBar.location`: left (primary side bar)
+- `window.commandCenter`: false (no project name in title bar)
+- `workbench.navigationControl.enabled`: false (no back/forward buttons)
+- `workbench.layoutControl.type`: "menu" (dropdown instead of toggles)
 - `workbench.activityBar.location`: bottom (compact, under primary side bar)
 
 **Layout (UI only, View → Appearance / Customize Layout):**
-- Quick input position: center (drag or Customize Layout menu)
+- Quick input position: center
 - Panel alignment: justify (full window width)
-- Secondary side bar: right (toggle with `Cmd+Option+B`)
+- Secondary side bar: right (`Cmd+Option+B`)
 
 ## Claude Code Settings
 
@@ -93,3 +95,5 @@ The `.claude/settings.json` configures permissions for Claude Code CLI.
 - Direct code execution: `python`, `node`, `npx`, `go run`
 - Git write operations: `commit`, `push`, `checkout`
 - Docker mutations: `run`, `rm`, `compose up/down`
+
+**Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev

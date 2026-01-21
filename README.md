@@ -1,5 +1,7 @@
 # macOS Development Configuration Guide
 
+Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt).
+
 ## Quick Start
 
 1. Clone this repository
@@ -42,7 +44,9 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 - `.config/ghostty/config` - Ghostty configuration
 - `.config/bat/config` - Bat configuration
 - `.config/Code/User/settings.json` - VSCode configuration
+- `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.claude/settings.json` - Claude Code permissions
+- `.editorconfig` - Editor config template (not symlinked, copy to projects)
 
 ## macOS Settings
 
@@ -92,7 +96,7 @@ Install via official installers or Homebrew Cask:
 
 The `.claude/settings.json` configures pre-approved and blocked permissions:
 
-**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node docs), git/docker read-only commands, build/test/lint tools
+**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node docs), git/docker/k8s read-only commands, build/test/lint tools
 
 **Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
 
