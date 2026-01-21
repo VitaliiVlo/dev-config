@@ -65,17 +65,22 @@ The `.claude/settings.json` configures permissions for Claude Code CLI.
 
 **Allowed (no prompts):**
 - Web: `WebSearch`, `WebFetch` for github.com, stackoverflow.com, pkg.go.dev, pypi.org, npmjs.com, MDN, official docs
-- Git (read-only): `status`, `diff`, `log`, `branch`, `show`
-- Docker (read-only): `ps`, `logs`, `images`, `compose ps`, `compose logs`
-- Go: `build`, `test`, `mod`, `get`, `fmt`, `vet`, `golangci-lint`
-- Python: `pip`, `pytest`, `ruff`, `uv`
-- Node: `npm run/test/install/ci`, `yarn`, `pnpm`, `bun`
+- Git (read-only): `status`, `diff`, `log`, `branch`, `show`, `remote`, `tag`, `stash list`
+- Docker (read-only): `ps`, `logs`, `images`, `compose ps/logs/config`
+- Kubernetes (read-only): `kubectl get`, `describe`, `logs`
+- Go: `build`, `test`, `mod`, `fmt`, `vet`, `list`, `env`, `generate`, `golangci-lint`, `staticcheck`
+- Python: `pip list/show`, `pytest`, `ruff`, `mypy`, `uv`
+- Node: `npm run/test/list/view/outdated`, `vitest`, `jest`, `eslint`, `prettier`, `tsc --noEmit`
+- Utils: `find`, `fd`, `which`, `tree`, `ls`, `wc`, `jq`, `yq`, `make -n`
 
 **Denied (blocked):**
 - Env files: `.env`, `.env.*`, `*.env`
-- Secrets: `*credentials*`, `*secret*`, `*.pem`, `*.key`, `*_rsa`, `*_ed25519`, `*.tfvars`
+- Keys/certs: `*.pem`, `*.key`, `*_rsa`, `*_ed25519`
+- Credentials: `.aws/credentials`, `.ssh/*`, `.kube/config`, `.git-credentials`, `credentials.json`
+- Terraform: `*.tfvars`
 
 **Requires approval:**
+- Package install: `go get`, `pip install`, `npm install/ci`, `yarn`, `pnpm`, `bun`
 - Direct code execution: `python`, `node`, `npx`, `go run`
 - Git write operations: `commit`, `push`, `checkout`
 - Docker mutations: `run`, `rm`, `compose up/down`
