@@ -32,15 +32,15 @@ brew bundle dump --global --force --no-go --no-vscode  # Update Brewfile from in
 
 ## Symlink Destinations
 
-| Source | Destination |
-|--------|-------------|
-| `.zshrc`, `.zprofile` | `~/` |
-| `.gitconfig`, `.gitignore_global` | `~/` |
-| `.Brewfile` | `~/` |
-| `.config/{bat,lsd,ghostty}/*` | `~/.config/` |
-| `.config/starship.toml` | `~/.config/` |
+| Source                            | Destination                                |
+| --------------------------------- | ------------------------------------------ |
+| `.zshrc`, `.zprofile`             | `~/`                                       |
+| `.gitconfig`, `.gitignore_global` | `~/`                                       |
+| `.Brewfile`                       | `~/`                                       |
+| `.config/{bat,lsd,ghostty}/*`     | `~/.config/`                               |
+| `.config/starship.toml`           | `~/.config/`                               |
 | `.config/Code/User/settings.json` | `~/Library/Application Support/Code/User/` |
-| `.claude/settings.json` | `~/.claude/` |
+| `.claude/settings.json`           | `~/.claude/`                               |
 
 ## Config Validation
 

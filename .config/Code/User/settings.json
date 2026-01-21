@@ -39,7 +39,10 @@
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.smoothScrolling": true,
     "editor.wordWrap": "on",
-    "editor.rulers": [80, 120],
+    "editor.rulers": [
+        80,
+        120
+    ],
     "editor.minimap.enabled": false,
     "editor.bracketPairColorization.enabled": true,
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
@@ -58,11 +61,12 @@
     "editor.tabCompletion": "on",
     "editor.hover.delay": 200,
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.formatOnSaveMode": "file",
     "editor.formatOnPaste": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
+        "source.fixAll": "explicit",
     },
     /* Search */
     "search.exclude": {
@@ -106,24 +110,6 @@
     "javascript.inlayHints.parameterNames.enabled": "literals",
     "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
     "javascript.inlayHints.variableTypes.enabled": true,
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[markdown]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[yaml]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     /* Python */
     "python.defaultInterpreterPath": "python3",
     "python.analysis.typeCheckingMode": "standard",
@@ -131,11 +117,10 @@
     "python.analysis.diagnosticMode": "workspace",
     "python.analysis.completeFunctionParens": true,
     "python.terminal.activateEnvironment": true,
-    "[python]": {
-        "editor.defaultFormatter": "charliermarsh.ruff"
-    },
     "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": ["--tb=short"],
+    "python.testing.pytestArgs": [
+        "--tb=short"
+    ],
     /* Go tooling */
     "go.diagnostic.vulncheck": "Imports",
     "go.toolsManagement.autoUpdate": true,
@@ -147,13 +132,13 @@
             "tidy": true,
             "upgrade_dependency": true,
             "vendor": true,
-            "test": true,
+            "test": true
         }
     },
     "go.buildTags": "integration",
     "go.buildFlags": [
         "-ldflags=-checklinkname=0",
-        "-race",
+        "-race"
     ],
     "go.testOnSave": false,
     "go.testTags": "integration",
@@ -163,7 +148,7 @@
         "-count=1",
         "-race",
         "-timeout=5m",
-        "-ldflags=-checklinkname=0",
+        "-ldflags=-checklinkname=0"
     ],
     "go.lintOnSave": "package",
     "go.lintTool": "golangci-lint-v2",
@@ -251,5 +236,5 @@
     "clipboard-manager.moveToTop": true,
     "clipboard-manager.preview": true,
     "clipboard-manager.onlyWindowFocused": true,
-    "clipboard-manager.snippet.enabled": true,
+    "clipboard-manager.snippet.enabled": true
 }

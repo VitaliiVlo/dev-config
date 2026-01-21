@@ -69,15 +69,15 @@ brew bundle dump --global --force --no-go --no-vscode
 
 Install via official installers or Homebrew Cask:
 
-| Category | Apps |
-|----------|------|
-| Browser | Chrome, Firefox, Brave |
-| Editor | VSCode, GoLand, PyCharm |
-| Terminal | Ghostty, Wezterm, Kitty, Alacritty |
-| Database | Beekeeper Studio, TablePlus, MongoDB Compass |
-| API Testing | Postman, Insomnia, Bruno, Yaak, HTTPie |
-| Diagrams | Excalidraw, tldraw, Mermaid, PlantUML |
-| Containers | Docker Desktop, Lens |
+| Category    | Apps                                         |
+| ----------- | -------------------------------------------- |
+| Browser     | Chrome, Firefox, Brave                       |
+| Editor      | VSCode, GoLand, PyCharm                      |
+| Terminal    | Ghostty, Wezterm, Kitty, Alacritty           |
+| Database    | Beekeeper Studio, TablePlus, MongoDB Compass |
+| API Testing | Postman, Insomnia, Bruno, Yaak, HTTPie       |
+| Diagrams    | Excalidraw, tldraw, Mermaid, PlantUML        |
+| Containers  | Docker Desktop, Lens                         |
 
 **VSCode setup:**
 - Enable settings sync with GitHub
