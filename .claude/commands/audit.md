@@ -10,7 +10,7 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 
 | Argument | Focus |
 |----------|-------|
-| (none) | Full audit across all categories |
+| (none) | Full audit across all categories (no arguments) |
 | `security` | Vulnerabilities, secrets, insecure patterns |
 | `performance` | Bottlenecks, inefficient code, optimization opportunities |
 | `quality` | Code smells, complexity, duplication, naming |
@@ -21,6 +21,8 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 | `./path` | Audit specific file or directory |
 
 **Note:** Use `./` prefix for paths to distinguish from category names (e.g., `./docs` for a directory vs `docs` for documentation category).
+
+**Combining filters:** Category and path can be combined (e.g., `/audit security ./pkg`).
 
 ## Prerequisites
 

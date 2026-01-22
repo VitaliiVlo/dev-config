@@ -13,9 +13,8 @@ Review changes for bugs, security issues, and inconsistencies.
 | (none) | Ask user what to compare | — |
 | `staged` | Staged changes vs HEAD | `git diff --cached` |
 | `modified` | Staged + unstaged changes vs HEAD | `git diff HEAD` |
-| `unpushed` | Local commits not yet pushed | `git diff @{upstream}..HEAD` |
-| `main` | Working directory vs base branch (commits + uncommitted) | `git diff main` |
-| `main...HEAD` | Commits only vs base branch (no uncommitted) | `git diff main...HEAD` |
+| `main` | Current branch vs base branch (commits only) | `git diff main...HEAD` |
+| `main+local` | Current branch + uncommitted vs base branch | `git diff main` |
 | `#123` or PR URL | Pull request changes | `gh pr diff 123` |
 
 **Note:** Replace `main` with your default branch (`master`, `develop`, etc.) as needed.
@@ -31,15 +30,15 @@ Review changes for bugs, security issues, and inconsistencies.
 /diff-audit             # Ask user what to compare
 /diff-audit staged      # Review only staged changes
 /diff-audit modified    # Review all uncommitted changes
-/diff-audit main        # Compare to main (commits + uncommitted)
-/diff-audit main...HEAD # Compare to main (commits only, no uncommitted)
+/diff-audit main        # Compare to main (commits only)
+/diff-audit main+local  # Compare to main (commits + uncommitted)
 /diff-audit #456        # Review PR #456 (requires gh CLI)
 ```
 
 ## Process
 
 1. **Determine diff scope** - from `$ARGUMENTS` or ask user:
-   - If no arguments provided, first run `git diff --stat` variants to get counts
+   - If no arguments provided, first run `git diff --stat` for each mode to get counts
    - Use AskUserQuestion with options (include file/line counts):
      - "Staged (N files, +X/-Y)" - staged changes only
      - "Modified (N files, +X/-Y)" - all local changes vs HEAD
@@ -117,7 +116,7 @@ Each issue includes:
 | Submodule changes | Note submodule pointer changes, don't recurse into submodule |
 | Generated file changes | Note but deprioritize; focus on source that generated them |
 | Not a git repository | Report error: "Requires git repository. Use /audit for non-git projects." |
-| No remote configured | Report error for `unpushed` mode: "No remote configured. Use `modified` or compare to a branch." |
+| No remote configured | Note limited context; PR mode may fail |
 | Invalid mode argument | Suggest closest match or list valid modes |
 | Branch/commit not found | Report error with suggestion: "Branch 'mian' not found. Did you mean 'main'?" |
 | Stash exists | Note stashed changes; not included in diff |

@@ -26,7 +26,7 @@ Works with any prior command that produces iterable findings:
 | `./path` | Filter by file or directory |
 | Combined filters | Space-separated, order doesn't matter |
 
-**Note:** Filters only apply when source provides matching metadata. Irrelevant filters are ignored.
+**Note:** Category filters only work when the source command categorizes findings (e.g., `/audit`). Severity and path filters work with all sources. Irrelevant filters are silently ignored.
 
 ## Prerequisites
 
