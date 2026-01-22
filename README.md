@@ -99,10 +99,10 @@ Install via official installers or Homebrew Cask:
 
 The `.claude/settings.json` configures pre-approved and blocked permissions:
 
-**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node docs), git/docker/k8s read-only commands, build/test/lint tools
+**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Claude docs), git/docker/k8s read-only commands, build/test/lint tools
 
 **Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
 
-**Requires approval:** Direct code execution (`python`, `node`, `npx`, `go run`), git writes, docker mutations
+**Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
 
 **Custom commands:** `/readme`, `/audit`, `/diff-audit`, `/iterate`, `/commit` - see CLAUDE.md for details

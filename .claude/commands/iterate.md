@@ -6,29 +6,37 @@ Step through findings one at a time with detailed explanations and explicit user
 
 - `$ARGUMENTS` - Optional: category, severity filter, or path
 
+## Supported Sources
+
+Works with any prior command that produces iterable findings:
+
+| Source | Produces |
+|--------|----------|
+| `/audit` | Findings with severity, category, location |
+| `/diff-audit` | Findings with severity, location |
+| Any command | Actionable suggestions with location |
+
 ## Filters
 
 | Argument | Behavior |
 |----------|----------|
-| (none) | All findings from prior audit, or fresh analysis |
+| (none) | All findings from prior command |
 | `security`, `performance`, `quality`, `architecture`, `tests`, `dependencies`, `docs` | Filter by category |
 | `critical`, `high`, `medium`, `low` | Filter by minimum severity |
 | `./path` | Filter by file or directory |
 | Combined filters | Space-separated, order doesn't matter |
 
-## Severity Levels
+**Note:** Filters only apply when source provides matching metadata. Irrelevant filters are ignored.
 
-| Level | Description |
-|-------|-------------|
-| **Critical** | Security vulnerabilities, data loss risks, crashes |
-| **High** | Bugs, significant issues, breaking changes |
-| **Medium** | Code quality, maintainability, minor bugs |
-| **Low** | Style, minor improvements, suggestions |
+## Prerequisites
+
+- Prior command with iterable findings in conversation history
+- If no prior findings, reports error and suggests commands to run
 
 ## Examples
 
 ```
-/iterate                # All findings from prior audit
+/iterate                # All findings from prior command
 /iterate security       # Security findings only
 /iterate high           # High and Critical only
 /iterate ./src          # Findings in ./src directory
@@ -47,9 +55,18 @@ Step through findings one at a time with detailed explanations and explicit user
 | `./src high` | High+ findings in `./src` |
 | `./pkg/auth security` | Security findings in auth package |
 
+## Severity Levels
+
+| Level | Description |
+|-------|-------------|
+| **Critical** | Security vulnerabilities, data loss risks, crashes |
+| **High** | Bugs, significant issues, breaking changes |
+| **Medium** | Code quality, maintainability, minor bugs |
+| **Low** | Style, minor improvements, suggestions |
+
 ## Workflow Integration
 
-Designed to follow `/audit` or `/diff-audit`:
+Designed to follow any command that produces findings:
 
 ```
 /audit              → /iterate           # Fix all audit findings
@@ -61,10 +78,11 @@ Designed to follow `/audit` or `/diff-audit`:
 ## Process
 
 1. **Determine scope**
-   - Check conversation history for findings from prior `/audit` or `/diff-audit`
+   - Check conversation history for findings from prior command
    - Findings exist only in conversation memory (not persisted to disk)
-   - If no prior findings exist, perform fresh analysis
+   - If no prior findings, report error: "No findings to iterate. Run `/audit` or `/diff-audit` first."
    - Apply filters from `$ARGUMENTS` if specified
+   - Report: "Iterating N findings from `/audit`" (or whichever source)
 
 2. **Present each finding**
 
@@ -78,12 +96,12 @@ Designed to follow `/audit` or `/diff-audit`:
    **Fix:** Proposed change (show diff)
    ```
 
-3. **Get explicit approval** - offer these choices:
-   - **Apply** - Make this change
-   - **Modify** - Adjust the fix before applying
-   - **Skip** - Move to next finding
-   - **List** - Show all remaining findings
-   - **Stop** - End iteration
+3. **Get explicit approval** - use AskUserQuestion with these options:
+   - "Apply" - Make this change
+   - "Modify" - User provides adjusted fix via "Other", then re-present
+   - "Skip" - Move to next finding
+   - "List" - Show all remaining findings
+   - "Stop" - End iteration
 
 4. **After completion** - summarize:
    - Applied: N changes
@@ -94,22 +112,25 @@ Designed to follow `/audit` or `/diff-audit`:
 
 | Scenario | Behavior |
 |----------|----------|
-| No prior findings, no arguments | Perform fresh full audit, then iterate |
-| No findings match filter | Report "No matching findings" and exit |
+| No prior findings | Report error: "No findings to iterate. Run `/audit` or `/diff-audit` first." |
+| No findings match filter | Report "No findings match filter [X]" and exit |
 | Fix fails to apply (file changed) | Report conflict, show current state, ask how to proceed |
 | User wants to undo | Note that changes can be reverted with git; suggest `git diff` to review |
 | All findings addressed | Report completion and suggest running tests |
-| Session cleared after audit | Perform fresh analysis; prior findings not available |
+| Session cleared after prior command | Report "Prior findings not available. Run source command again." |
 | Fix introduces new issues | Pause iteration, report new issue, ask how to proceed |
 | Finding already fixed | Detect resolved state, report "Already fixed", move to next |
 | Invalid filter argument | Suggest closest match or list valid filters |
+| `/iterate` called mid-iteration | Ask via AskUserQuestion: "Resume from finding N?" or "Restart?" |
 
 ## Rules
 
+- Always state the source of findings before iterating (prior command name)
 - One finding at a time, never batch
-- Never apply without explicit approval
+- Always use AskUserQuestion for approval prompts (Apply/Modify/Skip/Stop)
+- Never apply without explicit approval via AskUserQuestion
 - Be honest about trade-offs and risks
-- Stop immediately when user says stop
+- Stop immediately when user selects Stop
 - Show progress: "Finding 3 of 12"
 - If a fix causes new issues, pause and report
 
@@ -118,6 +139,7 @@ Designed to follow `/audit` or `/diff-audit`:
 - Modify files not mentioned in the current finding
 - Apply fixes that change behavior beyond the issue scope
 - Skip showing the diff before applying
+- Use text-based approval prompts; always use AskUserQuestion
 
 ## See Also
 

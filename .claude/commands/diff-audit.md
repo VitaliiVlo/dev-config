@@ -8,16 +8,15 @@ Review changes for bugs, security issues, and inconsistencies.
 
 ## Modes
 
-| Argument | What it compares |
-|----------|------------------|
-| (none) | Auto-detect (see below) |
-| `staged` | Staged changes vs HEAD |
-| `uncommitted` | All uncommitted changes (staged + unstaged) |
-| `unpushed` | Local commits not yet pushed to remote |
-| `main`, `master`, `develop` | Current branch vs specified base branch |
-| `abc123` | Changes in specific commit |
-| `feat/x...main` | Explicit commit/branch range |
-| `#123` or GitHub PR URL | Pull request changes |
+| Argument | What it compares | Git command |
+|----------|------------------|-------------|
+| (none) | Ask user what to compare | — |
+| `staged` | Staged changes vs HEAD | `git diff --cached` |
+| `modified` | Staged + unstaged changes vs HEAD | `git diff HEAD` |
+| `unpushed` | Local commits not yet pushed | `git diff @{upstream}..HEAD` |
+| `main` | Working directory vs base branch (commits + uncommitted) | `git diff main` |
+| `main...HEAD` | Commits only vs base branch (no uncommitted) | `git diff main...HEAD` |
+| `#123` or PR URL | Pull request changes | `gh pr diff 123` |
 
 ## Prerequisites
 
@@ -27,26 +26,13 @@ Review changes for bugs, security issues, and inconsistencies.
 ## Examples
 
 ```
-/diff-audit             # Auto-detect: uncommitted → unpushed → vs main
+/diff-audit             # Ask user what to compare
 /diff-audit staged      # Review only staged changes
-/diff-audit main        # Compare current branch to main
-/diff-audit abc123      # Review specific commit
+/diff-audit modified    # Review all uncommitted changes
+/diff-audit main        # Compare to main (commits + uncommitted)
+/diff-audit main...HEAD # Compare to main (commits only, no uncommitted)
 /diff-audit #456        # Review PR #456 (requires gh CLI)
 ```
-
-## Auto-detect Logic
-
-When no arguments provided:
-1. Check for uncommitted changes → review those
-2. Check for unpushed commits → review those
-3. Otherwise → compare current branch to default branch
-
-## Process
-
-1. **Determine diff scope** - from `$ARGUMENTS` or auto-detect
-2. **Retrieve changes** - get diff using appropriate git command
-3. **Analyze each change** - check against review checklist below
-4. **Report findings** - grouped by severity
 
 ## Review Checklist
 
@@ -66,6 +52,20 @@ When no arguments provided:
 | **High** | Bugs, significant issues, breaking changes |
 | **Medium** | Code quality, maintainability, minor bugs |
 | **Low** | Style, minor improvements, suggestions |
+
+## Process
+
+1. **Determine diff scope** - from `$ARGUMENTS` or ask user:
+   - If no arguments provided, use AskUserQuestion with options:
+     - "Staged changes" - review staged only
+     - "Modified" - all local changes (staged + unstaged) vs HEAD
+     - "Unpushed" - commits not yet pushed to remote
+     - "vs main (all)" - commits + uncommitted vs main
+     - "vs main (commits)" - commits only vs main (no uncommitted)
+   - If argument provided, use that target directly
+2. **Retrieve changes** - get diff using appropriate git command
+3. **Analyze each change** - check against review checklist above
+4. **Report findings** - grouped by severity
 
 ## Report Format
 
@@ -116,11 +116,16 @@ Each issue includes:
 | Submodule changes | Note submodule pointer changes, don't recurse into submodule |
 | Generated file changes | Note but deprioritize; focus on source that generated them |
 | Not a git repository | Report error: "Requires git repository. Use /audit for non-git projects." |
+| No remote configured | Report error for `unpushed` mode: "No remote configured. Use `modified` or compare to a branch." |
 | Invalid mode argument | Suggest closest match or list valid modes |
+| Branch/commit not found | Report error with suggestion: "Branch 'mian' not found. Did you mean 'main'?" |
+| Stash exists | Note stashed changes; not included in diff |
+| Dirty working directory with PR mode | Warn about local changes not in PR |
 
 ## Rules
 
 - Be thorough but avoid false positives
+- Always use AskUserQuestion when no argument provided - never guess what to compare
 - Consider intent and context of changes
 - Prioritize actionable feedback
 - Clearly distinguish must-fix from nice-to-have

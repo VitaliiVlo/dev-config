@@ -6,15 +6,6 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 
 - `$ARGUMENTS` - Optional: category or path (see below)
 
-## Examples
-
-```
-/audit                  # Full audit across all categories
-/audit security         # Security-focused audit only
-/audit ./pkg/auth       # Audit specific directory
-/audit ./main.go        # Audit single file
-```
-
 ## Categories
 
 | Argument | Focus |
@@ -31,6 +22,19 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 
 **Note:** Use `./` prefix for paths to distinguish from category names (e.g., `./docs` for a directory vs `docs` for documentation category).
 
+## Prerequisites
+
+- None (works in any directory with source code)
+
+## Examples
+
+```
+/audit                  # Full audit across all categories
+/audit security         # Security-focused audit only
+/audit ./pkg/auth       # Audit specific directory
+/audit ./main.go        # Audit single file
+```
+
 ## Severity Levels
 
 | Level | Description |
@@ -45,6 +49,10 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 1. **Scope the audit**
    - Determine focus from `$ARGUMENTS`
    - Identify relevant files and patterns to analyze
+   - For monorepos or large codebases, use AskUserQuestion with options:
+     - Project/package names discovered in the repo
+     - "Entire repository" - audit everything
+     - "Root-level only" - skip nested projects
 
 2. **Analyze codebase**
    - Explore project structure and architecture

@@ -10,9 +10,10 @@ Analyze changes and create a commit with a descriptive message.
 
 | Argument | What it commits |
 |----------|-----------------|
-| (none) | All changes (staged + unstaged + untracked) |
+| (none) | Ask user what to commit |
+| `all` | Everything: staged + unstaged + untracked |
 | `staged` | Only staged changes |
-| `tracked` | All tracked changes (no untracked files) |
+| `modified` | Modified/deleted files only (no untracked) |
 | `<file>` | Specific file or pattern |
 
 ## Prerequisites
@@ -22,21 +23,30 @@ Analyze changes and create a commit with a descriptive message.
 ## Examples
 
 ```
-/commit                 # Commit everything (default)
+/commit                 # Ask user what to commit
+/commit all             # Commit everything (staged + unstaged + untracked)
 /commit staged          # Commit only staged changes
-/commit tracked         # Commit tracked changes, skip untracked files
+/commit modified        # Commit modified/deleted files, skip untracked
 /commit ./src           # Commit changes in ./src directory
 /commit *.md            # Commit all markdown files
 ```
 
 ## Process
 
-1. **Determine scope** - from `$ARGUMENTS` or default to all
+1. **Determine scope** - from `$ARGUMENTS` or ask user using AskUserQuestion:
+   - If no arguments provided, use AskUserQuestion with options:
+     - "All changes" - staged + unstaged + untracked
+     - "Staged only" - only staged changes
+     - "Modified only" - skip untracked files
+   - If argument provided, use that mode directly
 2. **Analyze changes** - read diffs to understand what changed
 3. **Check commit history** - match repository's commit message style
 4. **Generate message** - create concise, descriptive commit message
 5. **Show preview** - display what will be committed and the message
-6. **Commit after approval** - wait for user confirmation
+6. **Get approval** - use AskUserQuestion with options:
+   - "Commit" - proceed with the commit
+   - "Edit message" - user provides new message via "Other", then show preview again
+   - "Cancel" - abort without committing
 
 ## Commit Message Format
 
@@ -58,7 +68,7 @@ Fix bootstrap.sh: correct symlink path for ghostty config
 ```
 ## Commit Preview
 
-**Mode:** [all / staged / tracked / path]
+**Mode:** [all / staged / modified / path]
 **Files:** N files changed
 
 ### Changes
@@ -88,11 +98,14 @@ Fix bootstrap.sh: correct symlink path for ghostty config
 | Rebase in progress | Report error: "Complete or abort rebase first" |
 | Cherry-pick in progress | Report error: "Complete or abort cherry-pick first" |
 | Shallow clone | Warn about limited history context for message style |
+| Stash exists | Note stashed changes exist; don't auto-apply |
+| Submodule changes | Note submodule pointer change; don't commit submodule contents |
 
 ## Rules
 
 - Always show preview before committing
-- Never commit without explicit approval
+- Use AskUserQuestion for mode selection (when no args) and approval prompts
+- Never commit without explicit approval via AskUserQuestion
 - Keep messages concise (under 72 chars for subject)
 - Use imperative mood ("Add" not "Added")
 - Reference files/components changed
@@ -103,7 +116,8 @@ Fix bootstrap.sh: correct symlink path for ghostty config
 - Include sensitive files (`.env`, credentials, keys)
 - Create empty commits
 - Use generic messages like "Update files" or "Fix stuff"
-- Add Co-Authored-By unless user requests it
+- Do not add Co-Authored-By trailer (keep commit history clean)
+- Use text-based approval prompts; always use AskUserQuestion
 
 ## See Also
 

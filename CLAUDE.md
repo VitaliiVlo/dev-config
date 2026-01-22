@@ -74,50 +74,23 @@ When modifying `.config/Code/User/settings.json`:
 
 ## Claude Code Settings
 
-The `.claude/settings.json` configures permissions for Claude Code CLI.
+The `.claude/settings.json` configures permissions:
+- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web fetch from dev docs
+- **Denied:** `.env`, credentials, private keys, `.tfvars`
+- **Requires approval:** Package install, direct code execution, git writes, docker mutations
 
-**Allowed (no prompts):**
-- Web: `WebSearch`, `WebFetch` for github.com, stackoverflow.com, pkg.go.dev, pypi.org, npmjs.com, MDN, official docs
-- Git (read-only): `status`, `diff`, `log`, `branch`, `show`, `remote`, `tag`, `stash list`
-- Docker (read-only): `ps`, `logs`, `images`, `compose ps/logs/config`
-- Kubernetes (read-only): `kubectl get`, `describe`, `logs`
-- Go: `build`, `test`, `mod`, `fmt`, `vet`, `list`, `env`, `generate`, `golangci-lint`, `staticcheck`
-- Python: `pip list/show`, `pytest`, `ruff`, `mypy`, `uv`
-- Node: `npm run/test/list/view/outdated`, `vitest`, `jest`, `eslint`, `prettier`, `tsc --noEmit`
-- Utils: `find`, `fd`, `which`, `tree`, `ls`, `wc`, `jq`, `yq`, `make -n`
-
-**Denied (blocked):**
-- Env files: `.env`, `.env.*`, `*.env`
-- Keys/certs: `*.pem`, `*.key`, `*_rsa`, `*_ed25519`
-- Credentials: `.aws/credentials`, `.ssh/*`, `.kube/config`, `.git-credentials`, `credentials.json`
-- Terraform: `*.tfvars`
-
-**Requires approval:**
-- Package install: `go get`, `pip install`, `npm install/ci`, `yarn`, `pnpm`, `bun`
-- Direct code execution: `python`, `node`, `npx`, `go run`
-- Git write operations: `commit`, `push`, `checkout`
-- Docker mutations: `run`, `rm`, `compose up/down`
-
-**Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
+See `.claude/settings.json` for the full permission list.
 
 ## Claude Code Commands
 
 Custom slash commands in `.claude/commands/`:
 
-| Command                | Description                                     |
-| ---------------------- | ----------------------------------------------- |
-| `/readme [sections]`   | Analyze repo and update README                  |
-| `/audit [scope]`       | Full codebase audit for issues and improvements |
-| `/diff-audit [target]` | Review changes for bugs and issues              |
-| `/iterate [filter]`    | Step through findings with approval             |
-| `/commit [mode]`       | Analyze changes and commit with descriptive msg |
+| Command       | Description                         | Arguments                                            |
+| ------------- | ----------------------------------- | ---------------------------------------------------- |
+| `/readme`     | Analyze repo and update README      | `[sections]`                                         |
+| `/audit`      | Full codebase audit                 | `security`, `performance`, `quality`, `./path`, etc. |
+| `/diff-audit` | Review changes for bugs             | `staged`, `modified`, `unpushed`, `main`, `main...HEAD`, `#<PR>` |
+| `/iterate`    | Step through findings with approval | category, severity (`high`), or `./path`             |
+| `/commit`     | Analyze changes and commit          | `all`, `staged`, `modified`, `<file>`                |
 
-**`/audit` scope:** `security`, `performance`, `quality`, `architecture`, `tests`, `dependencies`, `docs`, or `./path`
-
-**`/diff-audit` targets:** `staged`, `uncommitted`, `unpushed`, `main`, `<commit>`, `<range>`, `#<PR>`
-
-**`/commit` modes:** `staged`, `tracked`, `<file>`, or none (default: all changes)
-
-**`/iterate` filters:** category (`security`), severity (`high`), path (`./src`), or combined (`security high`)
-
-**Workflow:** `/audit` or `/diff-audit` → `/iterate` to fix findings one by one
+**Workflow:** `/audit` or `/diff-audit` → `/iterate` to fix findings → `/commit`

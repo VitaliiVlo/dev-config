@@ -6,6 +6,10 @@ Analyze this repository and update README.md to accurately reflect its current s
 
 - `$ARGUMENTS` - Optional: sections to focus on (e.g., "installation", "usage", "api", "configuration")
 
+## Prerequisites
+
+- None (works in any directory)
+
 ## Examples
 
 ```
@@ -19,8 +23,16 @@ Analyze this repository and update README.md to accurately reflect its current s
 1. **Explore the repository** - structure, configs, scripts, dependencies
 2. **Read existing docs** - README.md, CLAUDE.md, any other documentation
 3. **Identify gaps** - missing info, outdated content, inaccuracies
-4. **Propose changes** - show what will change and why
-5. **Apply after approval** - wait for user confirmation
+4. **Propose changes** - show what will change and why:
+   - Brief summary of repository contents
+   - List of proposed changes with rationale
+   - Show the diff or new content for review
+5. **Get approval** - use AskUserQuestion with options:
+   - "Apply all" - Make all proposed changes at once
+   - "Apply partial" - Choose which specific changes to apply
+   - "Modify" - Adjust proposal before applying (user provides feedback via "Other")
+   - "Cancel" - Make no changes to README
+6. **Apply after approval** - make approved changes
 
 ## Edge Cases
 
@@ -38,23 +50,11 @@ Analyze this repository and update README.md to accurately reflect its current s
 | File is read-only | Report permission error, suggest checking file permissions |
 | Invalid section argument | Suggest closest match or list common sections |
 
-## Output
-
-Provide:
-- Brief summary of repository contents
-- List of proposed changes with rationale
-- Show the diff or new content for review
-
-**Get approval** - offer these choices:
-- **Apply** - Make all proposed changes
-- **Apply partial** - Choose which changes to apply
-- **Modify** - Adjust proposal before applying
-- **Cancel** - Make no changes
-
 ## Rules
 
 - Preserve user's existing structure and writing style
-- Never remove sections without explicit approval
+- Always use AskUserQuestion for approval prompts
+- Never remove sections without explicit approval via AskUserQuestion
 - If no changes needed, report that clearly
 - Keep README focused - avoid unnecessary boilerplate
 - Match the tone and formatting of existing content
@@ -64,6 +64,7 @@ Provide:
 - Remove or modify badges without asking
 - Add emojis unless the existing README uses them
 - Change the language of the README
+- Use text-based approval prompts; always use AskUserQuestion
 
 ## See Also
 
