@@ -14,6 +14,7 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 | `security` | Vulnerabilities, secrets, insecure patterns |
 | `performance` | Bottlenecks, inefficient code, optimization opportunities |
 | `quality` | Code smells, complexity, duplication, naming |
+| `consistency` | Naming conventions, error handling patterns, API style, code organization |
 | `architecture` | Structure, patterns, coupling, separation of concerns |
 | `tests` | Coverage gaps, test quality, missing edge cases |
 | `dependencies` | Outdated, vulnerable, unused, or redundant deps |
@@ -111,6 +112,7 @@ Each issue includes:
 | Non-git repository | Continue without git history analysis; note limited context |
 | Vendor/generated code | Skip `vendor/`, `node_modules/`, `*.pb.go`, `*_generated.go` by default |
 | Very large codebase | Sample representative files; prioritize high-risk areas |
+| Argument matches category and directory | Treat as category; user must use `./` prefix for path |
 | Invalid category argument | Suggest closest match or list valid categories |
 
 ## Rules

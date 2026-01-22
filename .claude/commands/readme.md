@@ -22,16 +22,17 @@ Analyze this repository and update README.md to accurately reflect its current s
 
 1. **Explore the repository** - structure, configs, scripts, dependencies
 2. **Read existing docs** - README.md, CLAUDE.md, any other documentation
-3. **Identify gaps** - missing info, outdated content, inaccuracies
-4. **Propose changes** - show what will change and why:
+3. **Check consistency** - verify README aligns with CLAUDE.md, code comments, and actual behavior
+4. **Identify gaps** - missing info, outdated content, inaccuracies
+5. **Propose changes** - show what will change and why:
    - Brief summary of repository contents
    - List of proposed changes with rationale
    - Show the diff or new content for review
-5. **Get approval** - use AskUserQuestion with options (include counts):
-   - "Apply all (N changes)" - make all proposed changes
-   - "Review each (N changes)" - approve one by one
+6. **Get approval** - use AskUserQuestion with options (include counts):
+   - "Apply all N changes" - make all proposed changes at once
+   - "Review each of N changes" - approve changes one by one
    - "Cancel" - make no changes
-6. **Apply after approval** - make approved changes
+7. **Apply after approval** - make approved changes
 
 ## Preview Format
 
@@ -76,6 +77,7 @@ Analyze this repository and update README.md to accurately reflect its current s
 - If no changes needed, report that clearly
 - Keep README focused - avoid unnecessary boilerplate
 - Match the tone and formatting of existing content
+- Flag inconsistencies with CLAUDE.md or other docs
 
 **Do NOT:**
 - Add generic boilerplate (contributing guidelines, code of conduct) unless requested

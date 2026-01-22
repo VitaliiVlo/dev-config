@@ -85,16 +85,16 @@ See `.claude/settings.json` for the full permission list.
 
 Custom slash commands in `.claude/commands/`:
 
-| Command       | Description                         | Arguments                                          |
-| ------------- | ----------------------------------- | -------------------------------------------------- |
-| `/readme`     | Analyze repo and update README      | `[sections]` (e.g., `installation`, `usage api`)   |
-| `/audit`      | Full codebase audit                 | `security`, `quality`, `./path`, `security ./pkg`  |
-| `/diff-audit` | Review changes for bugs             | `staged`, `modified`, `unpushed`, `main`, `#<PR>`  |
-| `/iterate`    | Step through findings with approval | category, severity (`high`), `./path`, or combined |
-| `/commit`     | Analyze changes and commit          | `all`, `staged`, `modified`, `<file>`              |
+| Command       | Description                         | Arguments                                                  |
+| ------------- | ----------------------------------- | ---------------------------------------------------------- |
+| `/readme`     | Analyze repo and update README      | `[sections]` (e.g., `installation`, `usage api`)           |
+| `/audit`      | Full codebase audit                 | category, `./path`, or combined (e.g., `security ./pkg`)   |
+| `/diff-audit` | Review changes for bugs             | `staged`, `modified`, `main`, `main+local`, `#<PR>` or URL |
+| `/iterate`    | Step through findings with approval | category, severity (`high`), `./path`, or combined         |
+| `/commit`     | Analyze changes and commit          | `staged`, `modified`, `all`, `<file>`                      |
 
 **Workflow:** `/audit` or `/diff-audit` → `/iterate` to fix findings → `/commit`
 
 **Notes:**
-- `/diff-audit main` uses `main` as base branch; replace with `master`, `develop`, etc. as needed
+- `/diff-audit main` falls back to `master` if `main` doesn't exist; specify other branches directly (e.g., `/diff-audit develop`)
 - `/audit` and `/iterate` support combined filters: `/audit security ./src`, `/iterate high ./pkg`

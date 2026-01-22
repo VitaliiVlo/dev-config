@@ -11,9 +11,9 @@ Analyze changes and create a commit with a descriptive message.
 | Argument | What it commits |
 |----------|-----------------|
 | (none) | Ask user what to commit |
-| `all` | Everything: staged + unstaged + untracked |
-| `staged` | Only staged changes |
-| `modified` | Modified/deleted files only (no untracked) |
+| `staged` | Only staged changes (files added with `git add`) |
+| `modified` | All tracked files with changes (staged + unstaged, no new files) |
+| `all` | Everything (staged + unstaged + untracked new files) |
 | `<file>` | Specific file or pattern |
 
 ## Prerequisites
@@ -24,9 +24,9 @@ Analyze changes and create a commit with a descriptive message.
 
 ```
 /commit                 # Ask user what to commit
-/commit all             # Commit everything (staged + unstaged + untracked)
-/commit staged          # Commit only staged changes
-/commit modified        # Commit modified/deleted files, skip untracked
+/commit staged          # Only staged changes
+/commit modified        # Tracked files with changes (no new files)
+/commit all             # Everything including untracked new files
 /commit ./src           # Commit changes in ./src directory
 /commit *.md            # Commit all markdown files
 ```
@@ -36,15 +36,16 @@ Analyze changes and create a commit with a descriptive message.
 1. **Determine scope** - from `$ARGUMENTS` or ask user using AskUserQuestion:
    - First, run `git status --short` to get file counts
    - Use AskUserQuestion with options (include counts):
-     - "All changes (N files: X staged, Y modified, Z untracked)" - everything
-     - "Staged only (N files, +X/-Y)" - only staged changes
-     - "Modified only (N files, +X/-Y)" - tracked changes, skip untracked
+     - "Staged only (N files)" - only staged changes
+     - "Modified only (N files)" - tracked files with changes, no new files
+     - "All changes (N files)" - everything including untracked new files
    - If argument provided, use that mode directly
 2. **Analyze changes** - read diffs to understand what changed
-3. **Check commit history** - match repository's commit message style
-4. **Generate message** - create concise, descriptive commit message
-5. **Show preview** - display what will be committed and the message
-6. **Get approval** - use AskUserQuestion with options:
+3. **Check consistency** - verify changes follow existing codebase patterns (naming, error handling, structure)
+4. **Check commit history** - match repository's commit message style
+5. **Generate message** - create concise, descriptive commit message
+6. **Show preview** - display what will be committed and the message
+7. **Get approval** - use AskUserQuestion with options:
    - "Commit" - proceed with the commit
    - "Edit message" - user provides new message via "Other", then show preview again
    - "Cancel" - abort without committing
@@ -52,10 +53,10 @@ Analyze changes and create a commit with a descriptive message.
 ## Commit Message Format
 
 Follow this repository's style:
-- Format: `[Action] [scope]: [details]`
-- Action: Add, Update, Remove, Fix, Refactor
+- Format: `Action scope: details`
+- Actions: Add, Update, Remove, Fix, Refactor
 - Scope: file name, component, or "configuration files" for multiple
-- Details: brief description of what changed
+- Keep subject under 72 characters
 
 Examples from this repo:
 ```
@@ -69,7 +70,7 @@ Fix bootstrap.sh: correct symlink path for ghostty config
 ```
 ## Commit Preview
 
-**Mode:** [all / staged / modified / path]
+**Mode:** [staged / modified / all / path]
 **Files:** N files changed
 
 ### Changes
@@ -112,6 +113,7 @@ Fix bootstrap.sh: correct symlink path for ghostty config
 - Use imperative mood ("Add" not "Added")
 - Reference files/components changed
 - Match existing commit message style in repo
+- Warn if changes deviate from codebase patterns (naming, structure)
 
 **Do NOT:**
 - Commit without showing what will be committed

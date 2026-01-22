@@ -21,12 +21,12 @@ Works with any prior command that produces iterable findings:
 | Argument | Behavior |
 |----------|----------|
 | (none) | All findings from prior command |
-| `security`, `performance`, `quality`, `architecture`, `tests`, `dependencies`, `docs` | Filter by category |
+| `security`, `performance`, `quality`, `consistency`, `architecture`, `tests`, `dependencies`, `docs` | Filter by category |
 | `critical`, `high`, `medium`, `low` | Filter by minimum severity |
 | `./path` | Filter by file or directory |
 | Combined filters | Space-separated, order doesn't matter |
 
-**Note:** Category filters only work when the source command categorizes findings (e.g., `/audit`). Severity and path filters work with all sources. Irrelevant filters are silently ignored.
+**Note:** Category filters (e.g., `security`) only apply after `/audit`, which categorizes findings. After `/diff-audit`, category filters are ignored since findings aren't categorized. Severity and path filters work with all sources.
 
 ## Prerequisites
 

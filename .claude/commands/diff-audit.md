@@ -12,17 +12,17 @@ Review changes for bugs, security issues, and inconsistencies.
 |----------|------------------|-------------|
 | (none) | Ask user what to compare | — |
 | `staged` | Staged changes vs HEAD | `git diff --cached` |
-| `modified` | Staged + unstaged changes vs HEAD | `git diff HEAD` |
+| `modified` | All uncommitted changes vs HEAD | `git diff HEAD` |
 | `main` | Current branch vs base branch (commits only) | `git diff main...HEAD` |
 | `main+local` | Current branch + uncommitted vs base branch | `git diff main` |
-| `#123` or PR URL | Pull request changes | `gh pr diff 123` |
+| `#<number>` or PR URL | Pull request changes | `gh pr diff <number>` |
 
-**Note:** Replace `main` with your default branch (`master`, `develop`, etc.) as needed.
+**Note:** `main` and `main+local` automatically fall back to `master` if `main` doesn't exist. Use Other to specify a different base branch.
 
 ## Prerequisites
 
 - Git repository required
-- `gh` CLI required for PR mode (`#123` or GitHub PR URL)
+- `gh` CLI required for PR mode (`#<number>` or GitHub PR URL)
 
 ## Examples
 
@@ -40,9 +40,11 @@ Review changes for bugs, security issues, and inconsistencies.
 1. **Determine diff scope** - from `$ARGUMENTS` or ask user:
    - If no arguments provided, first run `git diff --stat` for each mode to get counts
    - Use AskUserQuestion with options (include file/line counts):
-     - "Staged (N files, +X/-Y)" - staged changes only
-     - "Modified (N files, +X/-Y)" - all local changes vs HEAD
-     - "vs base branch" - compare to main/master (user specifies branch via Other)
+     - "Staged (N files)" - staged changes only
+     - "Modified (N files)" - all uncommitted changes vs HEAD
+     - "vs main (N commits)" - committed changes on branch (use master if main doesn't exist)
+     - "vs main+local (N files)" - branch commits plus uncommitted changes
+     - User can select Other to specify a different base branch (develop, release, etc.)
    - If argument provided, use that target directly
 2. **Retrieve changes** - get diff using appropriate git command
 3. **Analyze each change** - check against review checklist below
@@ -55,7 +57,7 @@ Review changes for bugs, security issues, and inconsistencies.
 | **Bugs** | Logic errors, null handling, race conditions, resource leaks |
 | **Security** | Secrets, injection, XSS, insecure patterns |
 | **Quality** | Naming, duplication, dead code, complexity |
-| **Consistency** | Style, API compatibility, missing tests/docs |
+| **Consistency** | Naming conventions, error handling patterns, API style, deviations from codebase norms |
 | **Performance** | N+1 queries, inefficient algorithms, missing caching |
 
 ## Severity Levels
@@ -118,6 +120,7 @@ Each issue includes:
 | Not a git repository | Report error: "Requires git repository. Use /audit for non-git projects." |
 | No remote configured | Note limited context; PR mode may fail |
 | Invalid mode argument | Suggest closest match or list valid modes |
+| main branch doesn't exist | Fall back to master; if neither exists, ask user for base branch |
 | Branch/commit not found | Report error with suggestion: "Branch 'mian' not found. Did you mean 'main'?" |
 | Stash exists | Note stashed changes; not included in diff |
 | Dirty working directory with PR mode | Warn about local changes not in PR |
