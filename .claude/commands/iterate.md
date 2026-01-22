@@ -1,4 +1,4 @@
-# Iterate Through Findings
+# Iterate Findings
 
 Step through findings one at a time with detailed explanations and explicit user approval.
 
@@ -43,38 +43,6 @@ Works with any prior command that produces iterable findings:
 /iterate security high  # Security at High+ severity
 ```
 
-## Filter Details
-
-| Input | Result |
-|-------|--------|
-| `security` | All security findings |
-| `high` | High and Critical severity only |
-| `security high` | Security findings at High+ severity |
-| `high security` | Same as above (order doesn't matter) |
-| `./src` | All findings in `./src` directory |
-| `./src high` | High+ findings in `./src` |
-| `./pkg/auth security` | Security findings in auth package |
-
-## Severity Levels
-
-| Level | Description |
-|-------|-------------|
-| **Critical** | Security vulnerabilities, data loss risks, crashes |
-| **High** | Bugs, significant issues, breaking changes |
-| **Medium** | Code quality, maintainability, minor bugs |
-| **Low** | Style, minor improvements, suggestions |
-
-## Workflow Integration
-
-Designed to follow any command that produces findings:
-
-```
-/audit              → /iterate           # Fix all audit findings
-/audit security     → /iterate           # Fix security findings
-/diff-audit         → /iterate           # Fix issues in changes
-/diff-audit staged  → /iterate critical  # Fix only critical issues
-```
-
 ## Process
 
 1. **Determine scope**
@@ -108,6 +76,38 @@ Designed to follow any command that produces findings:
    - Skipped: N findings
    - Remaining: N findings (if stopped early)
 
+## Filter Details
+
+| Input | Result |
+|-------|--------|
+| `security` | All security findings |
+| `high` | High and Critical severity only |
+| `security high` | Security findings at High+ severity |
+| `high security` | Same as above (order doesn't matter) |
+| `./src` | All findings in `./src` directory |
+| `./src high` | High+ findings in `./src` |
+| `./pkg/auth security` | Security findings in auth package |
+
+## Severity Levels
+
+| Level | Description |
+|-------|-------------|
+| **Critical** | Security vulnerabilities, data loss risks, crashes |
+| **High** | Bugs, significant issues, breaking changes |
+| **Medium** | Code quality, maintainability, minor bugs |
+| **Low** | Style, minor improvements, suggestions |
+
+## Workflow Integration
+
+Designed to follow any command that produces findings:
+
+```
+/audit              → /iterate           # Fix all audit findings
+/audit security     → /iterate           # Fix security findings
+/diff-audit         → /iterate           # Fix issues in changes
+/diff-audit staged  → /iterate critical  # Fix only critical issues
+```
+
 ## Edge Cases
 
 | Scenario | Behavior |
@@ -122,6 +122,7 @@ Designed to follow any command that produces findings:
 | Finding already fixed | Detect resolved state, report "Already fixed", move to next |
 | Invalid filter argument | Suggest closest match or list valid filters |
 | `/iterate` called mid-iteration | Ask via AskUserQuestion: "Resume from finding N?" or "Restart?" |
+| Multiple source commands in history | Use most recent findings; note which command |
 
 ## Rules
 

@@ -34,10 +34,12 @@ Analyze changes and create a commit with a descriptive message.
 ## Process
 
 1. **Determine scope** - from `$ARGUMENTS` or ask user using AskUserQuestion:
-   - If no arguments provided, use AskUserQuestion with options:
-     - "All changes" - staged + unstaged + untracked
-     - "Staged only" - only staged changes
-     - "Modified only" - skip untracked files
+   - First, run `git status --short` to check what's available
+   - If no arguments provided, use AskUserQuestion with ALL THREE options:
+     - "All changes" - staged + unstaged + untracked (show count)
+     - "Staged only" - only staged changes (show count)
+     - "Modified only" - skip untracked files (show count)
+   - ALWAYS include all three options; indicate count for each
    - If argument provided, use that mode directly
 2. **Analyze changes** - read diffs to understand what changed
 3. **Check commit history** - match repository's commit message style
@@ -100,6 +102,7 @@ Fix bootstrap.sh: correct symlink path for ghostty config
 | Shallow clone | Warn about limited history context for message style |
 | Stash exists | Note stashed changes exist; don't auto-apply |
 | Submodule changes | Note submodule pointer change; don't commit submodule contents |
+| Interrupted mid-process | No commit made; safe to re-run |
 
 ## Rules
 

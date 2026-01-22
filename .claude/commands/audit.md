@@ -33,16 +33,8 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 /audit security         # Security-focused audit only
 /audit ./pkg/auth       # Audit specific directory
 /audit ./main.go        # Audit single file
+/audit security ./pkg   # Security audit of specific directory
 ```
-
-## Severity Levels
-
-| Level | Description |
-|-------|-------------|
-| **Critical** | Security vulnerabilities, data loss risks, crashes |
-| **High** | Bugs, significant issues, breaking changes |
-| **Medium** | Code quality, maintainability, minor bugs |
-| **Low** | Style, minor improvements, suggestions |
 
 ## Process
 
@@ -60,6 +52,15 @@ Analyze the entire codebase for improvements, issues, and technical debt.
    - Check for issues in the focused category (or all)
 
 3. **Report findings** grouped by severity
+
+## Severity Levels
+
+| Level | Description |
+|-------|-------------|
+| **Critical** | Security vulnerabilities, data loss risks, crashes |
+| **High** | Bugs, significant issues, breaking changes |
+| **Medium** | Code quality, maintainability, minor bugs |
+| **Low** | Style, minor improvements, suggestions |
 
 ## Report Format
 

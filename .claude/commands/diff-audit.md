@@ -18,6 +18,8 @@ Review changes for bugs, security issues, and inconsistencies.
 | `main...HEAD` | Commits only vs base branch (no uncommitted) | `git diff main...HEAD` |
 | `#123` or PR URL | Pull request changes | `gh pr diff 123` |
 
+**Note:** Replace `main` with your default branch (`master`, `develop`, etc.) as needed.
+
 ## Prerequisites
 
 - Git repository required
@@ -33,6 +35,20 @@ Review changes for bugs, security issues, and inconsistencies.
 /diff-audit main...HEAD # Compare to main (commits only, no uncommitted)
 /diff-audit #456        # Review PR #456 (requires gh CLI)
 ```
+
+## Process
+
+1. **Determine diff scope** - from `$ARGUMENTS` or ask user:
+   - If no arguments provided, use AskUserQuestion with options:
+     - "Staged changes" - review staged only
+     - "Modified" - all local changes (staged + unstaged) vs HEAD
+     - "Unpushed" - commits not yet pushed to remote
+     - "vs main (all)" - commits + uncommitted vs main
+     - "vs main (commits)" - commits only vs main (no uncommitted)
+   - If argument provided, use that target directly
+2. **Retrieve changes** - get diff using appropriate git command
+3. **Analyze each change** - check against review checklist below
+4. **Report findings** - grouped by severity
 
 ## Review Checklist
 
@@ -52,20 +68,6 @@ Review changes for bugs, security issues, and inconsistencies.
 | **High** | Bugs, significant issues, breaking changes |
 | **Medium** | Code quality, maintainability, minor bugs |
 | **Low** | Style, minor improvements, suggestions |
-
-## Process
-
-1. **Determine diff scope** - from `$ARGUMENTS` or ask user:
-   - If no arguments provided, use AskUserQuestion with options:
-     - "Staged changes" - review staged only
-     - "Modified" - all local changes (staged + unstaged) vs HEAD
-     - "Unpushed" - commits not yet pushed to remote
-     - "vs main (all)" - commits + uncommitted vs main
-     - "vs main (commits)" - commits only vs main (no uncommitted)
-   - If argument provided, use that target directly
-2. **Retrieve changes** - get diff using appropriate git command
-3. **Analyze each change** - check against review checklist above
-4. **Report findings** - grouped by severity
 
 ## Report Format
 
@@ -121,6 +123,7 @@ Each issue includes:
 | Branch/commit not found | Report error with suggestion: "Branch 'mian' not found. Did you mean 'main'?" |
 | Stash exists | Note stashed changes; not included in diff |
 | Dirty working directory with PR mode | Warn about local changes not in PR |
+| Interrupted mid-process | Provide partial report; note to re-run for complete audit |
 
 ## Rules
 

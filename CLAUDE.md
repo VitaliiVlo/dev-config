@@ -85,12 +85,16 @@ See `.claude/settings.json` for the full permission list.
 
 Custom slash commands in `.claude/commands/`:
 
-| Command       | Description                         | Arguments                                            |
-| ------------- | ----------------------------------- | ---------------------------------------------------- |
-| `/readme`     | Analyze repo and update README      | `[sections]`                                         |
-| `/audit`      | Full codebase audit                 | `security`, `performance`, `quality`, `./path`, etc. |
-| `/diff-audit` | Review changes for bugs             | `staged`, `modified`, `unpushed`, `main`, `main...HEAD`, `#<PR>` |
-| `/iterate`    | Step through findings with approval | category, severity (`high`), or `./path`             |
-| `/commit`     | Analyze changes and commit          | `all`, `staged`, `modified`, `<file>`                |
+| Command       | Description                         | Arguments                                          |
+| ------------- | ----------------------------------- | -------------------------------------------------- |
+| `/readme`     | Analyze repo and update README      | `[sections]` (e.g., `installation`, `usage api`)   |
+| `/audit`      | Full codebase audit                 | `security`, `quality`, `./path`, `security ./pkg`  |
+| `/diff-audit` | Review changes for bugs             | `staged`, `modified`, `unpushed`, `main`, `#<PR>`  |
+| `/iterate`    | Step through findings with approval | category, severity (`high`), `./path`, or combined |
+| `/commit`     | Analyze changes and commit          | `all`, `staged`, `modified`, `<file>`              |
 
 **Workflow:** `/audit` or `/diff-audit` → `/iterate` to fix findings → `/commit`
+
+**Notes:**
+- `/diff-audit main` uses `main` as base branch; replace with `master`, `develop`, etc. as needed
+- `/audit` and `/iterate` support combined filters: `/audit security ./src`, `/iterate high ./pkg`

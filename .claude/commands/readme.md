@@ -1,4 +1,4 @@
-# Update README
+# README Update
 
 Analyze this repository and update README.md to accurately reflect its current state.
 
@@ -34,6 +34,22 @@ Analyze this repository and update README.md to accurately reflect its current s
    - "Cancel" - Make no changes to README
 6. **Apply after approval** - make approved changes
 
+## Preview Format
+
+```
+## README Update Preview
+
+**Current state:** [Exists / Missing]
+**Sections to update:** N
+
+### Proposed Changes
+1. [Section]: [Description of change]
+2. ...
+
+---
+[Approval prompt]
+```
+
 ## Edge Cases
 
 | Scenario | Behavior |
@@ -49,6 +65,9 @@ Analyze this repository and update README.md to accurately reflect its current s
 | README conflicts with CLAUDE.md | Note discrepancy, propose reconciliation |
 | File is read-only | Report permission error, suggest checking file permissions |
 | Invalid section argument | Suggest closest match or list common sections |
+| Non-markdown format (RST, txt) | Preserve format; only update if markdown conversion requested |
+| Very large README (>1000 lines) | Summarize structure first, ask which sections to review |
+| Interrupted mid-process | Provide partial results; note to re-run for complete output |
 
 ## Rules
 

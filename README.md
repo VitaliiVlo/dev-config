@@ -105,4 +105,6 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 
 **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
 
-**Custom commands:** `/readme`, `/audit`, `/diff-audit`, `/iterate`, `/commit` - see CLAUDE.md for details
+**Custom commands:** `/readme`, `/audit`, `/diff-audit`, `/iterate`, `/commit`
+
+**Workflow:** `/audit` or `/diff-audit` → `/iterate` → `/commit` (see CLAUDE.md for details)
