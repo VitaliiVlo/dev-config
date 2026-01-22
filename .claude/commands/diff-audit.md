@@ -39,12 +39,11 @@ Review changes for bugs, security issues, and inconsistencies.
 ## Process
 
 1. **Determine diff scope** - from `$ARGUMENTS` or ask user:
-   - If no arguments provided, use AskUserQuestion with options:
-     - "Staged changes" - review staged only
-     - "Modified" - all local changes (staged + unstaged) vs HEAD
-     - "Unpushed" - commits not yet pushed to remote
-     - "vs main (all)" - commits + uncommitted vs main
-     - "vs main (commits)" - commits only vs main (no uncommitted)
+   - If no arguments provided, first run `git diff --stat` variants to get counts
+   - Use AskUserQuestion with options (include file/line counts):
+     - "Staged (N files, +X/-Y)" - staged changes only
+     - "Modified (N files, +X/-Y)" - all local changes vs HEAD
+     - "vs base branch" - compare to main/master (user specifies branch via Other)
    - If argument provided, use that target directly
 2. **Retrieve changes** - get diff using appropriate git command
 3. **Analyze each change** - check against review checklist below

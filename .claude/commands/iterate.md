@@ -66,9 +66,7 @@ Works with any prior command that produces iterable findings:
 
 3. **Get explicit approval** - use AskUserQuestion with these options:
    - "Apply" - Make this change
-   - "Modify" - User provides adjusted fix via "Other", then re-present
    - "Skip" - Move to next finding
-   - "List" - Show all remaining findings
    - "Stop" - End iteration
 
 4. **After completion** - summarize:
@@ -128,7 +126,7 @@ Designed to follow any command that produces findings:
 
 - Always state the source of findings before iterating (prior command name)
 - One finding at a time, never batch
-- Always use AskUserQuestion for approval prompts (Apply/Modify/Skip/Stop)
+- Always use AskUserQuestion for approval prompts (Apply/Skip/Stop)
 - Never apply without explicit approval via AskUserQuestion
 - Be honest about trade-offs and risks
 - Stop immediately when user selects Stop

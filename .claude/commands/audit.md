@@ -41,10 +41,10 @@ Analyze the entire codebase for improvements, issues, and technical debt.
 1. **Scope the audit**
    - Determine focus from `$ARGUMENTS`
    - Identify relevant files and patterns to analyze
-   - For monorepos or large codebases, use AskUserQuestion with options:
-     - Project/package names discovered in the repo
-     - "Entire repository" - audit everything
-     - "Root-level only" - skip nested projects
+   - For monorepos or large codebases, use AskUserQuestion with options (include file counts):
+     - "Entire repository (N files)" - audit everything
+     - "Root-level only (N files)" - skip nested projects
+     - "Specific project" - enter project path via Other
 
 2. **Analyze codebase**
    - Explore project structure and architecture

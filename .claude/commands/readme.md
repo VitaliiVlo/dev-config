@@ -27,11 +27,10 @@ Analyze this repository and update README.md to accurately reflect its current s
    - Brief summary of repository contents
    - List of proposed changes with rationale
    - Show the diff or new content for review
-5. **Get approval** - use AskUserQuestion with options:
-   - "Apply all" - Make all proposed changes at once
-   - "Apply partial" - Choose which specific changes to apply
-   - "Modify" - Adjust proposal before applying (user provides feedback via "Other")
-   - "Cancel" - Make no changes to README
+5. **Get approval** - use AskUserQuestion with options (include counts):
+   - "Apply all (N changes)" - make all proposed changes
+   - "Review each (N changes)" - approve one by one
+   - "Cancel" - make no changes
 6. **Apply after approval** - make approved changes
 
 ## Preview Format
