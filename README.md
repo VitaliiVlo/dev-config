@@ -44,9 +44,12 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 - `.config/ghostty/config` - Ghostty configuration
 - `.config/bat/config` - Bat configuration
 - `.config/Code/User/settings.json` - VSCode configuration
-- `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.claude/settings.json` - Claude Code permissions
-- `.editorconfig` - Editor config template (not symlinked, copy to projects)
+- `.claude/commands/` - Claude Code custom slash commands
+
+**Reference files (not symlinked):**
+- `.config/Code/User/defaultSettings.jsonc` - VSCode defaults for comparing settings
+- `.editorconfig` - Editor config template (copy to projects)
 
 ## macOS Settings
 
@@ -101,3 +104,5 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 **Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
 
 **Requires approval:** Direct code execution (`python`, `node`, `npx`, `go run`), git writes, docker mutations
+
+**Custom commands:** `/readme`, `/audit`, `/diff-audit`, `/iterate`, `/commit` - see CLAUDE.md for details

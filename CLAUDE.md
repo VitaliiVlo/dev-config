@@ -28,6 +28,7 @@ brew bundle dump --global --force --no-go --no-vscode  # Update Brewfile from in
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
+- `.claude/commands/` - Custom Claude Code slash commands
 - `.editorconfig` - Project-level editor config template (not symlinked, copy to projects)
 
 ## Symlink Destinations
@@ -41,6 +42,7 @@ brew bundle dump --global --force --no-go --no-vscode  # Update Brewfile from in
 | `.config/starship.toml`           | `~/.config/`                               |
 | `.config/Code/User/settings.json` | `~/Library/Application Support/Code/User/` |
 | `.claude/settings.json`           | `~/.claude/`                               |
+| `.claude/commands/*`              | `~/.claude/commands/`                      |
 
 ## Config Validation
 
@@ -97,3 +99,25 @@ The `.claude/settings.json` configures permissions for Claude Code CLI.
 - Docker mutations: `run`, `rm`, `compose up/down`
 
 **Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
+
+## Claude Code Commands
+
+Custom slash commands in `.claude/commands/`:
+
+| Command                | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| `/readme [sections]`   | Analyze repo and update README                  |
+| `/audit [scope]`       | Full codebase audit for issues and improvements |
+| `/diff-audit [target]` | Review changes for bugs and issues              |
+| `/iterate [filter]`    | Step through findings with approval             |
+| `/commit [mode]`       | Analyze changes and commit with descriptive msg |
+
+**`/audit` scope:** `security`, `performance`, `quality`, `architecture`, `tests`, `dependencies`, `docs`, or `./path`
+
+**`/diff-audit` targets:** `staged`, `uncommitted`, `unpushed`, `main`, `<commit>`, `<range>`, `#<PR>`
+
+**`/commit` modes:** `staged`, `tracked`, `<file>`, or none (default: all changes)
+
+**`/iterate` filters:** category (`security`), severity (`high`), path (`./src`), or combined (`security high`)
+
+**Workflow:** `/audit` or `/diff-audit` → `/iterate` to fix findings one by one
