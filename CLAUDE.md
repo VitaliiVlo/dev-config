@@ -9,16 +9,19 @@ macOS dotfiles repository for setting up a development environment. All configs 
 ## Key Commands
 
 ```bash
-./bootstrap.sh                                   # Symlink configs to home directory
-./bootstrap-defaults.sh                          # Configure macOS Finder/Dock/screenshots (interactive)
-brew bundle install --global                     # Install Brewfile packages
-brew bundle dump --global --force --no-go --no-vscode  # Update Brewfile from installed
+make install      # Full setup: symlink configs and install packages
+make link         # Symlink configs to home directory
+make defaults     # Configure macOS Finder/Dock/screenshots (interactive)
+make brew-install # Install packages from Brewfile
+make brew-check   # Check for missing Brewfile packages
+make brew-export  # Export installed packages to Brewfile
 ```
 
 ## Repository Structure
 
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
+- `Makefile` - Make targets for common operations (`make help` for list)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fzf with bat preview, syntax-highlighting, autosuggestions)
 - `.gitconfig` - Git settings (rebase workflow, SSH for GitHub, diff3 conflicts, rerere)
 - `.config/ghostty/config` - Terminal emulator

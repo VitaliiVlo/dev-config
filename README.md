@@ -5,9 +5,8 @@ Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** f
 ## Quick Start
 
 1. Clone this repository
-2. Run `./bootstrap.sh` to symlink configuration files
-3. Run `./bootstrap-defaults.sh` to configure macOS settings
-4. Run `brew bundle install --global` to install CLI tools
+2. Run `make install` to symlink configs and install packages
+3. Run `make defaults` to configure macOS settings (optional)
 
 ## Prerequisites
 
@@ -33,7 +32,7 @@ Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** f
 
 ## Configuration Files
 
-The following files are automatically symlinked by running `./bootstrap.sh`:
+The following files are automatically symlinked by running `make link`:
 - `.zprofile` - Shell environment variables
 - `.zshrc` - Shell configuration and aliases
 - `.gitconfig` - Git user and global settings
@@ -53,7 +52,7 @@ The following files are automatically symlinked by running `./bootstrap.sh`:
 
 ## macOS Settings
 
-Run `./bootstrap-defaults.sh` to configure:
+Run `make defaults` to configure:
 - Finder (list view, path bar, show extensions)
 - Dock (no recents, faster animation)
 - Screenshots (save to ~/Screenshots)
@@ -62,14 +61,9 @@ Run `./bootstrap-defaults.sh` to configure:
 
 Managed via Homebrew Brewfile:
 ```bash
-# Install from Brewfile
-brew bundle install --global
-
-# Check for missing dependencies
-brew bundle check --global
-
-# Update Brewfile from installed packages
-brew bundle dump --global --force --no-go --no-vscode
+make brew-install  # Install from Brewfile
+make brew-check    # Check for missing packages
+make brew-export   # Update Brewfile from installed packages
 ```
 
 ## Applications
