@@ -36,21 +36,27 @@ alias kctx='kubectl config current-context'
 alias grep='grep --color=auto'
 
 # Advanced aliases
+if command -v bat &>/dev/null; then alias cat='bat'; fi
+
 if command -v rg &>/dev/null; then
   export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 fi
+
 # fd: show hidden, follow symlinks, exclude common noise (no config file support)
 # Defined outside conditional so fzf block can reference it
 _FD_OPTS="--hidden --follow --strip-cwd-prefix --exclude .git --exclude node_modules --exclude .venv --exclude __pycache__ --exclude vendor"
 if command -v fd &>/dev/null; then
   alias fd="fd $_FD_OPTS"
 fi
-if command -v bat &>/dev/null; then alias cat='bat'; fi
+
+# eza: shared options (defined outside conditional so fzf block can reference them)
+_EZA_LIST_OPTS="-lagF --group-directories-first --git --time-style=relative --header --hyperlink --smart-group"
+_EZA_TREE_OPTS="-aF --tree --level=2 --group-directories-first --git-ignore"
 if command -v eza &>/dev/null; then
   alias ls='eza --group-directories-first'
-  alias ll='eza -lagF --group-directories-first --git --time-style=relative --header --hyperlink --smart-group'
-  alias lt='eza -F --tree --level=2 --group-directories-first --git-ignore'
-  alias lr='eza -lagF --group-directories-first --git --sort=modified --reverse --time-style=relative --header --hyperlink --smart-group'
+  alias ll="eza $_EZA_LIST_OPTS"
+  alias lt="eza $_EZA_TREE_OPTS"
+  alias lr="eza $_EZA_LIST_OPTS --sort=modified --reverse"
 else
   alias ll='ls -lah'
 fi
@@ -93,7 +99,7 @@ if command -v fzf &>/dev/null; then
     export FZF_ALT_C_COMMAND="fd --type d $_FD_OPTS"
   fi
   export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}'"
-  export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || ls -la {}'"
+  export FZF_ALT_C_OPTS="--preview 'eza $_EZA_TREE_OPTS --color=always {} 2>/dev/null || ls -la {}'"
   eval "$(fzf --zsh)"
 fi
 
