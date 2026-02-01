@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt).
+macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt). Configured for **Go 1.25** and **Python 3.14** (version-specific paths in `.zprofile`).
 
 ## Key Commands
 
@@ -38,12 +38,12 @@ make brew-export  # Export installed packages to Brewfile
 
 fd and ripgrep share consistent defaults for daily use:
 
-| Behavior        | fd                                             | ripgrep        |
-| --------------- | ---------------------------------------------- | -------------- |
-| Hidden files    | `--hidden`                                     | `--hidden`     |
-| Follow symlinks | `--follow`                                     | `--follow`     |
-| Exclusions      | `.git`, `node_modules`, `.venv`, `__pycache__` | Same           |
-| Config location | Alias in `.zshrc` (no config file support)     | `~/.ripgreprc` |
+| Behavior        | fd                                                       | ripgrep        |
+| --------------- | -------------------------------------------------------- | -------------- |
+| Hidden files    | `--hidden`                                               | `--hidden`     |
+| Follow symlinks | `--follow`                                               | `--follow`     |
+| Exclusions      | `.git`, `node_modules`, `.venv`, `__pycache__`, `vendor` | Same           |
+| Config location | Alias in `.zshrc` (no config file support)               | `~/.ripgreprc` |
 
 fzf uses fd when available for faster fuzzy finding with bat preview.
 
@@ -92,7 +92,7 @@ When modifying `.config/Code/User/settings.json`:
 ## Claude Code Settings
 
 The `.claude/settings.json` configures permissions:
-- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web fetch from dev docs
+- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web fetch from dev docs, `fd` and `rg` for file search
 - **Denied:** `.env`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
 

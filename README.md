@@ -1,6 +1,6 @@
 # macOS Development Configuration Guide
 
-Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt).
+Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt). Configured for **Go 1.25** and **Python 3.14**.
 
 ## Quick Start
 
@@ -93,7 +93,7 @@ Install via official installers or Homebrew Cask:
 
 The `.claude/settings.json` configures pre-approved and blocked permissions:
 
-**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Claude docs), git/docker/k8s read-only commands, build/test/lint tools
+**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
 
 **Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
 
