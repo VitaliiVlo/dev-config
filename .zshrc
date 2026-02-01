@@ -98,7 +98,7 @@ if command -v fzf &>/dev/null; then
     export FZF_CTRL_T_COMMAND="fd --type f $_FD_OPTS"
     export FZF_ALT_C_COMMAND="fd --type d $_FD_OPTS"
   fi
-  export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}'"
+  export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range=:500 {} 2>/dev/null || cat {}'"
   export FZF_ALT_C_OPTS="--preview 'eza $_EZA_TREE_OPTS --color=always {} 2>/dev/null || ls -la {}'"
   eval "$(fzf --zsh)"
 fi
