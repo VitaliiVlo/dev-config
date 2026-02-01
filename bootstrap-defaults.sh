@@ -23,7 +23,15 @@ fi
 
 if confirm "Clean up .DS_Store?"; then
   heading "→ Cleaning up .DS_Store…"
-  find "$HOME" -xdev -name .DS_Store -delete || true
+  # || true: Some .DS_Store files in ~/Library are protected; skip them silently
+  # Exclude directories that are large and rarely need cleanup
+  find "$HOME" -xdev -name .DS_Store \
+    -not -path "*/Library/Caches/*" \
+    -not -path "*/.Trash/*" \
+    -not -path "*/node_modules/*" \
+    -not -path "*/.venv/*" \
+    -not -path "*/venv/*" \
+    -delete 2>/dev/null || true
   killall Finder >/dev/null 2>&1 || true
 fi
 

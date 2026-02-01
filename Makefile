@@ -17,5 +17,5 @@ brew-install: ## Install packages from Brewfile
 brew-check: ## Check for missing Brewfile packages
 	brew bundle check --global
 
-brew-export: ## Export installed packages to Brewfile
+brew-export: ## Export installed packages to Brewfile (excludes Go deps, VSCode extensions)
 	brew bundle dump --global --force --no-go --no-vscode

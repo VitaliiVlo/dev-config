@@ -1,5 +1,11 @@
+# .zshrc - Interactive shell config (runs for each new terminal)
+# Contains: aliases, completions, keybindings, prompt
+# See .zprofile for login shell config (environment variables, PATH)
+
+BREW_PREFIX="${BREW_PREFIX:-/opt/homebrew}"
+
 # History
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
 setopt append_history
@@ -35,7 +41,7 @@ if command -v rg &>/dev/null; then
 fi
 # fd: show hidden, follow symlinks, exclude common noise (no config file support)
 # Defined outside conditional so fzf block can reference it
-_FD_OPTS="--hidden --follow --strip-cwd-prefix --exclude .git --exclude node_modules --exclude .venv --exclude __pycache__"
+_FD_OPTS="--hidden --follow --strip-cwd-prefix --exclude .git --exclude node_modules --exclude .venv --exclude __pycache__ --exclude vendor"
 if command -v fd &>/dev/null; then
   alias fd="fd $_FD_OPTS"
 fi
@@ -88,7 +94,7 @@ if command -v fzf &>/dev/null; then
   fi
   export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}'"
   export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || ls -la {}'"
-  source <(fzf --zsh)
+  eval "$(fzf --zsh)"
 fi
 
 # Zoxide (smarter cd)

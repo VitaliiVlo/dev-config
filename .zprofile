@@ -1,8 +1,14 @@
-BREW_PREFIX="/opt/homebrew"
+# .zprofile - Login shell config (runs once at login)
+# Contains: environment variables, PATH modifications
+# See .zshrc for interactive shell config (aliases, completions, prompt)
+
+BREW_PREFIX="${BREW_PREFIX:-/opt/homebrew}"
 eval "$($BREW_PREFIX/bin/brew shellenv)"
 
 # Core
 export EDITOR="code --wait"
+
+# PATH order (highest priority first): $GOBIN → $GOROOT/bin → Python → Homebrew → system
 
 # Python env
 export PATH="$BREW_PREFIX/opt/python@3.14/libexec/bin:$PATH"

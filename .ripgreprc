@@ -9,6 +9,7 @@
 --glob=!node_modules
 --glob=!.venv
 --glob=!__pycache__
+--glob=!vendor
 
 # Follow symlinks
 --follow
