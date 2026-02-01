@@ -1,0 +1,18 @@
+# Smart case: case-insensitive unless uppercase is used
+--smart-case
+
+# Search inside hidden files and directories
+--hidden
+
+# Exclude common noise directories
+--glob=!.git
+--glob=!node_modules
+--glob=!.venv
+--glob=!__pycache__
+
+# Follow symlinks
+--follow
+
+# Truncate long lines (show preview of truncated content)
+--max-columns=200
+--max-columns-preview

@@ -22,17 +22,30 @@ make brew-export  # Export installed packages to Brewfile
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
 - `Makefile` - Make targets for common operations (`make help` for list)
-- `.zshrc` / `.zprofile` - Zsh config (starship prompt, fzf with bat preview, syntax-highlighting, autosuggestions)
+- `.zshrc` / `.zprofile` - Zsh config (starship prompt, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
 - `.gitconfig` - Git settings (rebase workflow, SSH for GitHub, diff3 conflicts, rerere)
+- `.ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks)
 - `.config/ghostty/config` - Terminal emulator
 - `.config/bat/config` - Cat replacement with syntax highlighting
-- `.config/lsd/config.yaml` - Ls replacement (icons disabled for compatibility)
 - `.config/starship.toml` - Shell prompt (no nerd fonts preset)
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.claude/commands/` - Custom Claude Code slash commands
 - `.editorconfig` - Project-level editor config template (not symlinked, copy to projects)
+
+## Shell Tool Integration
+
+fd and ripgrep share consistent defaults for daily use:
+
+| Behavior        | fd                                             | ripgrep        |
+| --------------- | ---------------------------------------------- | -------------- |
+| Hidden files    | `--hidden`                                     | `--hidden`     |
+| Follow symlinks | `--follow`                                     | `--follow`     |
+| Exclusions      | `.git`, `node_modules`, `.venv`, `__pycache__` | Same           |
+| Config location | Alias in `.zshrc` (no config file support)     | `~/.ripgreprc` |
+
+fzf uses fd when available for faster fuzzy finding with bat preview.
 
 ## Symlink Destinations
 
@@ -41,7 +54,8 @@ make brew-export  # Export installed packages to Brewfile
 | `.zshrc`, `.zprofile`             | `~/`                                       |
 | `.gitconfig`, `.gitignore_global` | `~/`                                       |
 | `.Brewfile`                       | `~/`                                       |
-| `.config/{bat,lsd,ghostty}/*`     | `~/.config/`                               |
+| `.ripgreprc`                      | `~/`                                       |
+| `.config/{bat,ghostty}/*`         | `~/.config/`                               |
 | `.config/starship.toml`           | `~/.config/`                               |
 | `.config/Code/User/settings.json` | `~/Library/Application Support/Code/User/` |
 | `.claude/settings.json`           | `~/.claude/`                               |

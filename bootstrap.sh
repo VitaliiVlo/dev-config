@@ -16,9 +16,7 @@ ln -sf "$DOTFILES_DIR/.zprofile" "$HOME/.zprofile"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
 ln -sf "$DOTFILES_DIR/.Brewfile" "$HOME/.Brewfile"
-
-mkdir -p "$HOME/.config/lsd"
-ln -sf "$DOTFILES_DIR/.config/lsd/config.yaml" "$HOME/.config/lsd/config.yaml"
+ln -sf "$DOTFILES_DIR/.ripgreprc" "$HOME/.ripgreprc"
 
 mkdir -p "$HOME/.config"
 ln -sf "$DOTFILES_DIR/.config/starship.toml" "$HOME/.config/starship.toml"

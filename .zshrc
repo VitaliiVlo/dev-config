@@ -21,7 +21,6 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
 # Aliases
-alias ll='ls -lah'
 alias python='python3'
 alias pip='pip3'
 alias tf='terraform'
@@ -31,8 +30,24 @@ alias kctx='kubectl config current-context'
 alias grep='grep --color=auto'
 
 # Advanced aliases
+if command -v rg &>/dev/null; then
+  export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+fi
+# fd: show hidden, follow symlinks, exclude common noise (no config file support)
+# Defined outside conditional so fzf block can reference it
+_FD_OPTS="--hidden --follow --strip-cwd-prefix --exclude .git --exclude node_modules --exclude .venv --exclude __pycache__"
+if command -v fd &>/dev/null; then
+  alias fd="fd $_FD_OPTS"
+fi
 if command -v bat &>/dev/null; then alias cat='bat'; fi
-if command -v lsd &>/dev/null; then alias ls='lsd'; fi
+if command -v eza &>/dev/null; then
+  alias ls='eza --group-directories-first'
+  alias ll='eza -lagF --group-directories-first --git --time-style=relative --header --hyperlink --smart-group'
+  alias lt='eza -F --tree --level=2 --group-directories-first --git-ignore'
+  alias lr='eza -lagF --group-directories-first --git --sort=modified --reverse --time-style=relative --header --hyperlink --smart-group'
+else
+  alias ll='ls -lah'
+fi
 
 # docker completions
 DOCKER_COMP_PATH="${HOME}/.docker/completions"
@@ -64,10 +79,21 @@ fi
 # fzf key bindings and fuzzy completion
 if command -v fzf &>/dev/null; then
   export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --border"
-  export FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,__pycache__,.venv --preview '[[ -d {} ]] && lsd --tree --depth=2 --color=always {} || bat --color=always --style=numbers --line-range=:500 {}'"
-  export FZF_ALT_C_OPTS="--preview 'lsd --tree --depth=2 --color=always {}'"
   export FZF_CTRL_R_OPTS="--no-preview --height=50%"
+  # Use fd for fzf if available (faster, respects .gitignore)
+  if command -v fd &>/dev/null; then
+    export FZF_DEFAULT_COMMAND="fd --type f $_FD_OPTS"
+    export FZF_CTRL_T_COMMAND="fd --type f $_FD_OPTS"
+    export FZF_ALT_C_COMMAND="fd --type d $_FD_OPTS"
+  fi
+  export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || cat {}'"
+  export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || ls -la {}'"
   source <(fzf --zsh)
+fi
+
+# Zoxide (smarter cd)
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
 fi
 
 # Starship prompt

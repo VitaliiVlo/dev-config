@@ -38,7 +38,7 @@ The following files are automatically symlinked by running `make link`:
 - `.gitconfig` - Git user and global settings
 - `.gitignore_global` - Global gitignore
 - `.Brewfile` - Global Brewfile
-- `.config/lsd/config.yaml` - LSDeluxe configuration
+- `.ripgreprc` - Ripgrep defaults (smart-case, hidden files)
 - `.config/starship.toml` - Starship configuration
 - `.config/ghostty/config` - Ghostty configuration
 - `.config/bat/config` - Bat configuration
@@ -70,15 +70,15 @@ make brew-export   # Update Brewfile from installed packages
 
 Install via official installers or Homebrew Cask:
 
-| Category    | Apps                                         |
-| ----------- | -------------------------------------------- |
-| Browser     | Chrome, Firefox, Brave                       |
-| Editor      | VSCode, GoLand, PyCharm                      |
-| Terminal    | Ghostty, Wezterm, Kitty, Alacritty           |
-| Database    | Beekeeper Studio, TablePlus, MongoDB Compass |
-| API Testing | Postman, Insomnia, Bruno, Yaak, HTTPie       |
-| Diagrams    | Excalidraw, tldraw, Mermaid, PlantUML        |
-| Containers  | Docker Desktop, Lens                         |
+| Category    | Apps                                             |
+| ----------- | ------------------------------------------------ |
+| Browser     | **Brave**, Chrome, Firefox                       |
+| Editor      | **VSCode**, Zed, GoLand, PyCharm                 |
+| Terminal    | **Ghostty**, Alacritty, Wezterm, Kitty           |
+| Database    | **Beekeeper Studio**, TablePlus, MongoDB Compass |
+| API Testing | **Bruno**, Insomnia, Yaak, HTTPie                |
+| Diagrams    | Excalidraw, tldraw, Mermaid, PlantUML            |
+| Containers  | Docker Desktop, Freelens, Headlamp, Telepresence |
 
 **VSCode setup:**
 - Enable settings sync with GitHub
