@@ -7,6 +7,7 @@ eval "$($BREW_PREFIX/bin/brew shellenv)"
 
 # Core
 export EDITOR="code --wait"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # PATH order (highest priority first): $GOBIN → $GOROOT/bin → Python → Homebrew → system
 

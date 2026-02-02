@@ -42,6 +42,7 @@ The following files are automatically symlinked by running `make link`:
 - `.config/starship.toml` - Starship configuration
 - `.config/ghostty/config` - Ghostty configuration
 - `.config/bat/config` - Bat configuration
+- `.config/btop/btop.conf` - Btop configuration
 - `.config/Code/User/settings.json` - VSCode configuration
 - `.claude/settings.json` - Claude Code permissions
 - `.claude/commands/` - Claude Code custom slash commands
@@ -103,9 +104,11 @@ make brew-export   # Update Brewfile (excludes Go deps, VSCode extensions)
 | Tool | Description |
 | ---- | ----------- |
 | bat | `cat` with syntax highlighting |
+| btop | System monitor TUI (modern `htop`) |
 | eza | Modern `ls` replacement |
 | fd | Modern `find` replacement |
 | fzf | Fuzzy finder (Ctrl+T files, Ctrl+R history, Alt+C dirs) |
+| grpcurl | `curl` for gRPC services |
 | ripgrep | Fast `grep` replacement |
 | jq / yq | JSON / YAML processors |
 | zoxide | Smarter `cd` (learns from usage) |
@@ -114,11 +117,22 @@ make brew-export   # Update Brewfile (excludes Go deps, VSCode extensions)
 | k9s | Kubernetes TUI |
 | kubectl | Kubernetes CLI |
 
+## Casks
+
+Additional applications and fonts installed via Homebrew Cask:
+
+| Cask | Description |
+| ---- | ----------- |
+| claude-code | Claude Code CLI |
+| codex | OpenAI Codex CLI |
+| font-jetbrains-mono | Primary monospace font |
+| font-fira-code | Fallback monospace font |
+
 ## Claude Code
 
 The `.claude/settings.json` configures pre-approved and blocked permissions:
 
-**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
+**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Rust/Terraform/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
 
 **Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
 

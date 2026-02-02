@@ -27,6 +27,7 @@ make brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `.ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks)
 - `.config/ghostty/config` - Terminal emulator
 - `.config/bat/config` - Cat replacement with syntax highlighting
+- `.config/btop/btop.conf` - System monitor (tokyo-night theme)
 - `.config/starship.toml` - Shell prompt (no nerd fonts preset)
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
@@ -87,7 +88,7 @@ zoxide provides smart directory jumping via `z` command (learns from `cd` usage)
 | `.gitconfig`, `.gitignore_global` | `~/`                                       |
 | `.Brewfile`                       | `~/`                                       |
 | `.ripgreprc`                      | `~/`                                       |
-| `.config/{bat,ghostty}/*`         | `~/.config/`                               |
+| `.config/{bat,btop,ghostty}/*`    | `~/.config/`                               |
 | `.config/starship.toml`           | `~/.config/`                               |
 | `.config/Code/User/settings.json` | `~/Library/Application Support/Code/User/` |
 | `.claude/settings.json`           | `~/.claude/`                               |
@@ -98,6 +99,7 @@ zoxide provides smart directory jumping via `z` command (learns from `cd` usage)
 ```bash
 ghostty +show-config --default --docs      # Should show parsed config, no errors
 bat --list-themes | grep -i catppuccin     # Should show "Catppuccin Macchiato"
+btop --version                              # Should show version (config loads on start)
 starship config                             # Should show TOML config
 git config --list --show-origin             # Should show ~/.gitconfig as source
 ```

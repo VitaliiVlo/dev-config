@@ -38,10 +38,6 @@ alias grep='grep --color=auto'
 # Advanced aliases
 if command -v bat &>/dev/null; then alias cat='bat'; fi
 
-if command -v rg &>/dev/null; then
-  export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-fi
-
 # fd: show hidden, follow symlinks, exclude common noise (no config file support)
 # Defined outside conditional so fzf block can reference it
 _FD_OPTS="--hidden --follow --strip-cwd-prefix --exclude .git --exclude node_modules --exclude .venv --exclude __pycache__ --exclude vendor"
