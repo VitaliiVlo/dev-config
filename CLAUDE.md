@@ -14,7 +14,7 @@ make link         # Symlink configs to home directory
 make defaults     # Configure macOS Finder/Dock/screenshots (interactive)
 make brew-install # Install packages from Brewfile
 make brew-check   # Check for missing Brewfile packages
-make brew-export  # Export installed packages to Brewfile
+make brew-export  # Export installed packages to Brewfile (excludes Go deps, VSCode extensions)
 ```
 
 ## Repository Structure
@@ -34,6 +34,33 @@ make brew-export  # Export installed packages to Brewfile
 - `.claude/commands/` - Custom Claude Code slash commands
 - `.editorconfig` - Project-level editor config template (not symlinked, copy to projects)
 
+## Script Behavior
+
+**bootstrap.sh:**
+- Uses `ln -sf` (force symlink) - overwrites existing files
+- Creates parent directories as needed for nested configs
+- macOS-specific: VSCode path is `~/Library/Application Support/Code/User/`
+
+**bootstrap-defaults.sh:**
+- Interactive: prompts for each category (Finder, Dock, Screenshots)
+- Restarts affected processes (Finder, Dock, SystemUIServer)
+- Safe to re-run: idempotent `defaults write` commands
+
+## Shell Aliases
+
+Defined in `.zshrc`:
+
+| Alias  | Command                                |
+| ------ | -------------------------------------- |
+| `tf`   | `terraform`                            |
+| `kk`   | `kubectl`                              |
+| `kctx` | `kubectl config current-context`       |
+| `cat`  | `bat` (if installed)                   |
+| `ls`   | `eza --group-directories-first`        |
+| `ll`   | `eza` with git, timestamps, headers    |
+| `lt`   | `eza` tree view (2 levels)             |
+| `lr`   | `eza` sorted by modified (recent last) |
+
 ## Shell Tool Integration
 
 fd and ripgrep share consistent defaults for daily use:
@@ -45,7 +72,12 @@ fd and ripgrep share consistent defaults for daily use:
 | Exclusions      | `.git`, `node_modules`, `.venv`, `__pycache__`, `vendor` | Same           |
 | Config location | Alias in `.zshrc` (no config file support)               | `~/.ripgreprc` |
 
-fzf uses fd when available for faster fuzzy finding with bat preview.
+fzf uses fd when available for faster fuzzy finding with bat preview:
+- `Ctrl+T` - File search with bat preview
+- `Ctrl+R` - History search (no preview)
+- `Alt+C` - Directory search with eza tree preview
+
+zoxide provides smart directory jumping via `z` command (learns from `cd` usage).
 
 ## Symlink Destinations
 
@@ -64,10 +96,10 @@ fzf uses fd when available for faster fuzzy finding with bat preview.
 ## Config Validation
 
 ```bash
-ghostty +show-config --default --docs  # Validate ghostty config
-bat --list-themes                       # Verify bat theme exists
-starship config                         # Check starship config
-git config --list --show-origin         # Verify git config loaded
+ghostty +show-config --default --docs      # Should show parsed config, no errors
+bat --list-themes | grep -i catppuccin     # Should show "Catppuccin Macchiato"
+starship config                             # Should show TOML config
+git config --list --show-origin             # Should show ~/.gitconfig as source
 ```
 
 ## VSCode Settings
@@ -89,12 +121,20 @@ When modifying `.config/Code/User/settings.json`:
 - Panel alignment: justify (full window width)
 - Secondary side bar: right (`Cmd+Option+B`)
 
+## Applications List Maintenance
+
+When updating the Applications table in README.md:
+- Selection criteria are documented in README.md - follow those guidelines
+- Tools in **bold** are primary recommendations
+- CLI tools go in the separate CLI Tools section, not Applications
+
 ## Claude Code Settings
 
 The `.claude/settings.json` configures permissions:
 - **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web fetch from dev docs, `fd` and `rg` for file search
 - **Denied:** `.env`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
+- **Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
 
 See `.claude/settings.json` for the full permission list.
 

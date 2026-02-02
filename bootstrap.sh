@@ -38,6 +38,7 @@ ln -sf "$DOTFILES_DIR/.claude/commands/diff-audit.md" "$HOME/.claude/commands/di
 ln -sf "$DOTFILES_DIR/.claude/commands/commit.md" "$HOME/.claude/commands/commit.md"
 
 VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
+mkdir -p "$VSCODE_USER_DIR"
 ln -sf "$DOTFILES_DIR/.config/Code/User/settings.json" "$VSCODE_USER_DIR/settings.json"
 
 echo "✅ Symbolic links created successfully!"

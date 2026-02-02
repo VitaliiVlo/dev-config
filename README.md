@@ -57,28 +57,29 @@ Run `make defaults` to configure:
 - Dock (no recents, faster animation)
 - Screenshots (save to ~/Screenshots)
 
-## CLI Tools
-
-Managed via Homebrew Brewfile:
-```bash
-make brew-install  # Install from Brewfile
-make brew-check    # Check for missing packages
-make brew-export   # Update Brewfile from installed packages
-```
-
 ## Applications
+
+**Selection criteria:**
+- High quality, high performance, lightweight (not bloated)
+- Modern UI/UX, easy to start, feels native
+- Cross-platform (Linux + macOS), open source preferred
+- No account required, reasonable free tier
+- Popular and actively maintained (GitHub stars, recent commits)
+- Rising or stable trends preferred (avoid declining tools)
 
 Install via official installers or Homebrew Cask:
 
-| Category    | Apps                                             |
-| ----------- | ------------------------------------------------ |
-| Browser     | **Brave**, Chrome, Firefox                       |
-| Editor      | **VSCode**, Zed, GoLand, PyCharm                 |
-| Terminal    | **Ghostty**, Alacritty, Wezterm, Kitty           |
-| Database    | **Beekeeper Studio**, TablePlus, MongoDB Compass |
-| API Testing | **Bruno**, Insomnia, Yaak, HTTPie                |
-| Diagrams    | Excalidraw, tldraw, Mermaid, PlantUML            |
-| Containers  | Docker Desktop, Freelens, Headlamp, Telepresence |
+| Category    | Apps                                                         |
+| ----------- | ------------------------------------------------------------ |
+| Editor      | **VSCode**, Zed, JetBrains                                   |
+| Terminal    | **Ghostty**, Alacritty, Kitty, WezTerm                       |
+| Docker      | **OrbStack**, Colima, Podman Desktop, Rancher Desktop        |
+| Kubernetes  | **Headlamp**, Freelens, Telepresence, mirrord                |
+| Database    | **Beekeeper Studio**, TablePlus, DbGate, MongoDB Compass     |
+| API Testing | **Bruno**, Hoppscotch, Yaak, Insomnia                        |
+| Browser     | **Brave**, Firefox, Zen Browser, Chrome                      |
+| Diagrams    | **Excalidraw**, **Mermaid**, tldraw, D2                      |
+| Notes       | **Obsidian**, Logseq                                         |
 
 **VSCode setup:**
 - Enable settings sync with GitHub
@@ -89,6 +90,30 @@ Install via official installers or Homebrew Cask:
   - Panel alignment: justify
   - Secondary side bar: right
 
+## CLI Tools
+
+Installed via Homebrew formulae (see `.Brewfile`):
+
+```bash
+make brew-install  # Install from Brewfile
+make brew-check    # Check for missing packages
+make brew-export   # Update Brewfile (excludes Go deps, VSCode extensions)
+```
+
+| Tool | Description |
+| ---- | ----------- |
+| bat | `cat` with syntax highlighting |
+| eza | Modern `ls` replacement |
+| fd | Modern `find` replacement |
+| fzf | Fuzzy finder (Ctrl+T files, Ctrl+R history, Alt+C dirs) |
+| ripgrep | Fast `grep` replacement |
+| jq / yq | JSON / YAML processors |
+| zoxide | Smarter `cd` (learns from usage) |
+| starship | Cross-shell prompt |
+| httpie | HTTP client |
+| k9s | Kubernetes TUI |
+| kubectl | Kubernetes CLI |
+
 ## Claude Code
 
 The `.claude/settings.json` configures pre-approved and blocked permissions:
@@ -98,6 +123,8 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 **Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
 
 **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
+
+**Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
 
 **Custom commands:** `/readme`, `/audit`, `/diff-audit`, `/iterate`, `/commit`
 

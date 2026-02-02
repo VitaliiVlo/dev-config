@@ -61,12 +61,6 @@ else
   alias ll='ls -lah'
 fi
 
-# docker completions
-DOCKER_COMP_PATH="${HOME}/.docker/completions"
-if [[ -d "$DOCKER_COMP_PATH" ]]; then
-  FPATH="$DOCKER_COMP_PATH:$FPATH"
-fi
-
 # zsh-completions
 ZSH_COMP_PATH="$BREW_PREFIX/share/zsh-completions"
 if [[ -d "$ZSH_COMP_PATH" ]]; then
