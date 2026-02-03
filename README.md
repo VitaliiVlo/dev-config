@@ -60,27 +60,28 @@ Run `make defaults` to configure:
 
 ## Applications
 
-**Selection criteria:**
-- High quality, high performance, lightweight (not bloated)
-- Modern UI/UX, easy to start, feels native
-- Cross-platform (Linux + macOS), open source preferred
-- No account required, reasonable free tier
-- Popular and actively maintained (GitHub stars, recent commits)
-- Rising or stable trends preferred (avoid declining tools)
+**Selection criteria (ranked by priority):**
+1. Polished UX, feels native
+2. Lightweight and simple, not bloated with features
+3. Popular and actively maintained
+4. macOS available (Linux is a plus)
+5. Rising or stable trends (avoid declining tools)
+6. Reasonable price (free is a plus)
 
 Install via official installers or Homebrew Cask:
 
-| Category    | Apps                                                         |
-| ----------- | ------------------------------------------------------------ |
-| Editor      | **VSCode**, Zed, JetBrains                                   |
-| Terminal    | **Ghostty**, Alacritty, Kitty, WezTerm                       |
-| Docker      | **OrbStack**, Colima, Podman Desktop, Rancher Desktop        |
-| Kubernetes  | **Headlamp**, Freelens, Telepresence, mirrord                |
-| Database    | **Beekeeper Studio**, TablePlus, DbGate, MongoDB Compass     |
-| API Testing | **Bruno**, Hoppscotch, Yaak, Insomnia                        |
-| Browser     | **Brave**, Firefox, Zen Browser, Chrome                      |
-| Diagrams    | **Excalidraw**, **Mermaid**, tldraw, D2                      |
-| Notes       | **Obsidian**, Logseq                                         |
+| Category         | Apps                                                    |
+| ---------------- | ------------------------------------------------------- |
+| Editor           | **VSCode**, Zed, JetBrains                              |
+| Terminal         | **Ghostty**, Kitty, Alacritty, WezTerm                  |
+| Containers       | **OrbStack**, Colima, Podman Desktop, Rancher Desktop   |
+| Kubernetes       | **Headlamp**, Freelens, Aptakube, Telepresence, mirrord |
+| Database         | **TablePlus**, Beekeeper Studio, DbGate, MongoDB Compass |
+| API Testing      | **Bruno**, Hoppscotch, Insomnia, Yaak                   |
+| Browser          | **Brave**, Firefox, Zen Browser, Chrome                 |
+| Diagrams         | **Excalidraw**, tldraw, Mermaid, D2                     |
+| Notes            | **Obsidian**, Logseq, Simplenote, Bear, Apple Notes     |
+| Password Manager | **1Password**, Bitwarden, Proton Pass                   |
 
 **VSCode setup:**
 - Enable settings sync with GitHub

@@ -126,9 +126,11 @@ When modifying `.config/Code/User/settings.json`:
 ## Applications List Maintenance
 
 When updating the Applications table in README.md:
-- Selection criteria are documented in README.md - follow those guidelines
-- Tools in **bold** are primary recommendations
-- CLI tools go in the separate CLI Tools section, not Applications
+- Selection criteria are ranked by priority in README.md - follow those guidelines
+- Tools in **bold** are primary recommendations (one per category)
+- GUI apps go in Applications section, text-based/TUI tools go in CLI Tools section
+- Include 3-5 apps per category when possible
+- Verify apps are actively maintained and not discontinued before adding
 
 ## Claude Code Settings
 
