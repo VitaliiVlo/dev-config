@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt). Configured for **Go 1.25** and **Python 3.14** (version-specific paths in `.zprofile`).
+macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt). Configured for **Go 1.26** and **Python 3.14** (installed via Homebrew, see `.Brewfile`).
 
 ## Key Commands
 
@@ -22,12 +22,13 @@ make brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
 - `Makefile` - Make targets for common operations (`make help` for list)
+- `.Brewfile` - Homebrew package manifest (symlinked to `~/`)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
-- `.gitconfig` - Git settings (rebase workflow, SSH for GitHub, diff3 conflicts, rerere)
+- `.gitconfig` / `.gitignore_global` - Git settings (rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere)
 - `.ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks)
 - `.config/ghostty/config` - Terminal emulator
 - `.config/bat/config` - Cat replacement with syntax highlighting
-- `.config/btop/btop.conf` - System monitor (tokyo-night theme)
+- `.config/btop/btop.conf` - System monitor (tokyo-night theme, closest to Catppuccin)
 - `.config/starship.toml` - Shell prompt (no nerd fonts preset)
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
@@ -43,7 +44,7 @@ make brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - macOS-specific: VSCode path is `~/Library/Application Support/Code/User/`
 
 **bootstrap-defaults.sh:**
-- Interactive: prompts for each category (Finder, Dock, Screenshots)
+- Interactive: prompts for each category (Finder, .DS_Store cleanup, Dock, Screenshots)
 - Restarts affected processes (Finder, Dock, SystemUIServer)
 - Safe to re-run: idempotent `defaults write` commands
 
@@ -51,16 +52,19 @@ make brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 
 Defined in `.zshrc`:
 
-| Alias  | Command                                |
-| ------ | -------------------------------------- |
-| `tf`   | `terraform`                            |
-| `kk`   | `kubectl`                              |
-| `kctx` | `kubectl config current-context`       |
-| `cat`  | `bat` (if installed)                   |
-| `ls`   | `eza --group-directories-first`        |
-| `ll`   | `eza` with git, timestamps, headers    |
-| `lt`   | `eza` tree view (2 levels)             |
-| `lr`   | `eza` sorted by modified (recent last) |
+| Alias    | Command                                |
+| -------- | -------------------------------------- |
+| `python` | `python3`                              |
+| `pip`    | `pip3`                                 |
+| `tf`     | `terraform`                            |
+| `kk`     | `kubectl`                              |
+| `kctx`   | `kubectl config current-context`       |
+| `c`      | `clear`                                |
+| `cat`    | `bat` (if installed)                   |
+| `ls`     | `eza --group-directories-first`        |
+| `ll`     | `eza` with git, timestamps, headers    |
+| `lt`     | `eza` tree view (2 levels)             |
+| `lr`     | `eza` sorted by modified (recent last) |
 
 ## Shell Tool Integration
 
@@ -80,19 +84,30 @@ fzf uses fd when available for faster fuzzy finding with bat preview:
 
 zoxide provides smart directory jumping via `z` command (learns from `cd` usage).
 
-## Symlink Destinations
+## Git Aliases
 
-| Source                            | Destination                                |
-| --------------------------------- | ------------------------------------------ |
-| `.zshrc`, `.zprofile`             | `~/`                                       |
-| `.gitconfig`, `.gitignore_global` | `~/`                                       |
-| `.Brewfile`                       | `~/`                                       |
-| `.ripgreprc`                      | `~/`                                       |
-| `.config/{bat,btop,ghostty}/*`    | `~/.config/`                               |
-| `.config/starship.toml`           | `~/.config/`                               |
-| `.config/Code/User/settings.json` | `~/Library/Application Support/Code/User/` |
-| `.claude/settings.json`           | `~/.claude/`                               |
-| `.claude/commands/*`              | `~/.claude/commands/`                      |
+Defined in `.gitconfig`:
+
+| Alias  | Command                            |
+| ------ | ---------------------------------- |
+| `st`   | `status`                           |
+| `df`   | `diff`                             |
+| `dfs`  | `diff --staged`                    |
+| `cm`   | `commit -m`                        |
+| `ca`   | `commit --amend --no-edit`         |
+| `lg`   | `log --oneline --graph --decorate` |
+| `undo` | `reset --soft HEAD~1`              |
+| `wipe` | `reset --hard HEAD`                |
+
+## EditorConfig Conventions
+
+`.editorconfig` is a template for projects (not symlinked). Key indentation rules:
+
+| File type                                    | Style    |
+| -------------------------------------------- | -------- |
+| Default (including Python, Dockerfile, TOML) | 4 spaces |
+| JS, TS, JSON, YAML, HTML, CSS, SCSS, sh     | 2 spaces |
+| Go, Makefile                                 | tabs     |
 
 ## Config Validation
 
@@ -125,18 +140,19 @@ When modifying `.config/Code/User/settings.json`:
 
 ## Applications List Maintenance
 
-When updating the Applications table in README.md:
-- Selection criteria are ranked by priority in README.md - follow those guidelines
+When updating the Applications table in README.md, see the selection criteria documented there. Key guidelines:
+
 - Tools in **bold** are primary recommendations (one per category)
 - GUI apps go in Applications section, text-based/TUI tools go in CLI Tools section
 - Include 3-5 apps per category when possible
-- Verify apps are actively maintained and not discontinued before adding
+- Verify apps are actively maintained before adding
+- Research community sentiment (Reddit, GitHub issues, HN) before adding new tools
 
 ## Claude Code Settings
 
 The `.claude/settings.json` configures permissions:
-- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web fetch from dev docs, `fd` and `rg` for file search
-- **Denied:** `.env`, credentials, private keys, `.tfvars`
+- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web search, web fetch from dev docs, `fd` and `rg` for file search
+- **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
 - **Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
 

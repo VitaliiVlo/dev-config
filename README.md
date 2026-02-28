@@ -1,6 +1,6 @@
 # macOS Development Configuration Guide
 
-Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt). Configured for **Go 1.25** and **Python 3.14**.
+Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt). Configured for **Go 1.26** and **Python 3.14**.
 
 ## Quick Start
 
@@ -55,33 +55,47 @@ The following files are automatically symlinked by running `make link`:
 
 Run `make defaults` to configure:
 - Finder (list view, path bar, show extensions)
+- .DS_Store cleanup (removes from home directory)
 - Dock (no recents, faster animation)
 - Screenshots (save to ~/Screenshots)
 
 ## Applications
 
+**Prerequisites:**
+- macOS available (Linux is a plus)
+
 **Selection criteria (ranked by priority):**
 1. Polished UX, feels native
 2. Lightweight and simple, not bloated with features
 3. Popular and actively maintained
-4. macOS available (Linux is a plus)
+4. Trusted and appreciated in developer communities (Reddit, GitHub, HN)
 5. Rising or stable trends (avoid declining tools)
-6. Reasonable price (free is a plus)
+
+**Plus factors (not required):**
+- Reasonable price or free
+- Open source
+- Enterprise backing or official status
 
 Install via official installers or Homebrew Cask:
 
-| Category         | Apps                                                    |
-| ---------------- | ------------------------------------------------------- |
-| Editor           | **VSCode**, Zed, JetBrains                              |
-| Terminal         | **Ghostty**, Kitty, Alacritty, WezTerm                  |
-| Containers       | **OrbStack**, Colima, Podman Desktop, Rancher Desktop   |
-| Kubernetes       | **Headlamp**, Freelens, Aptakube, Telepresence, mirrord |
-| Database         | **TablePlus**, Beekeeper Studio, DbGate, MongoDB Compass |
-| API Testing      | **Bruno**, Hoppscotch, Insomnia, Yaak                   |
-| Browser          | **Brave**, Firefox, Zen Browser, Chrome                 |
-| Diagrams         | **Excalidraw**, tldraw, Mermaid, D2                     |
-| Notes            | **Obsidian**, Logseq, Simplenote, Bear, Apple Notes     |
-| Password Manager | **1Password**, Bitwarden, Proton Pass                   |
+| Category              | Apps                                                             |
+| --------------------- | ---------------------------------------------------------------- |
+| Editor                | **VSCode**, Zed, JetBrains                                       |
+| Terminal              | **Ghostty**, Kitty, Alacritty                                    |
+| Containers            | **OrbStack**, Colima, Podman Desktop                             |
+| Kubernetes            | **Headlamp**, Freelens, Aptakube                                 |
+| K8s Dev Tunnels       | **Telepresence**, mirrord                                        |
+| Database              | **TablePlus**, Beekeeper Studio, Postico, MongoDB Compass       |
+| API Testing           | **Bruno**, Yaak, Hoppscotch, Insomnia                            |
+| Browser               | **Brave**, Firefox, Zen Browser, Chrome                          |
+| Ad Blocker (Chromium) | **uBlock Origin Lite**, AdGuard, Ghostery                        |
+| Ad Blocker (Safari)   | **wBlock**, Wipr 2, 1Blocker, AdGuard                            |
+| Archiver              | **Keka**, The Unarchiver                                         |
+| VPN                   | **Mullvad**, Proton VPN                                          |
+| Diagrams              | **Excalidraw**, tldraw, Mermaid, D2                              |
+| Notes                 | **Apple Notes**, Bear, Obsidian                                  |
+| Password Manager      | **Apple Passwords**, 1Password, Bitwarden                        |
+| macOS Tools           | **Raycast**, Rectangle, Ice, Middle                              |
 
 **VSCode setup:**
 - Enable settings sync with GitHub
@@ -117,6 +131,9 @@ make brew-export   # Update Brewfile (excludes Go deps, VSCode extensions)
 | httpie | HTTP client |
 | k9s | Kubernetes TUI |
 | kubectl | Kubernetes CLI |
+| zsh-autosuggestions | Fish-like command suggestions |
+| zsh-completions | Additional shell completions |
+| zsh-syntax-highlighting | Command syntax highlighting |
 
 ## Casks
 
@@ -135,7 +152,7 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 
 **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Rust/Terraform/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
 
-**Blocked:** `.env` files, credentials, secrets, private keys, `.tfvars`
+**Blocked:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 
 **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
 

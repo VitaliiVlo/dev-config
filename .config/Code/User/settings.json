@@ -1,10 +1,11 @@
 {
     /* Theme */
     "workbench.colorTheme": "Catppuccin Macchiato",
-    "catppuccin.accentColor": "mauve",
+    "catppuccin.accentColor": "teal",
     "catppuccin.italicComments": true,
     "catppuccin.italicKeywords": true,
     "workbench.iconTheme": "symbols",
+    "workbench.productIconTheme": "fluent-icons",
     "workbench.list.smoothScrolling": true,
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.startupEditor": "none",
