@@ -10,14 +10,23 @@
 	safecrlf = warn
 	excludesfile = ~/.gitignore_global
 	editor = code --wait
-	pager = less -FRX
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	dark = true
+	line-numbers = true
+	hyperlinks = true
+	syntax-theme = Catppuccin Macchiato
 
 [fetch]
 	prune = true
 
 [pull]
 	rebase = true
-	ff = only
 
 [rebase]
 	autostash = true

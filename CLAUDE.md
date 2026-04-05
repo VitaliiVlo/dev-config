@@ -4,27 +4,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt). Configured for **Go 1.26** and **Python 3.14** (installed via Homebrew, see `.Brewfile`).
+macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt). Configured for **Go 1.26** (via Homebrew), **Python** (via `uv`), and **Node.js** (via `fnm`).
 
 ## Key Commands
 
 ```bash
-make install      # Full setup: symlink configs and install packages
-make link         # Symlink configs to home directory
-make defaults     # Configure macOS Finder/Dock/screenshots (interactive)
-make brew-install # Install packages from Brewfile
-make brew-check   # Check for missing Brewfile packages
-make brew-export  # Export installed packages to Brewfile (excludes Go deps, VSCode extensions)
+just install      # Full setup: symlink configs and install packages
+just link         # Symlink configs to home directory
+just defaults     # Configure macOS Finder/Dock/screenshots (interactive)
+just brew-install # Install packages from Brewfile
+just brew-check   # Check for missing Brewfile packages
+just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSCode extensions)
 ```
 
 ## Repository Structure
 
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
-- `Makefile` - Make targets for common operations (`make help` for list)
+- `justfile` - Task runner recipes (`just` for list)
 - `.Brewfile` - Homebrew package manifest (symlinked to `~/`)
-- `.zshrc` / `.zprofile` - Zsh config (starship prompt, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
-- `.gitconfig` / `.gitignore_global` - Git settings (rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere)
+- `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
+- `.gitconfig` / `.gitignore_global` - Git settings (delta pager, rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere)
 - `.ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks)
 - `.config/ghostty/config` - Terminal emulator
 - `.config/bat/config` - Cat replacement with syntax highlighting
@@ -39,11 +39,13 @@ make brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 ## Script Behavior
 
 **bootstrap.sh:**
+
 - Uses `ln -sf` (force symlink) - overwrites existing files
 - Creates parent directories as needed for nested configs
 - macOS-specific: VSCode path is `~/Library/Application Support/Code/User/`
 
 **bootstrap-defaults.sh:**
+
 - Interactive: prompts for each category (Finder, .DS_Store cleanup, Dock, Screenshots)
 - Restarts affected processes (Finder, Dock, SystemUIServer)
 - Safe to re-run: idempotent `defaults write` commands
@@ -59,6 +61,7 @@ Defined in `.zshrc`:
 | `tf`     | `terraform`                            |
 | `kk`     | `kubectl`                              |
 | `kctx`   | `kubectl config current-context`       |
+| `lzg`    | `lazygit`                              |
 | `c`      | `clear`                                |
 | `cat`    | `bat` (if installed)                   |
 | `ls`     | `eza --group-directories-first`        |
@@ -78,11 +81,18 @@ fd and ripgrep share consistent defaults for daily use:
 | Config location | Alias in `.zshrc` (no config file support)               | `~/.ripgreprc` |
 
 fzf uses fd when available for faster fuzzy finding with bat preview:
+
 - `Ctrl+T` - File search with bat preview
 - `Ctrl+R` - History search (no preview)
 - `Alt+C` - Directory search with eza tree preview
 
 zoxide provides smart directory jumping via `z` command (learns from `cd` usage).
+
+fnm (Fast Node Manager) auto-switches Node versions via `.node-version` or `.nvmrc` when entering a directory (`--use-on-cd`).
+
+uv manages Python versions and project dependencies. System `python3` comes from Xcode CLT or brew; `uv` handles per-project venvs and global CLI tools (`uv tool install`). Shell completions are loaded in `.zshrc`.
+
+git-delta is configured as the git pager (`.gitconfig`) with Catppuccin Macchiato syntax theme. It uses bat's theme engine — the theme is available because bat has it installed.
 
 ## Git Aliases
 
@@ -106,34 +116,40 @@ Defined in `.gitconfig`:
 | File type                                    | Style    |
 | -------------------------------------------- | -------- |
 | Default (including Python, Dockerfile, TOML) | 4 spaces |
-| JS, TS, JSON, YAML, HTML, CSS, SCSS, sh     | 2 spaces |
-| Go, Makefile                                 | tabs     |
+| JS, TS, JSON, YAML, HTML, CSS, SCSS, sh      | 2 spaces |
+| Go, Makefile, justfile                       | tabs     |
 
 ## Config Validation
 
 ```bash
 ghostty +show-config --default --docs      # Should show parsed config, no errors
 bat --list-themes | grep -i catppuccin     # Should show "Catppuccin Macchiato"
+delta --list-syntax-themes | grep -i catppuccin  # Should show Catppuccin themes
 btop --version                              # Should show version (config loads on start)
 starship config                             # Should show TOML config
 git config --list --show-origin             # Should show ~/.gitconfig as source
+fnm list                                    # Should show installed Node versions
+uv python list --only-installed             # Should show installed Python versions
 ```
 
 ## VSCode Settings
 
 When modifying `.config/Code/User/settings.json`:
+
 - Compare against `defaultSettings.jsonc` to check if a setting matches the default (redundant)
 - Settings use JSONC format (JSON with comments and trailing commas allowed)
 - Configured for Go, Python, and Node.js backend development
 - Uses Ruff for Python formatting/linting
 
 **Layout (settings.json):**
+
 - `window.commandCenter`: false (no project name in title bar)
 - `workbench.navigationControl.enabled`: false (no back/forward buttons)
 - `workbench.layoutControl.type`: "menu" (dropdown instead of toggles)
 - `workbench.activityBar.location`: bottom (compact, under primary side bar)
 
 **Layout (UI only, View → Appearance / Customize Layout):**
+
 - Quick input position: center
 - Panel alignment: justify (full window width)
 - Secondary side bar: right (`Cmd+Option+B`)
@@ -151,6 +167,7 @@ When updating the Applications table in README.md, see the selection criteria do
 ## Claude Code Settings
 
 The `.claude/settings.json` configures permissions:
+
 - **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web search, web fetch from dev docs, `fd` and `rg` for file search
 - **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
@@ -173,5 +190,6 @@ Custom slash commands in `.claude/commands/`:
 **Workflow:** `/audit` or `/diff-audit` → `/iterate` to fix findings → `/commit`
 
 **Notes:**
+
 - `/diff-audit main` falls back to `master` if `main` doesn't exist; specify other branches directly (e.g., `/diff-audit develop`)
 - `/audit` and `/iterate` support combined filters: `/audit security ./src`, `/iterate high ./pkg`

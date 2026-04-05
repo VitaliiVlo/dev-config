@@ -33,6 +33,7 @@ alias tf='terraform'
 alias kk='kubectl'
 alias c='clear'
 alias kctx='kubectl config current-context'
+alias lzg='lazygit'
 
 # Advanced aliases
 if command -v bat &>/dev/null; then alias cat='bat'; fi
@@ -90,6 +91,16 @@ if command -v fzf &>/dev/null; then
   export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range=:500 {} 2>/dev/null || cat {}'"
   export FZF_ALT_C_OPTS="--preview 'eza $_EZA_TREE_OPTS --color=always {} 2>/dev/null || ls -la {}'"
   eval "$(fzf --zsh)"
+fi
+
+# fnm (Fast Node Manager)
+if command -v fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
+
+# uv (Python package manager) completions
+if command -v uv &>/dev/null; then
+  eval "$(uv generate-shell-completion zsh)"
 fi
 
 # Zoxide (smarter cd)

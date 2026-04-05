@@ -12,3 +12,9 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # Go: only what Go doesn't provide by default
 export GOPRIVATE="github.com/vitalii-vlo/*"
 export PATH="$HOME/go/bin:$PATH"
+
+# OrbStack
+ORBSTACK_INIT="$HOME/.orbstack/shell/init.zsh"
+if [[ -f "$ORBSTACK_INIT" ]]; then
+  source "$ORBSTACK_INIT"
+fi
