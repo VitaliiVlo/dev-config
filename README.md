@@ -45,6 +45,7 @@ The following files are automatically symlinked by running `just link`:
 - `.config/bat/config` - Bat configuration
 - `.config/btop/btop.conf` - Btop configuration
 - `.config/Code/User/settings.json` - VSCode configuration
+- `.codex/config.toml` - Codex CLI config
 - `.claude/settings.json` - Claude Code permissions
 
 **Reference files (not symlinked):**
@@ -119,7 +120,11 @@ Installed via Homebrew formulae and casks (see `.Brewfile`):
 ```bash
 just brew-install  # Install from Brewfile
 just brew-check    # Check for missing packages
+just brew-outdated # Show outdated packages
+just brew-update   # Update and upgrade all packages
+just brew-cleanup  # Clean up old versions and cache
 just brew-export   # Update Brewfile (excludes Go deps, VSCode extensions)
+just versions      # Show installed Go, Node, Python versions
 ```
 
 | Tool                    | Description                                             |
@@ -185,5 +190,5 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 
 **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
 
-**Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
+**Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management
 

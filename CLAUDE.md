@@ -12,8 +12,12 @@ macOS dotfiles repository for setting up a development environment. All configs 
 just install      # Full setup: symlink configs and install packages
 just link         # Symlink configs to home directory
 just defaults     # Configure macOS Finder/Dock/screenshots (interactive)
+just versions     # Show installed Go, Node, Python versions
 just brew-install # Install packages from Brewfile
 just brew-check   # Check for missing Brewfile packages
+just brew-outdated # Show outdated Homebrew packages
+just brew-update  # Update and upgrade all Homebrew packages
+just brew-cleanup # Clean up old versions and cache
 just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSCode extensions)
 ```
 
@@ -33,6 +37,7 @@ just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
+- `.codex/config.toml` - Codex CLI config (model, sandbox, profiles)
 - `.editorconfig` - Project-level editor config template (not symlinked, copy to projects)
 
 ## Script Behavior
@@ -170,7 +175,7 @@ The `.claude/settings.json` configures permissions:
 - **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web search, web fetch from dev docs, `fd` and `rg` for file search
 - **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
-- **Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
+- **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management
 
 See `.claude/settings.json` for the full permission list.
 
