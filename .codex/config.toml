@@ -1,0 +1,84 @@
+# Model
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+plan_mode_reasoning_effort = "xhigh"
+
+# Security & Sandbox
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+# Behavior
+personality = "friendly"
+file_opener = "vscode"
+web_search = "cached"
+project_root_markers = [".git", ".codex-root"]
+project_doc_fallback_filenames = ["CLAUDE.md"]
+commit_attribution = ""
+
+# Sandbox
+[sandbox_workspace_write]
+network_access = false
+exclude_tmpdir_env_var = false
+exclude_slash_tmp = false
+
+# Features
+[features]
+fast_mode = false
+personality = true
+prevent_idle_sleep = true
+
+# UI
+[tui]
+show_tooltips = true
+notifications = true
+notification_method = "auto"
+animations = true
+theme = "catppuccin-macchiato"
+status_line = [
+    "model-with-reasoning",
+    "current-dir",
+    "git-branch",
+    "context-remaining",
+    "five-hour-limit",
+    "weekly-limit",
+]
+terminal_title = ["spinner", "thread", "project", "app-name"]
+
+# Data & Telemetry
+[history]
+persistence = "save-all"
+# Cap saved session history at 100 MiB so it does not grow without bound.
+max_bytes = 104857600
+
+[analytics]
+enabled = false
+
+[feedback]
+enabled = false
+
+# Profiles
+[profiles.quick]
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "medium"
+
+[profiles.deep]
+model = "gpt-5.4"
+model_reasoning_effort = "xhigh"
+plan_mode_reasoning_effort = "xhigh"
+
+[profiles.research]
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+plan_mode_reasoning_effort = "xhigh"
+web_search = "live"
+
+# Integrations
+[mcp_servers.atlassian]
+url = "https://mcp.atlassian.com/v1/mcp"
+
+[mcp_servers.datadog]
+url = "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp"
+
+[plugins."slack@openai-curated"]
+enabled = true
