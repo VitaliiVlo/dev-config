@@ -46,7 +46,6 @@ The following files are automatically symlinked by running `just link`:
 - `.config/btop/btop.conf` - Btop configuration
 - `.config/Code/User/settings.json` - VSCode configuration
 - `.claude/settings.json` - Claude Code permissions
-- `.claude/commands/` - Claude Code custom slash commands
 
 **Reference files (not symlinked):**
 
@@ -188,6 +187,3 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 
 **Enabled plugins:** context7, pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev
 
-**Custom commands:** `/readme`, `/audit`, `/diff-audit`, `/iterate`, `/commit`
-
-**Workflow:** `/audit` or `/diff-audit` → `/iterate` → `/commit` (see CLAUDE.md for details)

@@ -36,12 +36,6 @@ ln -sf "$DOTFILES_DIR/.codex/config.toml" "$HOME/.codex/config.toml"
 mkdir -p "$HOME/.claude"
 ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 
-mkdir -p "$HOME/.claude/commands"
-ln -sf "$DOTFILES_DIR/.claude/commands/readme.md" "$HOME/.claude/commands/readme.md"
-ln -sf "$DOTFILES_DIR/.claude/commands/iterate.md" "$HOME/.claude/commands/iterate.md"
-ln -sf "$DOTFILES_DIR/.claude/commands/audit.md" "$HOME/.claude/commands/audit.md"
-ln -sf "$DOTFILES_DIR/.claude/commands/diff-audit.md" "$HOME/.claude/commands/diff-audit.md"
-ln -sf "$DOTFILES_DIR/.claude/commands/commit.md" "$HOME/.claude/commands/commit.md"
 
 VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
 mkdir -p "$VSCODE_USER_DIR"

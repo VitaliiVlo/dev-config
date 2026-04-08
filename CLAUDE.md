@@ -33,7 +33,6 @@ just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
-- `.claude/commands/` - Custom Claude Code slash commands
 - `.editorconfig` - Project-level editor config template (not symlinked, copy to projects)
 
 ## Script Behavior
@@ -175,21 +174,3 @@ The `.claude/settings.json` configures permissions:
 
 See `.claude/settings.json` for the full permission list.
 
-## Claude Code Commands
-
-Custom slash commands in `.claude/commands/`:
-
-| Command       | Description                         | Arguments                                                  |
-| ------------- | ----------------------------------- | ---------------------------------------------------------- |
-| `/readme`     | Analyze repo and update README      | `[sections]` (e.g., `installation`, `usage api`)           |
-| `/audit`      | Full codebase audit                 | category, `./path`, or combined (e.g., `security ./pkg`)   |
-| `/diff-audit` | Review changes for bugs             | `staged`, `modified`, `main`, `main+local`, `#<PR>` or URL |
-| `/iterate`    | Step through findings with approval | category, severity (`high`), `./path`, or combined         |
-| `/commit`     | Analyze changes and commit          | `staged`, `modified`, `all`, `<file>`                      |
-
-**Workflow:** `/audit` or `/diff-audit` → `/iterate` to fix findings → `/commit`
-
-**Notes:**
-
-- `/diff-audit main` falls back to `master` if `main` doesn't exist; specify other branches directly (e.g., `/diff-audit develop`)
-- `/audit` and `/iterate` support combined filters: `/audit security ./src`, `/iterate high ./pkg`
