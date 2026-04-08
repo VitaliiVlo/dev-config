@@ -41,6 +41,7 @@ just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.codex/AGENTS.md` - Codex user-level instructions (symlinked to `~/`)
 - `.codex/config.toml` - Codex CLI config (model, sandbox, profiles)
+- `.codex/rules/` - Codex permission rules: `git`, `dev`, `shell`, `infra` (symlinked to `~/`)
 
 ## Script Behavior
 

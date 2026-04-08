@@ -1,0 +1,12 @@
+# Go
+prefix_rule(pattern=["go", ["build", "test", "vet", "list", "env", "doc"]], decision="allow")
+prefix_rule(pattern=["golangci-lint"], decision="allow")
+
+# Python
+prefix_rule(pattern=[["pytest", "pyright"]], decision="allow")
+prefix_rule(pattern=["ruff", "check"], decision="allow")
+
+# Node
+prefix_rule(pattern=["npm", "run", ["build", "test", "lint", "typecheck"]], decision="allow")
+prefix_rule(pattern=[["vitest", "jest", "eslint"]], decision="allow")
+prefix_rule(pattern=["tsc", "--noEmit"], decision="allow")

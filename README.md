@@ -47,6 +47,7 @@ The following files are automatically symlinked by running `just link`:
 - `.config/Code/User/settings.json` - VSCode configuration
 - `.codex/config.toml` - Codex CLI config
 - `.codex/AGENTS.md` - Codex user-level instructions
+- `.codex/rules/` - Codex permission rules (git, dev, shell, infra)
 - `.config/ccstatusline/settings.json` - Claude Code status line layout
 - `.claude/settings.json` - Claude Code permissions
 - `.claude/CLAUDE.md` - Claude Code user-level instructions

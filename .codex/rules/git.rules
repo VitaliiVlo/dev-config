@@ -1,0 +1,10 @@
+# Git read-only
+prefix_rule(pattern=["git", ["status", "diff", "log", "show", "blame", "branch", "remote", "tag", "rev-parse"]], decision="allow")
+prefix_rule(pattern=["git", "stash", "list"], decision="allow")
+
+# GitHub CLI read-only
+prefix_rule(pattern=["gh", "pr", ["view", "list", "diff", "checks", "status"]], decision="allow")
+prefix_rule(pattern=["gh", "repo", "view"], decision="allow")
+prefix_rule(pattern=["gh", "release", ["view", "list"]], decision="allow")
+prefix_rule(pattern=["gh", "run", ["view", "list"]], decision="allow")
+prefix_rule(pattern=["gh", "search"], decision="allow")

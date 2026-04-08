@@ -37,6 +37,12 @@ mkdir -p "$HOME/.codex"
 ln -sf "$DOTFILES_DIR/.codex/config.toml" "$HOME/.codex/config.toml"
 ln -sf "$DOTFILES_DIR/.codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
 
+mkdir -p "$HOME/.codex/rules"
+ln -sf "$DOTFILES_DIR/.codex/rules/git.rules" "$HOME/.codex/rules/git.rules"
+ln -sf "$DOTFILES_DIR/.codex/rules/dev.rules" "$HOME/.codex/rules/dev.rules"
+ln -sf "$DOTFILES_DIR/.codex/rules/shell.rules" "$HOME/.codex/rules/shell.rules"
+ln -sf "$DOTFILES_DIR/.codex/rules/infra.rules" "$HOME/.codex/rules/infra.rules"
+
 mkdir -p "$HOME/.claude"
 ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 ln -sf "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
