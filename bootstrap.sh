@@ -30,6 +30,9 @@ ln -sf "$DOTFILES_DIR/.config/bat/config" "$HOME/.config/bat/config"
 mkdir -p "$HOME/.config/btop"
 ln -sf "$DOTFILES_DIR/.config/btop/btop.conf" "$HOME/.config/btop/btop.conf"
 
+mkdir -p "$HOME/.config/ccstatusline"
+ln -sf "$DOTFILES_DIR/.config/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
+
 mkdir -p "$HOME/.codex"
 ln -sf "$DOTFILES_DIR/.codex/config.toml" "$HOME/.codex/config.toml"
 

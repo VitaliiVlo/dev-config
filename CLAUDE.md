@@ -36,6 +36,7 @@ just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `.config/starship.toml` - Shell prompt (no nerd fonts preset)
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
+- `.config/ccstatusline/settings.json` - Claude Code status line layout (via ccstatusline)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.codex/config.toml` - Codex CLI config (model, sandbox, profiles)
 
@@ -165,6 +166,7 @@ The `.claude/settings.json` configures permissions:
 - **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
 - **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management
+- **Status line:** Custom layout via `ccstatusline` (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
 
 See `.claude/settings.json` for the full permission list.
 

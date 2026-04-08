@@ -46,6 +46,7 @@ The following files are automatically symlinked by running `just link`:
 - `.config/btop/btop.conf` - Btop configuration
 - `.config/Code/User/settings.json` - VSCode configuration
 - `.codex/config.toml` - Codex CLI config
+- `.config/ccstatusline/settings.json` - Claude Code status line layout
 - `.claude/settings.json` - Claude Code permissions
 
 **Reference files (not symlinked):**
@@ -188,6 +189,8 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 **Blocked:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 
 **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
+
+**Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) showing model, thinking effort, cwd, git branch, context %, session/weekly usage, and cost
 
 **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management
 

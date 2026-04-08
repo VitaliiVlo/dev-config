@@ -123,5 +123,10 @@
   "prefersReducedMotion": false,
   "feedbackSurveyRate": 0,
   "cleanupPeriodDays": 60,
-  "autoUpdatesChannel": "stable"
+  "autoUpdatesChannel": "stable",
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  }
 }
