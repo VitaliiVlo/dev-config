@@ -45,6 +45,7 @@ The following files are automatically symlinked by running `just link`:
 - `.config/bat/config` - Bat configuration
 - `.config/btop/btop.conf` - Btop configuration
 - `.config/Code/User/settings.json` - VSCode configuration
+- `.config/gh/config.yml` - GitHub CLI settings
 - `.codex/config.toml` - Codex CLI config
 - `.codex/AGENTS.md` - Codex user-level instructions
 - `.codex/rules/` - Codex permission rules (git, dev, shell, infra)

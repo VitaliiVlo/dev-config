@@ -33,6 +33,9 @@ ln -sf "$DOTFILES_DIR/.config/btop/btop.conf" "$HOME/.config/btop/btop.conf"
 mkdir -p "$HOME/.config/ccstatusline"
 ln -sf "$DOTFILES_DIR/.config/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 
+mkdir -p "$HOME/.config/gh"
+ln -sf "$DOTFILES_DIR/.config/gh/config.yml" "$HOME/.config/gh/config.yml"
+
 mkdir -p "$HOME/.codex"
 ln -sf "$DOTFILES_DIR/.codex/config.toml" "$HOME/.codex/config.toml"
 ln -sf "$DOTFILES_DIR/.codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
