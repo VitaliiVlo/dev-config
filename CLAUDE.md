@@ -38,7 +38,6 @@ just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.codex/config.toml` - Codex CLI config (model, sandbox, profiles)
-- `.editorconfig` - Project-level editor config template (not symlinked, copy to projects)
 
 ## Script Behavior
 
@@ -112,16 +111,6 @@ Defined in `.gitconfig`:
 | `lg`   | `log --oneline --graph --decorate` |
 | `undo` | `reset --soft HEAD~1`              |
 | `wipe` | `reset --hard HEAD`                |
-
-## EditorConfig Conventions
-
-`.editorconfig` is a template for projects (not symlinked). Key indentation rules:
-
-| File type                                    | Style    |
-| -------------------------------------------- | -------- |
-| Default (including Python, Dockerfile, TOML) | 4 spaces |
-| JS, TS, JSON, YAML, HTML, CSS, SCSS, sh      | 2 spaces |
-| Go, Makefile, justfile                       | tabs     |
 
 ## Config Validation
 

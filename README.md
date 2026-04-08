@@ -51,7 +51,6 @@ The following files are automatically symlinked by running `just link`:
 **Reference files (not symlinked):**
 
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults for comparing settings
-- `.editorconfig` - Editor config template (copy to projects)
 
 ## macOS Settings
 
