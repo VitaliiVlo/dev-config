@@ -35,9 +35,11 @@ ln -sf "$DOTFILES_DIR/.config/ccstatusline/settings.json" "$HOME/.config/ccstatu
 
 mkdir -p "$HOME/.codex"
 ln -sf "$DOTFILES_DIR/.codex/config.toml" "$HOME/.codex/config.toml"
+ln -sf "$DOTFILES_DIR/.codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
 
 mkdir -p "$HOME/.claude"
 ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+ln -sf "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
 
 VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"

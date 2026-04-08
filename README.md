@@ -46,8 +46,10 @@ The following files are automatically symlinked by running `just link`:
 - `.config/btop/btop.conf` - Btop configuration
 - `.config/Code/User/settings.json` - VSCode configuration
 - `.codex/config.toml` - Codex CLI config
+- `.codex/AGENTS.md` - Codex user-level instructions
 - `.config/ccstatusline/settings.json` - Claude Code status line layout
 - `.claude/settings.json` - Claude Code permissions
+- `.claude/CLAUDE.md` - Claude Code user-level instructions
 
 **Reference files (not symlinked):**
 

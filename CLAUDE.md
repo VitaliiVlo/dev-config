@@ -37,7 +37,9 @@ just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.config/ccstatusline/settings.json` - Claude Code status line layout (via ccstatusline)
+- `.claude/CLAUDE.md` - Claude Code user-level instructions (symlinked to `~/`)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
+- `.codex/AGENTS.md` - Codex user-level instructions (symlinked to `~/`)
 - `.codex/config.toml` - Codex CLI config (model, sandbox, profiles)
 
 ## Script Behavior
