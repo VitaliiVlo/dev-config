@@ -1,0 +1,6 @@
+cask "bruno"
+cask "headlamp"
+cask "mongodb-compass"
+cask "orbstack"
+cask "slack"
+cask "tailscale-app"

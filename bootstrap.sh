@@ -15,7 +15,6 @@ ln -sf "$DOTFILES_DIR/.gitignore_global" "$HOME/.gitignore_global"
 ln -sf "$DOTFILES_DIR/.zprofile" "$HOME/.zprofile"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
-ln -sf "$DOTFILES_DIR/.Brewfile" "$HOME/.Brewfile"
 ln -sf "$DOTFILES_DIR/.ripgreprc" "$HOME/.ripgreprc"
 
 mkdir -p "$HOME/.config"

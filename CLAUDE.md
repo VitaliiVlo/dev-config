@@ -9,16 +9,18 @@ macOS dotfiles repository for setting up a development environment. All configs 
 ## Key Commands
 
 ```bash
-just install      # Full setup: symlink configs and install packages
-just link         # Symlink configs to home directory
-just defaults     # Configure macOS Finder/Dock/screenshots (interactive)
-just versions     # Show installed Go, Node, Python versions
-just brew-install # Install packages from Brewfile
-just brew-check   # Check for missing Brewfile packages
-just brew-outdated # Show outdated Homebrew packages
-just brew-update  # Update and upgrade all Homebrew packages
-just brew-cleanup # Clean up old versions and cache
-just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSCode extensions)
+just install           # Full setup: symlink configs and install packages
+just link              # Symlink configs to home directory
+just defaults          # Configure macOS Finder/Dock/screenshots (interactive)
+just versions          # Show installed Go, Node, Python versions
+just brew-install      # Install all packages (base + dev)
+just brew-install-base # Install base packages only
+just brew-install-dev  # Install dev packages only
+just brew-check        # Check for missing Brewfile packages
+just brew-outdated     # Show outdated Homebrew packages
+just brew-update       # Update and upgrade all Homebrew packages
+just brew-cleanup      # Clean up old versions and cache
+just brew-export       # Export installed packages to .Brewfile.base (excludes Go deps, VSCode extensions)
 ```
 
 ## Repository Structure
@@ -26,7 +28,8 @@ just brew-export  # Export installed packages to Brewfile (excludes Go deps, VSC
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
 - `justfile` - Task runner recipes (`just` for list)
-- `.Brewfile` - Homebrew package manifest (symlinked to `~/`)
+- `.Brewfile.base` - Base packages: shell essentials, fonts, daily-driver apps
+- `.Brewfile.dev` - Dev packages: work-specific tooling, IDEs, infra
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
 - `.gitconfig` / `.gitignore_global` - Git settings (delta pager, rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere)
 - `.ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks)

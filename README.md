@@ -38,7 +38,6 @@ The following files are automatically symlinked by running `just link`:
 - `.zshrc` - Shell configuration and aliases
 - `.gitconfig` - Git user and global settings
 - `.gitignore_global` - Global gitignore
-- `.Brewfile` - Global Brewfile
 - `.ripgreprc` - Ripgrep defaults (smart-case, hidden files)
 - `.config/starship.toml` - Starship configuration
 - `.config/ghostty/config` - Ghostty configuration
@@ -53,8 +52,10 @@ The following files are automatically symlinked by running `just link`:
 - `.claude/settings.json` - Claude Code permissions
 - `.claude/CLAUDE.md` - Claude Code user-level instructions
 
-**Reference files (not symlinked):**
+**Not symlinked (used directly from repo):**
 
+- `.Brewfile.base` - Base Brewfile (shell, fonts, daily-driver apps)
+- `.Brewfile.dev` - Dev Brewfile (work-specific tooling, IDEs, infra)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
 ## macOS Settings
@@ -120,20 +121,23 @@ Install via official installers or Homebrew Cask:
 
 ## CLI Tools
 
-Installed via Homebrew formulae and casks (see `.Brewfile`):
+Installed via Homebrew formulae and casks (see `.Brewfile.base` and `.Brewfile.dev`):
 
 ```bash
-just brew-install  # Install from Brewfile
-just brew-check    # Check for missing packages
-just brew-outdated # Show outdated packages
-just brew-update   # Update and upgrade all packages
-just brew-cleanup  # Clean up old versions and cache
-just brew-export   # Update Brewfile (excludes Go deps, VSCode extensions)
-just versions      # Show installed Go, Node, Python versions
+just brew-install      # Install all packages (base + dev)
+just brew-install-base # Install base packages only
+just brew-install-dev  # Install dev packages only
+just brew-check        # Check for missing packages
+just brew-outdated     # Show outdated packages
+just brew-update       # Update and upgrade all packages
+just brew-cleanup      # Clean up old versions and cache
+just brew-export       # Export installed packages to .Brewfile.base
+just versions          # Show installed Go, Node, Python versions
 ```
 
 | Tool                    | Description                                             |
 | ----------------------- | ------------------------------------------------------- |
+| awscli                  | AWS command-line interface                               |
 | bat                     | `cat` with syntax highlighting                          |
 | btop                    | System monitor TUI (modern `htop`)                      |
 | eza                     | Modern `ls` replacement                                 |
@@ -147,6 +151,7 @@ just versions      # Show installed Go, Node, Python versions
 | k9s                     | Kubernetes TUI                                          |
 | kubectl                 | Kubernetes CLI                                          |
 | lazygit                 | Git TUI                                                 |
+| pgcli                   | PostgreSQL CLI with autocomplete                        |
 | ripgrep                 | Fast `grep` replacement                                 |
 | starship                | Cross-shell prompt                                      |
 | uv                      | Python version/package manager                          |
@@ -159,30 +164,36 @@ just versions      # Show installed Go, Node, Python versions
 
 GUI applications and fonts installed via Homebrew Cask:
 
+### Base Casks
+
 | Cask                | Description                               |
 | ------------------- | ----------------------------------------- |
-| 1password           | Password manager                          |
 | balenaetcher        | USB flash tool                            |
-| bitwarden           | Password manager (open source)            |
-| bruno               | API testing client                        |
 | claude-code         | Anthropic Claude CLI                      |
 | codex               | OpenAI Codex CLI                          |
 | firefox             | Web browser                               |
 | font-fira-code      | Fallback monospace font                   |
 | font-jetbrains-mono | Primary monospace font                    |
 | ghostty             | Terminal emulator                         |
+| google-chrome       | Web browser                               |
 | keepingyouawake     | Prevent sleep                             |
 | keka                | File archiver                             |
-| logi-options+       | Logitech device manager                   |
 | maccy               | Clipboard manager                         |
 | middleclick         | Three-finger tap as middle click          |
-| mongodb-compass     | MongoDB GUI                               |
-| orbstack            | Docker/Linux VM (replaces Docker Desktop) |
 | rectangle           | Window manager                            |
-| slack               | Team messaging                            |
-| tailscale-app       | VPN/mesh networking                       |
 | visual-studio-code  | Code editor                               |
 | zed                 | Code editor                               |
+
+### Dev Casks
+
+| Cask                | Description                               |
+| ------------------- | ----------------------------------------- |
+| bruno               | API testing client                        |
+| headlamp            | Kubernetes GUI                            |
+| mongodb-compass     | MongoDB GUI                               |
+| orbstack            | Docker/Linux VM (replaces Docker Desktop) |
+| slack               | Team messaging                            |
+| tailscale-app       | VPN/mesh networking                       |
 
 ## Claude Code
 
