@@ -13,6 +13,9 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export GOPRIVATE="github.com/vitalii-vlo/*"
 export PATH="$HOME/go/bin:$PATH"
 
+# uv: global Python CLI tools (uv tool install)
+export PATH="$HOME/.local/bin:$PATH"
+
 # OrbStack
 ORBSTACK_INIT="$HOME/.orbstack/shell/init.zsh"
 if [[ -f "$ORBSTACK_INIT" ]]; then
