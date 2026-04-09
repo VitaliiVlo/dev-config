@@ -90,22 +90,23 @@ Install via official installers or Homebrew Cask:
 
 | Category              | Apps                                                      |
 | --------------------- | --------------------------------------------------------- |
-| Editor                | **VSCode**, Zed, JetBrains                                |
-| Terminal              | **Ghostty**, Kitty, Alacritty                             |
-| Containers            | **OrbStack**, Colima, Podman Desktop                      |
-| Kubernetes            | **Headlamp**, Freelens, Aptakube                          |
-| K8s Dev Tunnels       | **Telepresence**, mirrord                                 |
-| Database              | **TablePlus**, Beekeeper Studio, Postico, MongoDB Compass |
-| API Testing           | **Bruno**, Yaak, Hoppscotch, Insomnia                     |
-| Browser               | **Brave**, Firefox, Zen Browser, Chrome                   |
-| Ad Blocker (Chromium) | **uBlock Origin Lite**, AdGuard, Ghostery                 |
-| Ad Blocker (Safari)   | **wBlock**, Wipr 2, 1Blocker, AdGuard                     |
-| Archiver              | **Keka**, The Unarchiver                                  |
-| VPN                   | **Mullvad**, Proton VPN                                   |
-| Diagrams              | **Excalidraw**, tldraw, Mermaid, D2                       |
+| Editor                | **VSCode**, Zed, Cursor, JetBrains                        |
+| Terminal              | **Ghostty**, Kitty, iTerm2, Alacritty                     |
+| AI                    | **Claude Code**, Codex, Gemini CLI, OpenCode              |
+| Containers            | **OrbStack**, Colima, Docker Desktop, Podman Desktop      |
+| Kubernetes            | **Headlamp**, Aptakube, Freelens                          |
+| Kubernetes Remote Dev | **Telepresence**, mirrord                                 |
+| Database              | **TablePlus**, Postico, MongoDB Compass, Beekeeper Studio |
+| API Testing           | **Bruno**, Yaak, Hoppscotch                               |
+| Browser               | **Firefox**, Safari, Chrome, Brave                        |
+| Ad Blocker (Chromium) | **uBlock Origin Lite**                                    |
+| Ad Blocker (Firefox)  | **uBlock Origin**                                         |
+| Ad Blocker (Safari)   | **Wipr 2**, wBlock                                        |
+| Diagrams              | **Excalidraw**, tldraw                                    |
+| Diagram as Code       | **Mermaid**, D2                                           |
 | Notes                 | **Apple Notes**, Bear, Obsidian                           |
 | Password Manager      | **Apple Passwords**, 1Password, Bitwarden                 |
-| macOS Tools           | **Raycast**, Rectangle, Ice, Middle                       |
+| macOS Tools           | **Raycast**, Rectangle, Maccy, Keka, KeepingYouAwake, Ice, MiddleClick, balenaEtcher |
 
 **VSCode setup:**
 
@@ -139,7 +140,6 @@ just versions      # Show installed Go, Node, Python versions
 | fd                      | Modern `find` replacement                               |
 | fnm                     | Fast Node Manager (auto-switches via `.node-version`)   |
 | fzf                     | Fuzzy finder (Ctrl+T files, Ctrl+R history, Alt+C dirs) |
-| gemini-cli              | Google Gemini CLI                                       |
 | gh                      | GitHub CLI                                              |
 | git-delta               | Syntax-highlighting git pager (replaces `less`)         |
 | jq / yq                 | JSON / YAML processors                                  |
@@ -197,4 +197,3 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 **Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) showing model, thinking effort, cwd, git branch, context %, session/weekly usage, and cost
 
 **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management
-
