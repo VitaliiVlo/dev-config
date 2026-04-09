@@ -1,8 +1,11 @@
 {
-  "model": "opus[1m]",
-  "effortLevel": "high",
-  "alwaysThinkingEnabled": true,
-  "fastModePerSessionOptIn": true,
+  "respectGitignore": true,
+  "cleanupPeriodDays": 60,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "includeGitInstructions": true,
   "permissions": {
     "allow": [
       "WebSearch",
@@ -101,6 +104,12 @@
     ],
     "defaultMode": "default"
   },
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
@@ -110,23 +119,14 @@
     "code-simplifier@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true
   },
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  },
-  "respectGitignore": true,
-  "includeGitInstructions": true,
   "outputStyle": "Default",
-  "showThinkingSummaries": true,
-  "showClearContextOnPlanAccept": true,
-  "spinnerTipsEnabled": false,
-  "prefersReducedMotion": false,
   "feedbackSurveyRate": 0,
-  "cleanupPeriodDays": 60,
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "fastModePerSessionOptIn": true,
+  "showClearContextOnPlanAccept": true,
   "autoUpdatesChannel": "stable",
-  "statusLine": {
-    "type": "command",
-    "command": "npx -y ccstatusline@latest",
-    "padding": 0
-  }
+  "prefersReducedMotion": false,
+  "showThinkingSummaries": true
 }
