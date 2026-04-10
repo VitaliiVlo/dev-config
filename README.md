@@ -11,24 +11,24 @@ Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** f
 ## Prerequisites
 
 - **Install Xcode Command Line Tools:** git, make, grep, tar etc.
-    ```
-    xcode-select --install
-    ```
+  ```
+  xcode-select --install
+  ```
 - **Install Homebrew**
-    ```
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    ```
+  ```
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
 - **Generate SSH key for Git**
-    ```
-    ssh-keygen -t ed25519 -C "your_email@example.com"
-    pbcopy < ~/.ssh/id_ed25519.pub
-    ```
+  ```
+  ssh-keygen -t ed25519 -C "your_email@example.com"
+  pbcopy < ~/.ssh/id_ed25519.pub
+  ```
 - **Configure sudo with Touch ID**
-    ```bash
-    sudo cp /etc/pam.d/sudo_local.template /etc/pam.d/sudo_local
-    sudo nano /etc/pam.d/sudo_local
-    # Uncomment: auth sufficient pam_tid.so
-    ```
+  ```bash
+  sudo cp /etc/pam.d/sudo_local.template /etc/pam.d/sudo_local
+  sudo nano /etc/pam.d/sudo_local
+  # Uncomment: auth sufficient pam_tid.so
+  ```
 
 ## Configuration Files
 
@@ -62,10 +62,11 @@ The following files are automatically symlinked by running `just link`:
 
 Run `just defaults` to configure:
 
-- Finder (list view, path bar, show extensions)
-- .DS_Store cleanup (removes from home directory)
-- Dock (no recents, faster animation)
-- Screenshots (save to ~/Screenshots)
+- Projects folder (~/Projects)
+- Screenshots (save to ~/Screenshots, no shadow, PNG)
+- Finder (list view, path bar, show extensions, folders first, search current folder)
+- Dock (autohide, no recents, minimize to app, fixed Spaces order, hot corners disabled)
+- System defaults (key repeat, natural scrolling, save to disk)
 
 ## Applications
 
@@ -89,24 +90,24 @@ Run `just defaults` to configure:
 
 Install via official installers or Homebrew Cask:
 
-| Category              | Apps                                                      |
-| --------------------- | --------------------------------------------------------- |
-| Editor                | **VSCode**, Zed, Cursor, JetBrains                        |
-| Terminal              | **Ghostty**, Kitty, iTerm2, Alacritty                     |
-| AI                    | **Claude Code**, Codex, Gemini CLI, OpenCode              |
-| Containers            | **OrbStack**, Colima, Docker Desktop, Podman Desktop      |
-| Kubernetes            | **Headlamp**, Aptakube, Freelens                          |
-| Kubernetes Remote Dev | **Telepresence**, mirrord                                 |
-| Database              | **TablePlus**, Postico, MongoDB Compass, Beekeeper Studio |
-| API Testing           | **Bruno**, Yaak, Hoppscotch                               |
-| Browser               | **Firefox**, Safari, Chrome, Brave                        |
-| Ad Blocker (Chromium) | **uBlock Origin Lite**                                    |
-| Ad Blocker (Firefox)  | **uBlock Origin**                                         |
-| Ad Blocker (Safari)   | **Wipr 2**, wBlock                                        |
-| Diagrams              | **Excalidraw**, tldraw                                    |
-| Diagram as Code       | **Mermaid**, D2                                           |
-| Notes                 | **Apple Notes**, Bear, Obsidian                           |
-| Password Manager      | **Apple Passwords**, 1Password, Bitwarden                 |
+| Category              | Apps                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| Editor                | **VSCode**, Zed, Cursor, JetBrains                                                   |
+| Terminal              | **Ghostty**, Kitty, iTerm2, Alacritty                                                |
+| AI                    | **Claude Code**, Codex, Gemini CLI, OpenCode                                         |
+| Containers            | **OrbStack**, Colima, Docker Desktop, Podman Desktop                                 |
+| Kubernetes            | **Headlamp**, Aptakube, Freelens                                                     |
+| Kubernetes Remote Dev | **Telepresence**, mirrord                                                            |
+| Database              | **TablePlus**, Postico, MongoDB Compass, Beekeeper Studio                            |
+| API Testing           | **Bruno**, Yaak, Hoppscotch                                                          |
+| Browser               | **Firefox**, Safari, Chrome, Brave                                                   |
+| Ad Blocker (Chromium) | **uBlock Origin Lite**                                                               |
+| Ad Blocker (Firefox)  | **uBlock Origin**                                                                    |
+| Ad Blocker (Safari)   | **Wipr 2**, wBlock                                                                   |
+| Diagrams              | **Excalidraw**, tldraw                                                               |
+| Diagram as Code       | **Mermaid**, D2                                                                      |
+| Notes                 | **Apple Notes**, Bear, Obsidian                                                      |
+| Password Manager      | **Apple Passwords**, 1Password, Bitwarden                                            |
 | macOS Tools           | **Raycast**, Rectangle, Maccy, Keka, KeepingYouAwake, Ice, MiddleClick, balenaEtcher |
 
 **VSCode setup:**
@@ -115,9 +116,9 @@ Install via official installers or Homebrew Cask:
 - Enable Copilot
 - Install `code` command to PATH (Cmd+Shift+P → "Shell Command")
 - Configure layout (View → Appearance / Customize Layout):
-    - Quick input position: center
-    - Panel alignment: justify
-    - Secondary side bar: right
+  - Quick input position: center
+  - Panel alignment: justify
+  - Secondary side bar: right
 
 ## CLI Tools
 
@@ -137,7 +138,7 @@ just versions          # Show installed Go, Node, Python versions
 
 | Tool                    | Description                                             |
 | ----------------------- | ------------------------------------------------------- |
-| awscli                  | AWS command-line interface                               |
+| awscli                  | AWS command-line interface                              |
 | bat                     | `cat` with syntax highlighting                          |
 | btop                    | System monitor TUI (modern `htop`)                      |
 | eza                     | Modern `ls` replacement                                 |
@@ -166,34 +167,34 @@ GUI applications and fonts installed via Homebrew Cask:
 
 ### Base Casks
 
-| Cask                | Description                               |
-| ------------------- | ----------------------------------------- |
-| balenaetcher        | USB flash tool                            |
-| claude-code         | Anthropic Claude CLI                      |
-| codex               | OpenAI Codex CLI                          |
-| firefox             | Web browser                               |
-| font-fira-code      | Fallback monospace font                   |
-| font-jetbrains-mono | Primary monospace font                    |
-| ghostty             | Terminal emulator                         |
-| google-chrome       | Web browser                               |
-| keepingyouawake     | Prevent sleep                             |
-| keka                | File archiver                             |
-| maccy               | Clipboard manager                         |
-| middleclick         | Three-finger tap as middle click          |
-| rectangle           | Window manager                            |
-| visual-studio-code  | Code editor                               |
-| zed                 | Code editor                               |
+| Cask                | Description                      |
+| ------------------- | -------------------------------- |
+| balenaetcher        | USB flash tool                   |
+| claude-code         | Anthropic Claude CLI             |
+| codex               | OpenAI Codex CLI                 |
+| firefox             | Web browser                      |
+| font-fira-code      | Fallback monospace font          |
+| font-jetbrains-mono | Primary monospace font           |
+| ghostty             | Terminal emulator                |
+| google-chrome       | Web browser                      |
+| keepingyouawake     | Prevent sleep                    |
+| keka                | File archiver                    |
+| maccy               | Clipboard manager                |
+| middleclick         | Three-finger tap as middle click |
+| rectangle           | Window manager                   |
+| visual-studio-code  | Code editor                      |
+| zed                 | Code editor                      |
 
 ### Dev Casks
 
-| Cask                | Description                               |
-| ------------------- | ----------------------------------------- |
-| bruno               | API testing client                        |
-| headlamp            | Kubernetes GUI                            |
-| mongodb-compass     | MongoDB GUI                               |
-| orbstack            | Docker/Linux VM (replaces Docker Desktop) |
-| slack               | Team messaging                            |
-| tailscale-app       | VPN/mesh networking                       |
+| Cask            | Description                               |
+| --------------- | ----------------------------------------- |
+| bruno           | API testing client                        |
+| headlamp        | Kubernetes GUI                            |
+| mongodb-compass | MongoDB GUI                               |
+| orbstack        | Docker/Linux VM (replaces Docker Desktop) |
+| slack           | Team messaging                            |
+| tailscale-app   | VPN/mesh networking                       |
 
 ## Claude Code
 

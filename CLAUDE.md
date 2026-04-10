@@ -11,7 +11,7 @@ macOS dotfiles repository for setting up a development environment. All configs 
 ```bash
 just install           # Full setup: symlink configs and install packages
 just link              # Symlink configs to home directory
-just defaults          # Configure macOS Finder/Dock/screenshots (interactive)
+just defaults          # Configure macOS defaults (interactive): folders, Finder, Dock, screenshots, system
 just versions          # Show installed Go, Node, Python versions
 just brew-install      # Install all packages (base + dev)
 just brew-install-base # Install base packages only
@@ -57,9 +57,9 @@ just brew-export       # Export installed packages to .Brewfile.base (excludes G
 
 **bootstrap-defaults.sh:**
 
-- Interactive: prompts for each category (Finder, .DS_Store cleanup, Dock, Screenshots)
+- Interactive: prompts for each category (Projects folder, Screenshots, Finder, Dock, System defaults)
 - Restarts affected processes (Finder, Dock, SystemUIServer)
-- Safe to re-run: idempotent `defaults write` commands
+- Safe to re-run: idempotent `mkdir -p` and `defaults write` commands
 
 ## Shell Aliases
 
@@ -176,4 +176,3 @@ The `.claude/settings.json` configures permissions:
 - **Status line:** Custom layout via `ccstatusline` (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
 
 See `.claude/settings.json` for the full permission list.
-

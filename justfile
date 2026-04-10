@@ -9,7 +9,7 @@ install: link brew-install
 link:
     ./bootstrap.sh
 
-# Configure macOS Finder/Dock/screenshots (interactive)
+# Configure macOS defaults (interactive): folders, Finder, Dock, screenshots, system
 defaults:
     ./bootstrap-defaults.sh
 
