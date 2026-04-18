@@ -82,3 +82,11 @@ url = "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp"
 
 [plugins."slack@openai-curated"]
 enabled = true
+
+[plugins."caveman@caveman-repo"]
+enabled = true
+
+[marketplaces.caveman-repo]
+last_updated = "2026-04-18T20:35:21Z"
+source_type = "git"
+source = "https://github.com/JuliusBrussee/caveman.git"

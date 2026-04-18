@@ -45,7 +45,7 @@ The following files are automatically symlinked by running `just link`:
 - `.config/btop/btop.conf` - Btop configuration
 - `.config/Code/User/settings.json` - VSCode configuration
 - `.config/gh/config.yml` - GitHub CLI settings
-- `.codex/config.toml` - Codex CLI config
+- `.codex/config.toml` - Codex CLI config (model, sandbox, plugins)
 - `.codex/AGENTS.md` - Codex user-level instructions
 - `.codex/rules/` - Codex permission rules (git, dev, shell, infra)
 - `.config/ccstatusline/settings.json` - Claude Code status line layout
@@ -208,4 +208,6 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 
 **Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) showing model, thinking effort, cwd, git branch, context %, session/weekly usage, and cost
 
-**Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management
+**Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman
+
+**Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)

@@ -44,7 +44,7 @@ just brew-export       # Export installed packages to .Brewfile.base (excludes G
 - `.claude/CLAUDE.md` - Claude Code user-level instructions (symlinked to `~/`)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.codex/AGENTS.md` - Codex user-level instructions (symlinked to `~/`)
-- `.codex/config.toml` - Codex CLI config (model, sandbox, profiles)
+- `.codex/config.toml` - Codex CLI config (model, sandbox, profiles, plugins)
 - `.codex/rules/` - Codex permission rules: `git`, `dev`, `shell`, `infra` (symlinked to `~/`)
 
 ## Script Behavior
@@ -172,7 +172,7 @@ The `.claude/settings.json` configures permissions:
 - **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web search, web fetch from dev docs, `fd` and `rg` for file search
 - **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
-- **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management
+- **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman
 - **Status line:** Custom layout via `ccstatusline` (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
 
 See `.claude/settings.json` for the full permission list.
