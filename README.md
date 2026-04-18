@@ -167,23 +167,24 @@ GUI applications and fonts installed via Homebrew Cask:
 
 ### Base Casks
 
-| Cask                | Description                      |
-| ------------------- | -------------------------------- |
-| balenaetcher        | USB flash tool                   |
-| claude-code         | Anthropic Claude CLI             |
-| codex               | OpenAI Codex CLI                 |
-| firefox             | Web browser                      |
-| font-fira-code      | Fallback monospace font          |
-| font-jetbrains-mono | Primary monospace font           |
-| ghostty             | Terminal emulator                |
-| google-chrome       | Web browser                      |
-| keepingyouawake     | Prevent sleep                    |
-| keka                | File archiver                    |
-| maccy               | Clipboard manager                |
-| middleclick         | Three-finger tap as middle click |
-| rectangle           | Window manager                   |
-| visual-studio-code  | Code editor                      |
-| zed                 | Code editor                      |
+| Cask                        | Description                      |
+| --------------------------- | -------------------------------- |
+| balenaetcher                | USB flash tool                   |
+| claude-code                 | Anthropic Claude CLI             |
+| codex                       | OpenAI Codex CLI                 |
+| firefox                     | Web browser                      |
+| font-fira-code              | Fallback monospace font          |
+| font-jetbrains-mono         | Primary monospace font           |
+| font-symbols-only-nerd-font | Nerd Font icons (symbols only)   |
+| ghostty                     | Terminal emulator                |
+| google-chrome               | Web browser                      |
+| keepingyouawake             | Prevent sleep                    |
+| keka                        | File archiver                    |
+| maccy                       | Clipboard manager                |
+| middleclick                 | Three-finger tap as middle click |
+| rectangle                   | Window manager                   |
+| visual-studio-code          | Code editor                      |
+| zed                         | Code editor                      |
 
 ### Dev Casks
 

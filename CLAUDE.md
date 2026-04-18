@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt). Configured for **Go 1.26** (via Homebrew), **Python** (via `uv`), and **Node.js** (via `fnm`).
+macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt) with **Symbols Nerd Font Mono** fallback for icons. Configured for **Go 1.26** (via Homebrew), **Python** (via `uv`), and **Node.js** (via `fnm`).
 
 ## Key Commands
 
@@ -36,7 +36,7 @@ just brew-export       # Export installed packages to .Brewfile.base (excludes G
 - `.config/ghostty/config` - Terminal emulator
 - `.config/bat/config` - Cat replacement with syntax highlighting
 - `.config/btop/btop.conf` - System monitor (tokyo-night theme, closest to Catppuccin)
-- `.config/starship.toml` - Shell prompt (no nerd fonts preset)
+- `.config/starship.toml` - Shell prompt (nerd-font-symbols preset)
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.config/gh/config.yml` - GitHub CLI settings (SSH protocol, delta pager)
