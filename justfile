@@ -20,20 +20,20 @@ versions:
     @uv python list --only-installed
 
 # Install all packages from Brewfiles
-brew-install: brew-install-base brew-install-dev
+brew-install: brew-install-core brew-install-extra
 
-# Install base packages (shell, fonts, daily-driver apps)
-brew-install-base:
-    brew bundle install --file=.Brewfile.base
+# Install core packages (shell, fonts, daily-driver apps)
+brew-install-core:
+    brew bundle install --file=.Brewfile.core
 
-# Install dev packages (languages, tooling, IDEs, infra)
-brew-install-dev:
-    brew bundle install --file=.Brewfile.dev
+# Install extra packages (languages, tooling, IDEs, infra)
+brew-install-extra:
+    brew bundle install --file=.Brewfile.extra
 
 # Check for missing Brewfile packages
 brew-check:
-    brew bundle check --file=.Brewfile.base
-    brew bundle check --file=.Brewfile.dev
+    brew bundle check --file=.Brewfile.core
+    brew bundle check --file=.Brewfile.extra
 
 # Show outdated Homebrew packages
 brew-outdated:
@@ -47,6 +47,6 @@ brew-update:
 brew-cleanup:
     brew cleanup --prune=all
 
-# Export installed packages to .Brewfile.base (excludes Go deps, VSCode extensions)
+# Export installed core packages to .Brewfile.core; keep .Brewfile.extra curated manually
 brew-export:
-    brew bundle dump --file=.Brewfile.base --force --no-go --no-vscode
+    brew bundle dump --file=.Brewfile.core --force --no-vscode

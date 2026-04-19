@@ -27,6 +27,10 @@
     /* Editor UX */
     "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Symbols Nerd Font Mono'",
     "editor.fontSize": 14,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.autoIndent": "full",
     "editor.lineHeight": 1.5,
     "editor.fontLigatures": true,
     "editor.renderWhitespace": "selection",
@@ -40,7 +44,7 @@
     "editor.cursorBlinking": "smooth",
     "editor.cursorStyle": "line",
     "editor.cursorWidth": 2,
-    "editor.cursorSurroundingLines": 5,
+    "editor.cursorSurroundingLines": 3,
     "editor.renderLineHighlight": "all",
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.smoothScrolling": true,
@@ -75,12 +79,15 @@
         "source.fixAll": "explicit",
     },
     /* Search */
+    "search.followSymlinks": true,
     "search.exclude": {
         "**/node_modules": true,
         "**/vendor": true,
         "**/.venv": true,
         "**/venv": true,
         "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/.terraform": true,
         "**/dist": true,
         "**/build": true,
         "**/.git": true,
@@ -100,22 +107,18 @@
         "pyproject.toml": "poetry.lock, pdm.lock, uv.lock, .python-version",
         "requirements.txt": "requirements*.txt"
     },
+    "files.autoSave": "off",
     "files.insertFinalNewline": true,
+    "files.eol": "\n",
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     /* JavaScript/TypeScript */
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "typescript.suggest.autoImports": true,
-    "typescript.suggest.completeFunctionCalls": true,
-    "javascript.suggest.autoImports": true,
-    "javascript.suggest.completeFunctionCalls": true,
-    "typescript.inlayHints.parameterNames.enabled": "literals",
-    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "typescript.inlayHints.variableTypes.enabled": true,
-    "javascript.inlayHints.parameterNames.enabled": "literals",
-    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "javascript.inlayHints.variableTypes.enabled": true,
+    "js/ts.updateImportsOnFileMove.enabled": "always",
+    "js/ts.suggest.autoImports": true,
+    "js/ts.suggest.completeFunctionCalls": true,
+    "js/ts.inlayHints.parameterNames.enabled": "literals",
+    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+    "js/ts.inlayHints.variableTypes.enabled": true,
     /* Python */
     "python.defaultInterpreterPath": "python3",
     "python.analysis.typeCheckingMode": "standard",
@@ -178,7 +181,6 @@
     "github.copilot.nextEditSuggestions.enabled": false,
     "github.copilot.chat.codesearch.enabled": true,
     "chat.agent.enabled": true,
-    "chat.commandCenter.enabled": false,
     /* Git */
     "github.gitProtocol": "ssh",
     "git.confirmSync": false,
@@ -224,7 +226,6 @@
     "terminal.integrated.smoothScrolling": true,
     "terminal.integrated.fontLigatures.enabled": true,
     "terminal.integrated.suggest.enabled": false,
-    "terminal.integrated.scrollback": 10000,
     /* Testing */
     "testing.followRunningTest": true,
     /* Debug */
@@ -243,5 +244,5 @@
     "clipboard-manager.moveToTop": true,
     "clipboard-manager.preview": true,
     "clipboard-manager.onlyWindowFocused": true,
-    "clipboard-manager.snippet.enabled": true
+    "clipboard-manager.snippet.enabled": false
 }

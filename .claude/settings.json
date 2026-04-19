@@ -24,6 +24,8 @@
       "WebFetch(domain:kubernetes.io)",
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:code.claude.com)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:developer.hashicorp.com)",
       "Bash(go build:*)",
       "Bash(go test:*)",
       "Bash(go vet:*)",

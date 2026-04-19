@@ -1,6 +1,6 @@
 # macOS Development Configuration Guide
 
-Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt). Configured for **Go 1.26**, **Python** (via `uv`), and **Node.js** (via `fnm`).
+Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt) with **Fira Code**, **Menlo**, **Monaco**, and **Symbols Nerd Font Mono** fallbacks. Configured for **Go 1.26**, **Python** (via `uv`), and **Node.js** (via `fnm`).
 
 ## Quick Start
 
@@ -48,14 +48,17 @@ The following files are automatically symlinked by running `just link`:
 - `.codex/config.toml` - Codex CLI config (model, sandbox, plugins)
 - `.codex/AGENTS.md` - Codex user-level instructions
 - `.codex/rules/` - Codex permission rules (git, dev, shell, infra)
+- `.config/lazygit/config.yml` - Lazygit settings
+- `.config/micro/settings.json` - Micro editor settings
+- `.config/yazi/yazi.toml` - Yazi file manager settings
 - `.config/ccstatusline/settings.json` - Claude Code status line layout
 - `.claude/settings.json` - Claude Code permissions
 - `.claude/CLAUDE.md` - Claude Code user-level instructions
 
 **Not symlinked (used directly from repo):**
 
-- `.Brewfile.base` - Base Brewfile (shell, fonts, daily-driver apps)
-- `.Brewfile.dev` - Dev Brewfile (work-specific tooling, IDEs, infra)
+- `.Brewfile.core` - Core Brewfile (shell, fonts, daily-driver apps)
+- `.Brewfile.extra` - Extra Brewfile (work-specific tooling, IDEs, infra; curated manually)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
 ## macOS Settings
@@ -114,7 +117,6 @@ Install via official installers or Homebrew Cask:
 
 - Enable settings sync with GitHub
 - Enable Copilot
-- Install `code` command to PATH (Cmd+Shift+P → "Shell Command")
 - Configure layout (View → Appearance / Customize Layout):
   - Quick input position: center
   - Panel alignment: justify
@@ -122,17 +124,17 @@ Install via official installers or Homebrew Cask:
 
 ## CLI Tools
 
-Installed via Homebrew formulae and casks (see `.Brewfile.base` and `.Brewfile.dev`):
+Installed via Homebrew formulae and casks (see `.Brewfile.core` and `.Brewfile.extra`):
 
 ```bash
-just brew-install      # Install all packages (base + dev)
-just brew-install-base # Install base packages only
-just brew-install-dev  # Install dev packages only
+just brew-install       # Install all packages (core + extra)
+just brew-install-core  # Install core packages only
+just brew-install-extra # Install extra packages only
 just brew-check        # Check for missing packages
 just brew-outdated     # Show outdated packages
 just brew-update       # Update and upgrade all packages
 just brew-cleanup      # Clean up old versions and cache
-just brew-export       # Export installed packages to .Brewfile.base
+just brew-export       # Export installed core packages to .Brewfile.core; keep .Brewfile.extra curated manually
 just versions          # Show installed Go, Node, Python versions
 ```
 
@@ -151,11 +153,15 @@ just versions          # Show installed Go, Node, Python versions
 | just                    | Task runner (replaces `make`)                           |
 | k9s                     | Kubernetes TUI                                          |
 | kubectl                 | Kubernetes CLI                                          |
+| lazydocker              | Docker TUI                                              |
 | lazygit                 | Git TUI                                                 |
+| micro                   | Terminal text editor                                    |
 | pgcli                   | PostgreSQL CLI with autocomplete                        |
 | ripgrep                 | Fast `grep` replacement                                 |
+| sevenzip                | 7-Zip file archiver                                     |
 | starship                | Cross-shell prompt                                      |
 | uv                      | Python version/package manager                          |
+| yazi                    | Terminal file manager                                   |
 | zoxide                  | Smarter `cd` (learns from usage)                        |
 | zsh-autosuggestions     | Fish-like command suggestions                           |
 | zsh-completions         | Additional shell completions                            |
@@ -165,7 +171,7 @@ just versions          # Show installed Go, Node, Python versions
 
 GUI applications and fonts installed via Homebrew Cask:
 
-### Base Casks
+### Core Casks
 
 | Cask                        | Description                      |
 | --------------------------- | -------------------------------- |
@@ -186,7 +192,7 @@ GUI applications and fonts installed via Homebrew Cask:
 | visual-studio-code          | Code editor                      |
 | zed                         | Code editor                      |
 
-### Dev Casks
+### Extra Casks
 
 | Cask            | Description                               |
 | --------------- | ----------------------------------------- |
@@ -201,7 +207,7 @@ GUI applications and fonts installed via Homebrew Cask:
 
 The `.claude/settings.json` configures pre-approved and blocked permissions:
 
-**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Rust/Terraform/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
+**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
 
 **Blocked:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 
@@ -212,3 +218,15 @@ The `.claude/settings.json` configures pre-approved and blocked permissions:
 **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman
 
 **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
+
+## Codex
+
+The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations for Codex.
+
+**Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, and analytics/feedback disabled
+
+**Profiles:** `quick`, `deep`, and `research` (`research` enables live web search)
+
+**Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
+
+**Enabled integrations:** Slack and Caveman plugins, plus Atlassian and Datadog MCP servers

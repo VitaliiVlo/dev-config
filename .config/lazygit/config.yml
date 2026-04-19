@@ -1,0 +1,10 @@
+gui:
+  nerdFontsVersion: "3"
+os:
+  editPreset: vscode
+git:
+  autoFetch: true
+  pagers:
+    - pager: delta --paging=never
+      colorArg: always
+  disableForcePushing: true

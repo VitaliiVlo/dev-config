@@ -20,6 +20,8 @@
 	dark = true
 	line-numbers = true
 	hyperlinks = true
+	side-by-side = true
+	tabs = 4
 	syntax-theme = Catppuccin Macchiato
 
 [fetch]
@@ -37,6 +39,8 @@
 [diff]
 	colorMoved = default
 	algorithm = histogram
+	mnemonicPrefix = true
+	renames = true
 
 [merge]
 	conflictstyle = zdiff3
@@ -53,6 +57,8 @@
 	st = status
 	df = diff
 	dfs = diff --staged
+	dfw = diff --word-diff
+	dfws = diff --staged --word-diff
 	# Commits
 	cm = commit -m
 	ca = commit --amend --no-edit

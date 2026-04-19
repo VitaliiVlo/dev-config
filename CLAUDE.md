@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt) with **Symbols Nerd Font Mono** fallback for icons. Configured for **Go 1.26** (via Homebrew), **Python** (via `uv`), and **Node.js** (via `fnm`).
+macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt) with **Fira Code**, **Menlo**, **Monaco**, and **Symbols Nerd Font Mono** fallbacks. Configured for **Go 1.26** (via Homebrew), **Python** (via `uv`), and **Node.js** (via `fnm`).
 
 ## Key Commands
 
@@ -13,14 +13,14 @@ just install           # Full setup: symlink configs and install packages
 just link              # Symlink configs to home directory
 just defaults          # Configure macOS defaults (interactive): folders, Finder, Dock, screenshots, system
 just versions          # Show installed Go, Node, Python versions
-just brew-install      # Install all packages (base + dev)
-just brew-install-base # Install base packages only
-just brew-install-dev  # Install dev packages only
+just brew-install       # Install all packages (core + extra)
+just brew-install-core  # Install core packages only
+just brew-install-extra # Install extra packages only
 just brew-check        # Check for missing Brewfile packages
 just brew-outdated     # Show outdated Homebrew packages
 just brew-update       # Update and upgrade all Homebrew packages
 just brew-cleanup      # Clean up old versions and cache
-just brew-export       # Export installed packages to .Brewfile.base (excludes Go deps, VSCode extensions)
+just brew-export       # Export installed core packages to .Brewfile.core; keep .Brewfile.extra curated manually
 ```
 
 ## Repository Structure
@@ -28,8 +28,8 @@ just brew-export       # Export installed packages to .Brewfile.base (excludes G
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
 - `justfile` - Task runner recipes (`just` for list)
-- `.Brewfile.base` - Base packages: shell essentials, fonts, daily-driver apps
-- `.Brewfile.dev` - Dev packages: work-specific tooling, IDEs, infra
+- `.Brewfile.core` - Core packages: shell essentials, fonts, daily-driver apps
+- `.Brewfile.extra` - Extra packages: work-specific tooling, IDEs, infra (curated manually)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
 - `.gitconfig` / `.gitignore_global` - Git settings (delta pager, rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere)
 - `.ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks)
@@ -40,6 +40,9 @@ just brew-export       # Export installed packages to .Brewfile.base (excludes G
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.config/gh/config.yml` - GitHub CLI settings (SSH protocol, delta pager)
+- `.config/lazygit/config.yml` - Git TUI (nerd fonts, delta pager, vscode editor)
+- `.config/micro/settings.json` - Terminal text editor
+- `.config/yazi/yazi.toml` - Terminal file manager settings
 - `.config/ccstatusline/settings.json` - Claude Code status line layout (via ccstatusline)
 - `.claude/CLAUDE.md` - Claude Code user-level instructions (symlinked to `~/`)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
@@ -75,7 +78,7 @@ Defined in `.zshrc`:
 | `lzg`    | `lazygit`                              |
 | `c`      | `clear`                                |
 | `cat`    | `bat` (if installed)                   |
-| `ls`     | `eza --group-directories-first`        |
+| `ls`     | `eza --icons=auto --group-directories-first`        |
 | `ll`     | `eza` with git, timestamps, headers    |
 | `lt`     | `eza` tree view (2 levels)             |
 | `lr`     | `eza` sorted by modified (recent last) |
@@ -88,7 +91,7 @@ fd and ripgrep share consistent defaults for daily use:
 | --------------- | -------------------------------------------------------- | -------------- |
 | Hidden files    | `--hidden`                                               | `--hidden`     |
 | Follow symlinks | `--follow`                                               | `--follow`     |
-| Exclusions      | `.git`, `node_modules`, `.venv`, `__pycache__`, `vendor` | Same           |
+| Exclusions      | `.git`, `node_modules`, `.venv`, `venv`, `__pycache__`, `.pytest_cache`, `.terraform`, `vendor`, `dist`, `build`, `coverage` | Same |
 | Config location | Alias in `.zshrc` (no config file support)               | `~/.ripgreprc` |
 
 fzf uses fd when available for faster fuzzy finding with bat preview:
@@ -114,6 +117,8 @@ Defined in `.gitconfig`:
 | `st`   | `status`                           |
 | `df`   | `diff`                             |
 | `dfs`  | `diff --staged`                    |
+| `dfw`  | `diff --word-diff`                 |
+| `dfws` | `diff --staged --word-diff`        |
 | `cm`   | `commit -m`                        |
 | `ca`   | `commit --amend --no-edit`         |
 | `lg`   | `log --oneline --graph --decorate` |
@@ -169,10 +174,21 @@ When updating the Applications table in README.md, see the selection criteria do
 
 The `.claude/settings.json` configures permissions:
 
-- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web search, web fetch from dev docs, `fd` and `rg` for file search
+- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web search, web fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), `fd` and `rg` for file search
 - **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 - **Requires approval:** Package install, direct code execution, git writes, docker mutations
 - **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman
 - **Status line:** Custom layout via `ccstatusline` (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
 
 See `.claude/settings.json` for the full permission list.
+
+## Codex Settings
+
+The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations for Codex:
+
+- **Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, analytics/feedback disabled
+- **Profiles:** `quick`, `deep`, and `research` (`research` enables live web search)
+- **Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
+- **Enabled integrations:** Slack and Caveman plugins, plus Atlassian and Datadog MCP servers
+
+See `.codex/config.toml` and `.codex/rules/` for the full configuration.

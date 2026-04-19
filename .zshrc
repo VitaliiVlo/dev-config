@@ -40,16 +40,16 @@ if command -v bat &>/dev/null; then alias cat='bat'; fi
 
 # fd: show hidden, follow symlinks, exclude common noise (no config file support)
 # Defined outside conditional so fzf block can reference it
-_FD_OPTS="--hidden --follow --strip-cwd-prefix --exclude .git --exclude node_modules --exclude .venv --exclude __pycache__ --exclude vendor"
+_FD_OPTS="--hidden --follow --strip-cwd-prefix --exclude .git --exclude node_modules --exclude .venv --exclude venv --exclude __pycache__ --exclude .pytest_cache --exclude .terraform --exclude vendor --exclude dist --exclude build --exclude coverage"
 if command -v fd &>/dev/null; then
   alias fd="fd $_FD_OPTS"
 fi
 
 # eza: shared options (defined outside conditional so fzf block can reference them)
-_EZA_LIST_OPTS="-lagF --group-directories-first --git --time-style=relative --header --hyperlink --smart-group"
-_EZA_TREE_OPTS="-aF --tree --level=2 --group-directories-first --git-ignore"
+_EZA_LIST_OPTS="-lagF --icons=auto --group-directories-first --git --time-style=relative --header --hyperlink --smart-group"
+_EZA_TREE_OPTS="-aF --icons=auto --tree --level=2 --group-directories-first --git-ignore"
 if command -v eza &>/dev/null; then
-  alias ls='eza --group-directories-first'
+  alias ls='eza --icons=auto --group-directories-first'
   alias ll="eza $_EZA_LIST_OPTS"
   alias lt="eza $_EZA_TREE_OPTS"
   alias lr="eza $_EZA_LIST_OPTS --sort=modified --reverse"

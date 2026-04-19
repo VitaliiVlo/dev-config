@@ -8,8 +8,14 @@
 --glob=!.git
 --glob=!node_modules
 --glob=!.venv
+--glob=!venv
 --glob=!__pycache__
+--glob=!.pytest_cache
+--glob=!.terraform
 --glob=!vendor
+--glob=!dist
+--glob=!build
+--glob=!coverage
 
 # Follow symlinks
 --follow

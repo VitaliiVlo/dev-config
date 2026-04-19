@@ -32,6 +32,15 @@ ln -sf "$DOTFILES_DIR/.config/btop/btop.conf" "$HOME/.config/btop/btop.conf"
 mkdir -p "$HOME/.config/ccstatusline"
 ln -sf "$DOTFILES_DIR/.config/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 
+mkdir -p "$HOME/.config/yazi"
+ln -sf "$DOTFILES_DIR/.config/yazi/yazi.toml" "$HOME/.config/yazi/yazi.toml"
+
+mkdir -p "$HOME/.config/micro"
+ln -sf "$DOTFILES_DIR/.config/micro/settings.json" "$HOME/.config/micro/settings.json"
+
+mkdir -p "$HOME/.config/lazygit"
+ln -sf "$DOTFILES_DIR/.config/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+
 mkdir -p "$HOME/.config/gh"
 ln -sf "$DOTFILES_DIR/.config/gh/config.yml" "$HOME/.config/gh/config.yml"
 

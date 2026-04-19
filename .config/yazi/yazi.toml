@@ -1,0 +1,12 @@
+[mgr]
+show_hidden = true
+show_symlink = true
+sort_by = "natural"
+sort_dir_first = true
+sort_sensitive = false
+linemode = "none"
+scrolloff = 3
+
+[preview]
+wrap = "yes"
+tab_size = 4

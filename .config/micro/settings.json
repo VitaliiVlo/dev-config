@@ -1,0 +1,15 @@
+{
+    "tabsize": 4,
+    "tabstospaces": true,
+    "savecursor": true,
+    "scrollbar": true,
+    "scrollmargin": 3,
+    "hlsearch": true,
+    "diffgutter": true,
+    "basename": true,
+    "rmtrailingws": true,
+    "smartpaste": true,
+    "eofnewline": true,
+    "autoindent": true,
+    "fileformat": "unix"
+}

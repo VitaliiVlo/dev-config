@@ -17,6 +17,7 @@ Never introduce new conventions. Always check existing patterns first.
 Identify the work scope: a single repo or a folder grouping multiple repos for the same project.
 In a multi-repo project, check sibling repos for shared conventions — match like with like (service to service, frontend to frontend, infra to infra).
 If consistency is impossible or clearly inefficient, ask for approval before deviating.
+Start by checking local guidance: `AGENTS.md`, `CLAUDE.md`, `README`, `justfile`, CI, formatter/linter config, and recent Git history.
 
 Fallbacks only when a repo gives no signal:
 
