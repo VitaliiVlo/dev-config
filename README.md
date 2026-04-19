@@ -1,6 +1,6 @@
 # macOS Development Configuration Guide
 
-Dotfiles configured with **Catppuccin Macchiato** theme and **JetBrains Mono** font (14pt) with **Fira Code**, **Menlo**, **Monaco**, and **Symbols Nerd Font Mono** fallbacks. Configured for **Go 1.26**, **Python** (via `uv`), and **Node.js** (via `fnm`).
+Dotfiles configured with **Catppuccin Macchiato** (dark) / **Catppuccin Latte** (light) theme and **JetBrains Mono** font (14pt) with **Fira Code**, **Menlo**, **Monaco**, and **Symbols Nerd Font Mono** fallbacks. Configured for **Go 1.26**, **Python** (via `uv`), and **Node.js** (via `fnm`).
 
 ## Quick Start
 
@@ -58,7 +58,7 @@ The following files are automatically symlinked by running `just link`:
 
 **Not symlinked (used directly from repo):**
 
-- `.Brewfile.core` - Core Brewfile (shell, fonts, daily-driver apps)
+- `.Brewfile.core` - Core Brewfile (shell, fonts, daily-driver apps, VSCode extensions)
 - `.Brewfile.extra` - Extra Brewfile (work-specific tooling, IDEs, infra; curated manually)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
@@ -135,7 +135,7 @@ just brew-check        # Check for missing packages
 just brew-outdated     # Show outdated packages
 just brew-update       # Update and upgrade all packages
 just brew-cleanup      # Clean up old versions and cache
-just brew-export       # Export installed core packages to .Brewfile.core; keep .Brewfile.extra curated manually
+just brew-export       # Export installed packages (incl. VSCode extensions) to .Brewfile.core; keep .Brewfile.extra curated manually
 just versions          # Show installed Go, Node, Python versions
 ```
 

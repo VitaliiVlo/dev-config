@@ -49,4 +49,4 @@ brew-cleanup:
 
 # Export installed core packages to .Brewfile.core; keep .Brewfile.extra curated manually
 brew-export:
-    brew bundle dump --file=.Brewfile.core --force --no-vscode
+    brew bundle dump --file=.Brewfile.core --force

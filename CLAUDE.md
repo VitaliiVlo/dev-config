@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** theme, **JetBrains Mono** font (14pt) with **Fira Code**, **Menlo**, **Monaco**, and **Symbols Nerd Font Mono** fallbacks. Configured for **Go 1.26** (via Homebrew), **Python** (via `uv`), and **Node.js** (via `fnm`).
+macOS dotfiles repository for setting up a development environment. All configs use **Catppuccin Macchiato** (dark) / **Catppuccin Latte** (light) theme where supported, **JetBrains Mono** font (14pt) with **Fira Code**, **Menlo**, **Monaco**, and **Symbols Nerd Font Mono** fallbacks. Configured for **Go 1.26** (via Homebrew), **Python** (via `uv`), and **Node.js** (via `fnm`).
 
 ## Key Commands
 
@@ -20,7 +20,7 @@ just brew-check        # Check for missing Brewfile packages
 just brew-outdated     # Show outdated Homebrew packages
 just brew-update       # Update and upgrade all Homebrew packages
 just brew-cleanup      # Clean up old versions and cache
-just brew-export       # Export installed core packages to .Brewfile.core; keep .Brewfile.extra curated manually
+just brew-export       # Export installed packages (incl. VSCode extensions) to .Brewfile.core; keep .Brewfile.extra curated manually
 ```
 
 ## Repository Structure
@@ -28,7 +28,7 @@ just brew-export       # Export installed core packages to .Brewfile.core; keep 
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
 - `justfile` - Task runner recipes (`just` for list)
-- `.Brewfile.core` - Core packages: shell essentials, fonts, daily-driver apps
+- `.Brewfile.core` - Core packages: shell essentials, fonts, daily-driver apps, VSCode extensions
 - `.Brewfile.extra` - Extra packages: work-specific tooling, IDEs, infra (curated manually)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
 - `.gitconfig` / `.gitignore_global` - Git settings (delta pager, rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere)
@@ -43,7 +43,7 @@ just brew-export       # Export installed core packages to .Brewfile.core; keep 
 - `.config/yazi/yazi.toml` - Terminal file manager settings
 - `.config/Code/User/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/Code/User/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
-- `.config/zed/settings.json` - Zed editor (Catppuccin Macchiato, JetBrains Mono, same UX as VSCode)
+- `.config/zed/settings.json` - Zed editor (Catppuccin Macchiato/Latte, JetBrains Mono, same UX as VSCode, auto_install_extensions)
 - `.claude/CLAUDE.md` - Claude Code user-level instructions (symlinked to `~/`)
 - `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.config/ccstatusline/settings.json` - Claude Code status line layout (via ccstatusline)
@@ -189,7 +189,8 @@ When modifying any config file, ensure these values stay consistent across all t
 | Cursor blink | `cursorBlinking: "smooth"` | `cursor_blink: true` | — | `cursor-style-blink = true` | — | — | — |
 | Font | JetBrains Mono 14pt + fallbacks | Same chain | (terminal font) | Same chain | — | — | — |
 | Ligatures | `editor.fontLigatures: true` | `buffer_font_features: null` (all on) | — | (default: on) | — | — | — |
-| Theme | Catppuccin Macchiato | Catppuccin Macchiato | — | Catppuccin Macchiato | Catppuccin Macchiato | Catppuccin Macchiato | — |
+| Theme (dark) | Catppuccin Macchiato | Catppuccin Macchiato | — | Catppuccin Macchiato | Catppuccin Macchiato | Catppuccin Macchiato | — |
+| Theme (light) | Catppuccin Latte | Catppuccin Latte | — | — | — | — | — |
 | Minimap | `minimap.enabled: false` | `minimap.show: "never"` | — | — | — | — | — |
 | Rulers/Guides | `rulers: [80, 120]` | `wrap_guides: [80, 120]` | `colorcolumn: 80` | — | — | — | — |
 | Sticky scroll | `stickyScroll.enabled: true` | `sticky_scroll.enabled: true` | — | — | — | — | — |
@@ -227,6 +228,8 @@ When modifying any config file, ensure these values stay consistent across all t
 | Format on paste | `editor.formatOnPaste: true` | — | `smartpaste: true` | — | — | — | — |
 | Smart case search | — | `use_smartcase_search: true` | — | — | — | — | — |
 | Dirs first | — | — | — | — | — | — | `sort_dir_first = true` |
+| Inline diagnostics | ErrorLens extension | `diagnostics.inline.enabled: true` | — | — | — | — | — |
+| Theme detection | `autoDetectColorScheme: true` | `theme.mode: "system"` | — | — | — | — | — |
 
 **Telemetry** — minimize across all tools:
 
@@ -278,8 +281,18 @@ When modifying any config file, ensure these values stay consistent across all t
 **Window/system theme follows OS:**
 
 - Ghostty: `window-theme = system`
-- Zed: `theme.mode: "system"`
-- VSCode: always dark (Catppuccin Macchiato only)
+- Zed: `theme.mode: "system"` (light: Catppuccin Latte, dark: Catppuccin Macchiato)
+- VSCode: `window.autoDetectColorScheme: true` (light: Catppuccin Latte, dark: Catppuccin Macchiato)
+
+**Inline diagnostics** (errors/warnings shown on affected lines):
+
+- VSCode: `errorlens` extension (installed via Brewfile)
+- Zed: `diagnostics.inline.enabled: true` (built-in, matches ErrorLens behavior)
+
+**Extension management** — reproducible across machines:
+
+- VSCode: `vscode` entries in `.Brewfile.core` (managed by `brew bundle dump` / `brew bundle install`)
+- Zed: `auto_install_extensions` in `.config/zed/settings.json` (auto-installed on launch)
 
 **Parameter hints / signature help:**
 

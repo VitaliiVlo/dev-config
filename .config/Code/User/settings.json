@@ -1,6 +1,8 @@
 {
     /* Theme */
     "workbench.colorTheme": "Catppuccin Macchiato",
+    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
+    "workbench.preferredLightColorTheme": "Catppuccin Latte",
     "catppuccin.accentColor": "teal",
     "catppuccin.italicComments": true,
     "catppuccin.italicKeywords": true,
@@ -17,6 +19,7 @@
     "workbench.layoutControl.type": "menu",
     "workbench.activityBar.location": "bottom",
     /* Window */
+    "window.autoDetectColorScheme": true,
     "window.commandCenter": false,
     "window.titleBarStyle": "custom",
     "window.zoomPerWindow": false,
