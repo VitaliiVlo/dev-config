@@ -244,6 +244,8 @@
     "errorLens.gutterIconsFollowCursorOverride": true,
     "errorLens.gutterIconSet": "letter",
     "errorLens.gutterIconSize": "100%",
+    "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+    "errorLens.delay": 500,
     /* Clipboard */
     "clipboard-manager.avoidDuplicates": true,
     "clipboard-manager.maxClips": 50,

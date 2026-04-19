@@ -60,7 +60,11 @@
   },
   "diagnostics": {
     "inline": {
-      "enabled": true
+      "enabled": true,
+      "max_severity": "warning",
+      "update_debounce_ms": 500,
+      "padding": 4,
+      "min_column": 80
     }
   },
   "close_on_file_delete": true,
