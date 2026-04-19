@@ -44,6 +44,9 @@ ln -sf "$DOTFILES_DIR/.config/lazygit/config.yml" "$HOME/.config/lazygit/config.
 mkdir -p "$HOME/.config/gh"
 ln -sf "$DOTFILES_DIR/.config/gh/config.yml" "$HOME/.config/gh/config.yml"
 
+mkdir -p "$HOME/.config/zed"
+ln -sf "$DOTFILES_DIR/.config/zed/settings.json" "$HOME/.config/zed/settings.json"
+
 mkdir -p "$HOME/.codex"
 ln -sf "$DOTFILES_DIR/.codex/config.toml" "$HOME/.codex/config.toml"
 ln -sf "$DOTFILES_DIR/.codex/AGENTS.md" "$HOME/.codex/AGENTS.md"

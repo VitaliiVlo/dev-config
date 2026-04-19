@@ -8,5 +8,5 @@ linemode = "none"
 scrolloff = 3
 
 [preview]
-wrap = "yes"
+wrap = "no"
 tab_size = 4

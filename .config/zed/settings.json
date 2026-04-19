@@ -1,0 +1,137 @@
+// Zed settings
+// https://zed.dev/docs/configuring-zed
+{
+  // Theme
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Catppuccin Macchiato"
+  },
+  "icon_theme": "Zed (Default)",
+  "base_keymap": "VSCode",
+  // Font
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_fallbacks": [
+    "Fira Code",
+    "Menlo",
+    "Monaco",
+    "Symbols Nerd Font Mono"
+  ],
+  "buffer_font_size": 14.0,
+  "buffer_font_features": null,
+  "buffer_line_height": "comfortable",
+  "ui_font_size": 16,
+  // Editor UX
+  "cursor_shape": "bar",
+  "cursor_blink": true,
+  "current_line_highlight": "all",
+  "show_whitespaces": "selection",
+  "semantic_tokens": "combined",
+  "colorize_brackets": true,
+  "linked_edits": true,
+  "use_autoclose": true,
+  "show_completions_on_input": true,
+  "show_completion_documentation": true,
+  "auto_signature_help": true,
+  "auto_indent_on_paste": true,
+  "vertical_scroll_margin": 3.0,
+  "hover_popover_delay": 200,
+  "sticky_scroll": {
+    "enabled": true
+  },
+  "minimap": {
+    "show": "never"
+  },
+  "indent_guides": {
+    "enabled": true
+  },
+  "wrap_guides": [
+    80,
+    120
+  ],
+  "show_wrap_guides": true,
+  "soft_wrap": "none",
+  "inlay_hints": {
+    "enabled": true
+  },
+  "close_on_file_delete": true,
+  // Tabs & Indentation
+  "tab_size": 4,
+  "hard_tabs": false,
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  // Formatting & Whitespace
+  "format_on_save": "on",
+  "formatter": "auto",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true,
+  "autosave": "off",
+  // Search
+  "use_smartcase_search": true,
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/node_modules",
+    "**/.venv",
+    "**/venv",
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "**/.terraform",
+    "**/vendor",
+    "**/dist",
+    "**/build",
+    "**/coverage"
+  ],
+  // Git
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "show_commit_summary": false
+    },
+    "git_gutter": "tracked_files"
+  },
+  "project_panel": {
+    "git_status": true
+  },
+  // Terminal
+  "terminal": {
+    "font_family": "JetBrains Mono",
+    "font_fallbacks": [
+      "Fira Code",
+      "Menlo",
+      "Monaco",
+      "Symbols Nerd Font Mono"
+    ],
+    "font_size": 14.0,
+    "cursor_shape": "bar",
+    "blinking": "on",
+    "option_as_meta": true
+  },
+  // AI
+  "agent": {
+    "enabled": true,
+    "button": true
+  },
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  // Telemetry
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": false
+  }
+}

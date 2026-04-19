@@ -39,21 +39,22 @@ The following files are automatically symlinked by running `just link`:
 - `.gitconfig` - Git user and global settings
 - `.gitignore_global` - Global gitignore
 - `.ripgreprc` - Ripgrep defaults (smart-case, hidden files)
-- `.config/starship.toml` - Starship configuration
 - `.config/ghostty/config` - Ghostty configuration
+- `.config/starship.toml` - Starship configuration
 - `.config/bat/config` - Bat configuration
 - `.config/btop/btop.conf` - Btop configuration
-- `.config/Code/User/settings.json` - VSCode configuration
 - `.config/gh/config.yml` - GitHub CLI settings
-- `.codex/config.toml` - Codex CLI config (model, sandbox, plugins)
-- `.codex/AGENTS.md` - Codex user-level instructions
-- `.codex/rules/` - Codex permission rules (git, dev, shell, infra)
 - `.config/lazygit/config.yml` - Lazygit settings
 - `.config/micro/settings.json` - Micro editor settings
 - `.config/yazi/yazi.toml` - Yazi file manager settings
-- `.config/ccstatusline/settings.json` - Claude Code status line layout
+- `.config/Code/User/settings.json` - VSCode configuration
+- `.config/zed/settings.json` - Zed editor settings
 - `.claude/settings.json` - Claude Code permissions
 - `.claude/CLAUDE.md` - Claude Code user-level instructions
+- `.config/ccstatusline/settings.json` - Claude Code status line layout
+- `.codex/config.toml` - Codex CLI config (model, sandbox, plugins)
+- `.codex/AGENTS.md` - Codex user-level instructions
+- `.codex/rules/` - Codex permission rules (git, dev, shell, infra)
 
 **Not symlinked (used directly from repo):**
 
@@ -205,23 +206,25 @@ GUI applications and fonts installed via Homebrew Cask:
 
 ## Claude Code
 
-The `.claude/settings.json` configures pre-approved and blocked permissions:
+The `.claude/settings.json` configures permissions and plugins:
 
 **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
 
-**Blocked:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
+**Denied:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
 
 **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
-
-**Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) showing model, thinking effort, cwd, git branch, context %, session/weekly usage, and cost
 
 **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman
 
 **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
 
+**Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) showing model, thinking effort, cwd, git branch, context %, session/weekly usage, and cost
+
+**Usage tracking:** [`ccusage`](https://github.com/ryoppippi/ccusage) for analyzing token usage and costs from local JSONL files
+
 ## Codex
 
-The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations for Codex.
+The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
 
 **Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, and analytics/feedback disabled
 
@@ -229,4 +232,8 @@ The `.codex/config.toml` configures model selection, sandboxing, profiles, plugi
 
 **Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
 
-**Enabled integrations:** Slack and Caveman plugins, plus Atlassian and Datadog MCP servers
+**Enabled plugins:** Slack, caveman
+
+**Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)
+
+**MCP servers:** Atlassian, Datadog

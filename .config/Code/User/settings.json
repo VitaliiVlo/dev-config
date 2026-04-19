@@ -48,7 +48,7 @@
     "editor.renderLineHighlight": "all",
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.smoothScrolling": true,
-    "editor.wordWrap": "on",
+    "editor.wordWrap": "off",
     "editor.rulers": [
         80,
         120
@@ -66,6 +66,8 @@
         "strings": "on"
     },
     "editor.suggest.preview": true,
+    "editor.parameterHints.enabled": true,
+    "editor.autoClosingBrackets": "languageDefined",
     "editor.inlayHints.fontSize": 12,
     "editor.inlayHints.padding": true,
     "editor.tabCompletion": "on",
@@ -225,6 +227,7 @@
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.smoothScrolling": true,
     "terminal.integrated.fontLigatures.enabled": true,
+    "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.suggest.enabled": false,
     /* Testing */
     "testing.followRunningTest": true,

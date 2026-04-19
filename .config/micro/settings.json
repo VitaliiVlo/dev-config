@@ -11,5 +11,12 @@
     "smartpaste": true,
     "eofnewline": true,
     "autoindent": true,
-    "fileformat": "unix"
+    "fileformat": "unix",
+    "wordwrap": false,
+    "syntax": true,
+    "cursorline": true,
+    "matchbrace": true,
+    "colorcolumn": 80,
+    "encoding": "utf-8",
+    "truecolor": "auto"
 }
