@@ -9,25 +9,23 @@ macOS dotfiles repository for setting up a development environment. All configs 
 ## Key Commands
 
 ```bash
-just install           # Full setup: symlink configs and install packages
-just link              # Symlink configs to home directory
-just defaults          # Configure macOS defaults (interactive): folders, Finder, Dock, screenshots, system
-just versions          # Show installed Go, Node, Python versions
-just brew-install       # Install all packages (core + extra)
-just brew-install-core  # Install core packages only
-just brew-install-extra # Install extra packages only
-just brew-check        # Check for missing Brewfile packages
-just brew-outdated     # Show outdated Homebrew packages
-just brew-update       # Update and upgrade all Homebrew packages
-just brew-cleanup      # Clean up old versions and cache
-just brew-export       # Export installed packages (incl. VSCode extensions) to .Brewfile.core; keep .Brewfile.extra curated manually
+make setup              # Full setup: configure macOS, symlink configs, install packages, show versions
+make link               # Symlink configs to home directory
+make defaults           # Configure macOS defaults (interactive): folders, Finder, Dock, screenshots, system
+make versions           # Show installed Go, Node, Python versions
+make brew-install       # Install all packages (core + extra)
+make brew-install-core  # Install core packages only
+make brew-install-extra # Install extra packages only
+make brew-check         # Check for missing Brewfile packages
+make brew-cleanup       # Clean up old versions and cache
+make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile.core; keep .Brewfile.extra curated manually
 ```
 
 ## Repository Structure
 
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
-- `justfile` - Task runner recipes (`just` for list)
+- `Makefile` - Task runner targets (`make help` for list)
 - `.Brewfile.core` - Core packages: shell essentials, fonts, daily-driver apps, VSCode extensions
 - `.Brewfile.extra` - Extra packages: work-specific tooling, IDEs, infra (curated manually)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
@@ -143,7 +141,7 @@ uv python list --only-installed             # Should show installed Python versi
 
 When modifying `.config/Code/User/settings.json`:
 
-- Compare against `defaultSettings.jsonc` to check if a setting matches the default (redundant)
+- Compare against `defaultSettings.jsonc` to check if a setting matches the default (keep explicit defaults — intentional)
 - Settings use JSONC format (JSON with comments and trailing commas allowed)
 - Configured for Go, Python, and Node.js backend development
 - Uses Ruff for Python formatting/linting

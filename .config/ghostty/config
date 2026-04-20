@@ -32,7 +32,7 @@ theme = Catppuccin Macchiato
 unfocused-split-opacity = 0.5
 background-opacity = 0.9
 background-blur = true
-bold-is-bright = true
+bold-color = bright
 selection-invert-fg-bg = true
 focus-follows-mouse = false
 mouse-hide-while-typing = true
@@ -44,6 +44,7 @@ font-family = Monaco
 font-family = Symbols Nerd Font Mono
 font-size = 14
 font-thicken = true
+font-thicken-strength = 0
 
 # Cursor
 cursor-click-to-move = true

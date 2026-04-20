@@ -19,6 +19,4 @@
 --map-syntax "*.zsh:Zsh"
 --map-syntax ".zshrc:Zsh"
 --map-syntax ".zprofile:Zsh"
---map-syntax "justfile:Makefile"
---map-syntax "Justfile:Makefile"
 --map-syntax "*.toml:TOML"

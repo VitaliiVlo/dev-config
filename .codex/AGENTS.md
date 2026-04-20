@@ -17,7 +17,7 @@ Never introduce new conventions. Always check existing patterns first.
 Identify the work scope: a single repo or a folder grouping multiple repos for the same project.
 In a multi-repo project, check sibling repos for shared conventions — match like with like (service to service, frontend to frontend, infra to infra).
 If consistency is impossible or clearly inefficient, ask for approval before deviating.
-Start by checking local guidance: `AGENTS.md`, `CLAUDE.md`, `README`, `justfile`, CI, formatter/linter config, and recent Git history.
+Start by checking local guidance: `AGENTS.md`, `CLAUDE.md`, `README`, `Makefile`, CI, formatter/linter config, and recent Git history.
 
 Fallbacks only when a repo gives no signal:
 
@@ -27,7 +27,7 @@ Fallbacks only when a repo gives no signal:
 
 ## Tools
 
-- Prefer repo-native commands first: `just`, `make`, `task`, package scripts, checked-in scripts.
+- Prefer repo-native commands first: `make`, `task`, package scripts, checked-in scripts.
 - Prefer modern CLI equivalents: `rg` over `grep`, `fd` over `find`, `bat` over `cat`, `eza` over `ls`.
 - Use `gh` CLI for GitHub workflows.
 - Respect `.gitignore`, lockfiles, toolchain files, and existing automation.

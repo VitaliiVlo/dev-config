@@ -5,8 +5,7 @@ Dotfiles configured with **Catppuccin Macchiato** (dark) / **Catppuccin Latte** 
 ## Quick Start
 
 1. Clone this repository
-2. Run `just install` to symlink configs and install packages
-3. Run `just defaults` to configure macOS settings (optional)
+2. Run `make setup` to configure macOS, symlink configs, install packages, and show versions
 
 ## Prerequisites
 
@@ -32,7 +31,7 @@ Dotfiles configured with **Catppuccin Macchiato** (dark) / **Catppuccin Latte** 
 
 ## Configuration Files
 
-The following files are automatically symlinked by running `just link`:
+The following files are automatically symlinked by running `make link`:
 
 - `.zprofile` - Shell environment variables
 - `.zshrc` - Shell configuration and aliases
@@ -64,7 +63,7 @@ The following files are automatically symlinked by running `just link`:
 
 ## macOS Settings
 
-Run `just defaults` to configure:
+Run `make defaults` to configure:
 
 - Projects folder (~/Projects)
 - Screenshots (save to ~/Screenshots, no shadow, PNG)
@@ -128,15 +127,13 @@ Install via official installers or Homebrew Cask:
 Installed via Homebrew formulae and casks (see `.Brewfile.core` and `.Brewfile.extra`):
 
 ```bash
-just brew-install       # Install all packages (core + extra)
-just brew-install-core  # Install core packages only
-just brew-install-extra # Install extra packages only
-just brew-check        # Check for missing packages
-just brew-outdated     # Show outdated packages
-just brew-update       # Update and upgrade all packages
-just brew-cleanup      # Clean up old versions and cache
-just brew-export       # Export installed packages (incl. VSCode extensions) to .Brewfile.core; keep .Brewfile.extra curated manually
-just versions          # Show installed Go, Node, Python versions
+make brew-install       # Install all packages (core + extra)
+make brew-install-core  # Install core packages only
+make brew-install-extra # Install extra packages only
+make brew-check         # Check for missing packages
+make brew-cleanup       # Clean up old versions and cache
+make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile.core; keep .Brewfile.extra curated manually
+make versions           # Show installed Go, Node, Python versions
 ```
 
 | Tool                    | Description                                             |
@@ -151,7 +148,6 @@ just versions          # Show installed Go, Node, Python versions
 | gh                      | GitHub CLI                                              |
 | git-delta               | Syntax-highlighting git pager (replaces `less`)         |
 | jq / yq                 | JSON / YAML processors                                  |
-| just                    | Task runner (replaces `make`)                           |
 | k9s                     | Kubernetes TUI                                          |
 | kubectl                 | Kubernetes CLI                                          |
 | lazydocker              | Docker TUI                                              |
