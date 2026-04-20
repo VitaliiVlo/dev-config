@@ -156,6 +156,8 @@
     "terraform": true,
     "toml": true
   },
+  // Updates
+  "auto_update": true,
   // Telemetry
   "telemetry": {
     "diagnostics": true,

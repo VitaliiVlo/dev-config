@@ -183,12 +183,14 @@ When modifying any config file, ensure these values stay consistent across all t
 | Word wrap | `editor.wordWrap: "off"` | `soft_wrap: "none"` | `wordwrap: false` | — | — | — | `wrap = "no"` |
 | Scroll margin | `editor.cursorSurroundingLines: 3` | `vertical_scroll_margin: 3` | `scrollmargin: 3` | — | — | — | `scrolloff = 3` |
 | Line height | `editor.lineHeight: 1.5` | `buffer_line_height: "comfortable"` (1.618) | — | — | — | — | — |
-| Cursor | `cursorStyle: "line"`, width 2 | `cursor_shape: "bar"` | — | `cursor-style = bar`, thickness 2 | — | — | — |
-| Cursor blink | `cursorBlinking: "smooth"` | `cursor_blink: true` | — | `cursor-style-blink = true` | — | — | — |
-| Font | JetBrains Mono 14pt + fallbacks | Same chain | (terminal font) | Same chain | — | — | — |
+| Cursor | `cursorStyle: "line"`, width 2 | `cursor_shape: "bar"` (buffer + terminal) | — | `cursor-style = bar`, thickness 2 | — | — | — |
+| Cursor blink | `cursorBlinking: "smooth"` | `cursor_blink: true`, terminal: `blinking: "on"` | — | `cursor-style-blink = true` | — | — | — |
+| Font | JetBrains Mono 14pt + fallbacks (editor + terminal) | Same chain (buffer + terminal) | (terminal font) | Same chain | — | — | — |
 | Ligatures | `editor.fontLigatures: true` | `buffer_font_features: null` (all on) | — | (default: on) | — | — | — |
 | Theme (dark) | Catppuccin Macchiato | Catppuccin Macchiato | — | Catppuccin Macchiato | Catppuccin Macchiato | Catppuccin Macchiato | — |
 | Theme (light) | Catppuccin Latte | Catppuccin Latte | — | — | — | — | — |
+| Indent guides | `guides.indentation: true` | `indent_guides.enabled: true` | — | — | — | — | — |
+| Bold = bright | — | — | — | `bold-color = bright` | — | — | — |
 | Minimap | `minimap.enabled: false` | `minimap.show: "never"` | — | — | — | — | — |
 | Rulers/Guides | `rulers: [80, 120]` | `wrap_guides: [80, 120]` | `colorcolumn: 80` | — | — | — | — |
 | Sticky scroll | `stickyScroll.enabled: true` | `sticky_scroll.enabled: true` | — | — | — | — | — |
@@ -264,6 +266,18 @@ When modifying any config file, ensure these values stay consistent across all t
 
 - VSCode: `chat.agent.enabled: true`
 - Zed: `agent.enabled: true`
+- Zed: `agent_servers` configured with `codex-acp` and `claude-acp` registries
+
+**Zed keybindings:** `base_keymap: "VSCode"` — Zed mirrors VSCode shortcuts for consistency
+
+**Pager = delta** across all git-aware tools:
+
+| Tool | Config | Value |
+|---|---|---|
+| `.gitconfig` | `core.pager` | `delta` |
+| `.gitconfig` | `interactive.diffFilter` | `delta --color-only` |
+| gh CLI | `pager` | `delta` |
+| lazygit | `git.pagers` | `delta --paging=never` (lazygit handles scroll) |
 
 **Modified file indicators** in tabs:
 
@@ -281,6 +295,7 @@ When modifying any config file, ensure these values stay consistent across all t
 - Ghostty: `window-theme = system`
 - Zed: `theme.mode: "system"` (light: Catppuccin Latte, dark: Catppuccin Macchiato)
 - VSCode: `window.autoDetectColorScheme: true` (light: Catppuccin Latte, dark: Catppuccin Macchiato)
+- Codex: `tui.theme = "catppuccin-macchiato"` (TUI only, no light/system mode)
 
 **Inline diagnostics** (errors/warnings shown on affected lines):
 
@@ -292,41 +307,27 @@ When modifying any config file, ensure these values stay consistent across all t
 - VSCode: `vscode` entries in `.Brewfile.core` (managed by `brew bundle dump` / `brew bundle install`)
 - Zed: `auto_install_extensions` in `.config/zed/settings.json` (auto-installed on launch)
 
-**Parameter hints / signature help:**
+**Zed overrides from defaults:** `auto_signature_help: true` (Zed default is `false`, set to match VSCode `parameterHints.enabled`)
 
-- VSCode: `editor.parameterHints.enabled: true`
-- Zed: `auto_signature_help: true` (Zed default is `false`, overridden to match VSCode)
-
-**Git changes gutter** (diff indicators in editor/preview):
-
-- VSCode: git gutter enabled by default
-- Zed: `git.git_gutter: "tracked_files"`
-- Micro: `diffgutter: true`
-- bat: `--style="numbers,changes,header,grid"` (`changes` = git diff markers)
-
-**Diff whitespace handling:**
-
-- VSCode: `diffEditor.ignoreTrimWhitespace: false` (show whitespace diffs)
-- Delta: shows whitespace changes by default (no `--ignore-all-space`)
-
-**Trim final newlines:**
+**Trim final newlines** (known gap):
 
 - VSCode: `files.trimFinalNewlines: true` (trims extra blank lines at EOF)
-- Zed: `ensure_final_newline_on_save: true` (adds one, does NOT trim extras — known gap)
+- Zed: `ensure_final_newline_on_save: true` (adds one, does NOT trim extras)
 - Micro: `eofnewline: true` (adds one, does not trim extras)
 
-**Hidden files at shell level:**
+**Hidden files / case-insensitive matching at shell level** (supplements file search table above):
 
 - zsh: `setopt globdots` (glob matches dotfiles — consistent with fd/rg `--hidden`)
-- fd/rg: `--hidden`
-- yazi: `show_hidden = true`
+- zsh completions: `matcher-list 'm:{a-zA-Z}={A-Za-z}'` (supplements smart-case in rg/Zed/yazi)
 
-**Case-insensitive matching across tools:**
+**Nerd Font icons** — `Symbols Nerd Font Mono` in font fallback chain enables icons across:
 
-- rg: `--smart-case`
-- Zed: `use_smartcase_search: true`
-- yazi: `sort_sensitive = false`
-- zsh completions: `matcher-list 'm:{a-zA-Z}={A-Za-z}'`
+- starship: nerd-font-symbols preset (`.config/starship.toml`)
+- eza: `--icons=auto` in aliases
+- lazygit: `nerdFontsVersion: "3"`
+- yazi: auto-detected
+- VSCode/Zed: via font fallback chain
+- Ghostty: via font fallback chain
 
 **Shell integration:**
 
@@ -338,24 +339,28 @@ When modifying any config file, ensure these values stay consistent across all t
 - Ghostty: `clipboard-trim-trailing-spaces = true` (trim on copy)
 - Editors: trim trailing whitespace on save (VSCode, Zed, Micro)
 
-**Update channel:** stable everywhere
+**Update channel and auto-update** — stable everywhere, auto-update enabled:
 
-- Claude Code: `autoUpdatesChannel: "stable"`
-- Ghostty: `auto-update-channel = stable`
+| Tool | Auto-update | Channel | Setting |
+|---|---|---|---|
+| Claude Code | enabled | `stable` | `autoUpdatesChannel: "stable"` |
+| Ghostty | download | `stable` | `auto-update = download`, `auto-update-channel = stable` |
+| VSCode | `"default"` (enabled) | stable | `update.mode: "default"` |
+| VSCode extensions | enabled | — | `extensions.autoUpdate: true`, `extensions.autoCheckUpdates: true` |
+| Zed | enabled | stable | `auto_update: true` |
+| Zed extensions | auto-install on launch | — | `auto_install_extensions` |
+| Go tools (VSCode) | enabled | — | `go.toolsManagement.autoUpdate: true` |
+| Homebrew | manual (`make brew-install`) | — | No auto-update |
 
 **Codex ↔ Claude shared docs:** Codex `project_doc_fallback_filenames = ["CLAUDE.md"]` — both agents read same `CLAUDE.md` files
 
-**Exclusion lists** must stay in sync across: `.ripgreprc`, `fd` alias in `.zshrc`, VSCode `search.exclude`, Zed `file_scan_exclusions`, `.gitignore_global`
-
-Core exclusions: `.git`, `node_modules`, `.venv`, `venv`, `__pycache__`, `.pytest_cache`, `.terraform`, `vendor`, `dist`, `build`, `coverage`
+**Exclusion lists** must stay in sync across: `.ripgreprc`, `fd` alias in `.zshrc`, VSCode `search.exclude`, Zed `file_scan_exclusions`, `.gitignore_global`. Core set: `.git`, `node_modules`, `.venv`, `venv`, `__pycache__`, `.pytest_cache`, `.terraform`, `vendor`, `dist`, `build`, `coverage`
 
 **Git settings** must stay consistent across: `.gitconfig` (authoritative), VSCode, Zed, `gh` CLI, lazygit
 
 | Setting | `.gitconfig` | VSCode | gh CLI | lazygit | Zed |
 |---|---|---|---|---|---|
 | Protocol | `url.insteadOf` (SSH) | `gitProtocol: "ssh"` | `git_protocol: ssh` | (uses git) | (uses git) |
-| Pager | `core.pager = delta` | — | `pager: delta` | `delta --paging=never` | — |
-| Delta theme | `delta.syntax-theme` | — | — | — | — |
 | Auto fetch | — | `autofetch: true` (300s) | — | `autoFetch: true` (60s) | no setting (gap) |
 | Prune on fetch | `fetch.prune = true` | `pruneOnFetch: true` | — | — | (uses git) |
 | Rebase on pull | `pull.rebase = true` | `rebaseWhenSync: true` | — | — | (uses git) |
@@ -368,16 +373,7 @@ Core exclusions: `.git`, `node_modules`, `.venv`, `venv`, `__pycache__`, `.pytes
 
 Zed delegates git workflow (rebase, autostash, prune, SSH) to `.gitconfig` — consistent by inheritance. Two known gaps: no auto-fetch, no branch protection.
 
-**Git config** (`.gitconfig` authoritative for all git tools):
-
-- Default branch: `init.defaultBranch = main`
-- Merge conflicts: `merge.conflictstyle = zdiff3`
-- Rerere: `rerere.enabled = true`, `rerere.autoupdate = true`
-- Push: `push.autoSetupRemote = true`
-- Diff: `algorithm = histogram`, `colorMoved = default`, `renames = true`, `mnemonicPrefix = true`
-- Delta: `dark = true`, `line-numbers = true`, `side-by-side = true`, `hyperlinks = true`, `navigate = true`
-- Log: `date = relative`
-- Branch: `sort = -committerdate`
+`.gitconfig` authoritative settings: `init.defaultBranch = main`, `merge.conflictstyle = zdiff3`, `rerere.enabled = true`, `rerere.autoupdate = true`, `push.autoSetupRemote = true`, `diff.algorithm = histogram`, `diff.colorMoved = default`, `diff.renames = true`, `diff.mnemonicPrefix = true`, `log.date = relative`, `branch.sort = -committerdate`. Delta config: `dark = true`, `line-numbers = true`, `side-by-side = true`, `hyperlinks = true`, `navigate = true`.
 
 **`EDITOR` env var** must match across: `.zprofile` (`code --wait`), `.gitconfig` (`core.editor`), lazygit (`editPreset: vscode`), Codex (`file_opener = "vscode"`)
 

@@ -219,6 +219,10 @@
     "liveshare.allowGuestDebugControl": true,
     "liveshare.allowGuestTaskControl": true,
     "liveshare.notebooks.allowGuestExecuteCells": true,
+    /* Updates */
+    "update.mode": "default",
+    "extensions.autoUpdate": true,
+    "extensions.autoCheckUpdates": true,
     /* Telemetry */
     "telemetry.telemetryLevel": "crash",
     "redhat.telemetry.enabled": false,

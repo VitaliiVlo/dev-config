@@ -204,32 +204,21 @@ GUI applications and fonts installed via Homebrew Cask:
 
 The `.claude/settings.json` configures permissions and plugins:
 
-**Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
-
-**Denied:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
-
-**Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
-
-**Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman
-
-**Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
-
-**Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) showing model, thinking effort, cwd, git branch, context %, session/weekly usage, and cost
-
-**Usage tracking:** [`ccusage`](https://github.com/ryoppippi/ccusage) for analyzing token usage and costs from local JSONL files
+- **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
+- **Denied:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
+- **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
+- **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman
+- **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
+- **Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
+- **Usage tracking:** [`ccusage`](https://github.com/ryoppippi/ccusage) for token usage and cost analysis
 
 ## Codex
 
 The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
 
-**Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, and analytics/feedback disabled
-
-**Profiles:** `quick`, `deep`, and `research` (`research` enables live web search)
-
-**Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
-
-**Enabled plugins:** Slack, caveman
-
-**Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)
-
-**MCP servers:** Atlassian, Datadog
+- **Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, analytics/feedback disabled
+- **Profiles:** `quick`, `deep`, and `research` (`research` enables live web search)
+- **Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
+- **Enabled plugins:** Slack, caveman
+- **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)
+- **MCP servers:** Atlassian, Datadog
