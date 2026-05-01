@@ -1,0 +1,10 @@
+# Symlinked into ~/Library/Preferences/glow/ (macOS ignores XDG here)
+
+# Display
+style: "auto"
+showLineNumbers: true
+
+# Behavior
+pager: true
+mouse: true
+all: false

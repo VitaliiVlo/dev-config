@@ -10,3 +10,6 @@ prefix_rule(pattern=["ruff", "check"], decision="allow")
 prefix_rule(pattern=["npm", "run", ["build", "test", "lint", "typecheck"]], decision="allow")
 prefix_rule(pattern=[["vitest", "jest", "eslint"]], decision="allow")
 prefix_rule(pattern=["tsc", "--noEmit"], decision="allow")
+
+# Shell
+prefix_rule(pattern=[["shellcheck", "shfmt"]], decision="allow")

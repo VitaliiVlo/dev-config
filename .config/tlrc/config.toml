@@ -1,0 +1,12 @@
+# Symlinked into ~/Library/Application Support/tlrc/ (macOS ignores XDG here)
+
+[cache]
+auto_update = true
+defer_auto_update = false
+
+[output]
+show_title = true
+platform_title = true
+option_style = "both"
+show_hyphens = true
+compact = true

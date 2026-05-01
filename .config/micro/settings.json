@@ -1,22 +1,25 @@
 {
     "tabsize": 4,
     "tabstospaces": true,
-    "savecursor": true,
-    "scrollbar": true,
-    "scrollmargin": 3,
-    "hlsearch": true,
-    "diffgutter": true,
-    "basename": true,
-    "rmtrailingws": true,
-    "smartpaste": true,
-    "eofnewline": true,
     "autoindent": true,
+    "smartpaste": true,
+
+    "rmtrailingws": true,
+    "eofnewline": true,
     "fileformat": "unix",
-    "wordwrap": false,
+
     "syntax": true,
     "cursorline": true,
     "matchbrace": true,
-    "colorcolumn": 80,
+    "colorcolumn": 120,
+    "scrollbar": true,
+    "scrollmargin": 3,
+    "diffgutter": true,
+    "basename": true,
+    "hlsearch": true,
+    "savecursor": true,
+    "wordwrap": false,
+
     "encoding": "utf-8",
     "truecolor": "auto"
 }

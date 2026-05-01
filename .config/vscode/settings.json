@@ -1,5 +1,5 @@
 {
-    /* Theme */
+    // Theme
     "workbench.colorTheme": "Catppuccin Macchiato",
     "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
@@ -8,7 +8,7 @@
     "catppuccin.italicKeywords": true,
     "workbench.iconTheme": "symbols",
     "workbench.productIconTheme": "fluent-icons",
-    /* Workbench */
+    // Workbench
     "workbench.list.smoothScrolling": true,
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.startupEditor": "none",
@@ -19,7 +19,7 @@
     "workbench.layoutControl.enabled": true,
     "workbench.layoutControl.type": "menu",
     "workbench.activityBar.location": "bottom",
-    /* Window */
+    // Window
     "window.autoDetectColorScheme": true,
     "window.commandCenter": false,
     "window.titleBarStyle": "custom",
@@ -28,7 +28,7 @@
     "settingsSync.ignoredSettings": [
         "-window.zoomLevel"
     ],
-    /* Font & Indentation */
+    // Font & Indentation
     "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Symbols Nerd Font Mono'",
     "editor.fontSize": 14,
     "editor.lineHeight": 1.5,
@@ -39,7 +39,7 @@
     "editor.autoIndent": "full",
     "editor.autoIndentOnPaste": true,
     "editor.autoIndentOnPasteWithinString": true,
-    /* Cursor & Scrolling */
+    // Cursor & Scrolling
     "editor.cursorBlinking": "smooth",
     "editor.cursorStyle": "line",
     "editor.cursorWidth": 2,
@@ -47,12 +47,9 @@
     "editor.renderLineHighlight": "all",
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.smoothScrolling": true,
-    /* Editor UX */
+    // Editor UX
     "editor.wordWrap": "off",
-    "editor.rulers": [
-        80,
-        120
-    ],
+    "editor.rulers": [120],
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "selection",
     "editor.linkedEditing": true,
@@ -67,7 +64,17 @@
     "editor.semanticHighlighting.enabled": true,
     "editor.occurrencesHighlight": "multiFile",
     "editor.autoClosingBrackets": "languageDefined",
-    /* IntelliSense */
+    // Inline diagnostics (ErrorLens)
+    "errorLens.messageEnabled": false,
+    "errorLens.followCursor": "activeLine",
+    "errorLens.followCursorMore": 3,
+    "errorLens.gutterIconsEnabled": true,
+    "errorLens.gutterIconsFollowCursorOverride": true,
+    "errorLens.gutterIconSet": "letter",
+    "errorLens.gutterIconSize": "100%",
+    "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+    "errorLens.delay": 500,
+    // IntelliSense
     "editor.quickSuggestions": {
         "other": "on",
         "comments": "on",
@@ -79,7 +86,7 @@
     "editor.inlayHints.padding": true,
     "editor.tabCompletion": "on",
     "editor.hover.delay": 200,
-    /* Formatting */
+    // Formatting
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
     "editor.formatOnPaste": true,
@@ -88,7 +95,7 @@
         "source.organizeImports": "explicit",
         "source.fixAll": "explicit",
     },
-    /* Search */
+    // Search
     "search.followSymlinks": true,
     "search.exclude": {
         "**/node_modules": true,
@@ -103,7 +110,7 @@
         "**/.git": true,
         "**/coverage": true
     },
-    /* Files */
+    // Files
     "explorer.confirmDelete": false,
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
@@ -122,76 +129,17 @@
     "files.eol": "\n",
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-    /* JavaScript/TypeScript */
-    "js/ts.updateImportsOnFileMove.enabled": "always",
-    "js/ts.suggest.autoImports": true,
-    "js/ts.suggest.completeFunctionCalls": true,
-    "js/ts.inlayHints.parameterNames.enabled": "literals",
-    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
-    "js/ts.inlayHints.variableTypes.enabled": true,
-    /* Python */
-    "python.defaultInterpreterPath": "python3",
-    "python.analysis.typeCheckingMode": "standard",
-    "python.analysis.autoImportCompletions": true,
-    "python.analysis.diagnosticMode": "workspace",
-    "python.analysis.completeFunctionParens": true,
-    "python.terminal.activateEnvironment": true,
-    "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": [
-        "--tb=short"
-    ],
-    /* Go tooling */
-    "go.diagnostic.vulncheck": "Imports",
-    "go.toolsManagement.autoUpdate": true,
-    "gopls": {
-        "formatting.gofumpt": true,
-        "ui.semanticTokens": true,
-        "codelenses": {
-            "generate": true,
-            "tidy": true,
-            "upgrade_dependency": true,
-            "vendor": true,
-            "test": true
-        }
-    },
-    "go.buildTags": "integration",
-    "go.buildFlags": [
-        "-ldflags=-checklinkname=0",
-        "-race"
-    ],
-    "go.testOnSave": false,
-    "go.testTags": "integration",
-    "go.testFlags": [
-        "-v",
-        "-failfast",
-        "-count=1",
-        "-race",
-        "-timeout=5m",
-        "-ldflags=-checklinkname=0"
-    ],
-    "go.lintOnSave": "package",
-    "go.lintTool": "golangci-lint-v2",
-    "go.lintFlags": [
-        "--new-from-rev=origin/main",
-        "-v",
-        "--concurrency=0"
-    ],
-    "go.inlayHints.assignVariableTypes": true,
-    "go.inlayHints.compositeLiteralFields": false,
-    "go.inlayHints.compositeLiteralTypes": false,
-    "go.inlayHints.constantValues": true,
-    "go.inlayHints.functionTypeParameters": false,
-    "go.inlayHints.parameterNames": false,
-    "go.inlayHints.rangeVariableTypes": true,
-    "go.coverOnSingleTest": true,
-    "go.coverageDecorator": {
-        "type": "gutter"
-    },
-    /* AI */
-    "github.copilot.nextEditSuggestions.enabled": false,
-    "github.copilot.chat.codesearch.enabled": true,
-    "chat.agent.enabled": true,
-    /* Git */
+    // Terminal
+    "terminal.integrated.fontFamily": "'JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Symbols Nerd Font Mono'",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorWidth": 2,
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.smoothScrolling": true,
+    "terminal.integrated.fontLigatures.enabled": true,
+    "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.suggest.enabled": false,
+    // Git
     "github.gitProtocol": "ssh",
     "git.confirmSync": false,
     "git.autofetch": true,
@@ -218,42 +166,89 @@
         "master"
     ],
     "scm.defaultViewMode": "tree",
-    /* Liveshare */
+    // Testing & Debug
+    "testing.followRunningTest": true,
+    "debug.inlineValues": "on",
+    // JavaScript/TypeScript
+    "js/ts.updateImportsOnFileMove.enabled": "always",
+    "js/ts.suggest.autoImports": true,
+    "js/ts.suggest.completeFunctionCalls": true,
+    "js/ts.inlayHints.parameterNames.enabled": "literals",
+    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+    "js/ts.inlayHints.variableTypes.enabled": true,
+    // Python
+    "python.defaultInterpreterPath": "python3",
+    "python.analysis.typeCheckingMode": "standard",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.completeFunctionParens": true,
+    "python.terminal.activateEnvironment": true,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "--tb=short"
+    ],
+    // Go tooling
+    "go.diagnostic.vulncheck": "Imports",
+    "go.toolsManagement.autoUpdate": true,
+    "gopls": {
+        "formatting.gofumpt": true,
+        "ui.semanticTokens": true,
+        "codelenses": {
+            "generate": true,
+            "tidy": true,
+            "upgrade_dependency": true,
+            "vendor": true,
+            "test": true
+        }
+    },
+    "go.buildTags": "integration",
+    "go.buildFlags": [
+        "-race"
+    ],
+    "go.testOnSave": false,
+    "go.testTags": "integration",
+    "go.testFlags": [
+        "-v",
+        "-failfast",
+        "-count=1",
+        "-race",
+        "-timeout=5m"
+    ],
+    "go.lintOnSave": "package",
+    "go.lintTool": "golangci-lint-v2",
+    "go.lintFlags": [
+        "--new-from-rev=origin/main",
+        "-v",
+        "--concurrency=0"
+    ],
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.compositeLiteralFields": false,
+    "go.inlayHints.compositeLiteralTypes": false,
+    "go.inlayHints.constantValues": true,
+    "go.inlayHints.functionTypeParameters": false,
+    "go.inlayHints.parameterNames": false,
+    "go.inlayHints.rangeVariableTypes": true,
+    "go.coverOnSingleTest": true,
+    "go.coverageDecorator": {
+        "type": "gutter"
+    },
+    // AI
+    "github.copilot.nextEditSuggestions.enabled": false,
+    "github.copilot.chat.codesearch.enabled": true,
+    "chat.agent.enabled": true,
+    // Updates
+    "update.mode": "default",
+    "extensions.autoUpdate": true,
+    "extensions.autoCheckUpdates": true,
+    // Telemetry
+    "telemetry.telemetryLevel": "crash",
+    "redhat.telemetry.enabled": false,
+    // Liveshare
     "liveshare.languages.allowGuestCommandControl": true,
     "liveshare.allowGuestDebugControl": true,
     "liveshare.allowGuestTaskControl": true,
     "liveshare.notebooks.allowGuestExecuteCells": true,
-    /* Updates */
-    "update.mode": "default",
-    "extensions.autoUpdate": true,
-    "extensions.autoCheckUpdates": true,
-    /* Telemetry */
-    "telemetry.telemetryLevel": "crash",
-    "redhat.telemetry.enabled": false,
-    /* Terminal */
-    "terminal.integrated.fontFamily": "'JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Symbols Nerd Font Mono'",
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.cursorWidth": 2,
-    "terminal.integrated.fontSize": 14,
-    "terminal.integrated.smoothScrolling": true,
-    "terminal.integrated.fontLigatures.enabled": true,
-    "terminal.integrated.macOptionIsMeta": true,
-    "terminal.integrated.suggest.enabled": false,
-    /* Testing & Debug */
-    "testing.followRunningTest": true,
-    "debug.inlineValues": "on",
-    /* ErrorLens */
-    "errorLens.messageEnabled": false,
-    "errorLens.followCursor": "activeLine",
-    "errorLens.followCursorMore": 3,
-    "errorLens.gutterIconsEnabled": true,
-    "errorLens.gutterIconsFollowCursorOverride": true,
-    "errorLens.gutterIconSet": "letter",
-    "errorLens.gutterIconSize": "100%",
-    "errorLens.enabledDiagnosticLevels": ["error", "warning"],
-    "errorLens.delay": 500,
-    /* Clipboard */
+    // Clipboard manager
     "clipboard-manager.avoidDuplicates": true,
     "clipboard-manager.maxClips": 50,
     "clipboard-manager.moveToTop": true,

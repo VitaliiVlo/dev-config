@@ -1,4 +1,3 @@
-# Ghostty configuration
 # https://ghostty.org/docs/config/reference
 
 # General
@@ -8,34 +7,15 @@ desktop-notifications = true
 macos-icon = retro
 shell-integration = zsh
 
-# Clipboard
-clipboard-paste-protection = true
-clipboard-trim-trailing-spaces = true
-copy-on-select = true
-
-# Window
-confirm-close-surface = true
-quit-after-last-window-closed = true
-window-theme = system
-window-subtitle = working-directory
-working-directory = home
-window-inherit-working-directory = true
-maximize = true
-window-save-state = never
-window-padding-x = 16
-window-padding-y = 16
-window-padding-balance = true
-window-padding-color = extend
-
-# Theme
-theme = Catppuccin Macchiato
+# Theme (follows system appearance via window-theme = system)
+theme = light:Catppuccin Latte,dark:Catppuccin Macchiato
 unfocused-split-opacity = 0.5
 background-opacity = 0.9
 background-blur = true
 bold-color = bright
 selection-invert-fg-bg = true
 
-# Font (fallback chain: primary, system monospace, Nerd Font symbols for icons)
+# Font (fallback chain ends with Nerd Font for icons)
 font-family = JetBrains Mono
 font-family = Fira Code
 font-family = Menlo
@@ -51,6 +31,25 @@ adjust-cursor-thickness = 2
 cursor-style = bar
 cursor-style-blink = true
 cursor-opacity = 1
+
+# Window
+confirm-close-surface = true
+quit-after-last-window-closed = true
+window-theme = system
+window-subtitle = working-directory
+working-directory = home
+window-inherit-working-directory = true
+maximize = true
+window-save-state = never
+window-padding-x = 16
+window-padding-y = 16
+window-padding-balance = true
+window-padding-color = extend
+
+# Clipboard
+clipboard-paste-protection = true
+clipboard-trim-trailing-spaces = true
+copy-on-select = true
 
 # Input
 macos-option-as-alt = true

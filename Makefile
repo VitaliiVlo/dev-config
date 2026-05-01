@@ -14,11 +14,11 @@ link: ## Symlink configs to home directory
 	./bootstrap.sh
 
 versions: ## Show installed Go, Node, Python versions
-	@echo "--- Go ---"
+	@printf '%s\n' "--- Go ---"
 	@go version
-	@echo "\n--- Node ---"
+	@printf '\n%s\n' "--- Node ---"
 	@fnm list
-	@echo "\n--- Python ---"
+	@printf '\n%s\n' "--- Python ---"
 	@uv python list --only-installed
 
 brew-install: brew-install-core brew-install-extra ## Install all packages from Brewfiles
@@ -36,5 +36,7 @@ brew-check: ## Check for missing Brewfile packages
 brew-cleanup: ## Clean up old versions and cache
 	brew cleanup --prune=all
 
-brew-export: ## Export installed core packages to .Brewfile.core; keep .Brewfile.extra curated manually
+brew-export: ## Export installed packages to .Brewfile.core, then strip .Brewfile.extra entries; add new extras to .Brewfile.extra manually
 	brew bundle dump --file=.Brewfile.core --force
+	@grep -E '^(brew|cask|tap|vscode|mas) "' .Brewfile.extra | grep -vxFf - .Brewfile.core > .Brewfile.core.tmp && mv .Brewfile.core.tmp .Brewfile.core
+	@echo "Stripped .Brewfile.extra entries from .Brewfile.core"

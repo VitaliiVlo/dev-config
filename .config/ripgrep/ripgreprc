@@ -1,10 +1,9 @@
-# Smart case: case-insensitive unless uppercase is used
+# Search behavior
 --smart-case
-
-# Search inside hidden files and directories
 --hidden
+--follow
 
-# Exclude common noise directories
+# Exclusions
 --glob=!.git
 --glob=!node_modules
 --glob=!.venv
@@ -17,9 +16,6 @@
 --glob=!build
 --glob=!coverage
 
-# Follow symlinks
---follow
-
-# Truncate long lines (show preview of truncated content)
+# Long-line handling
 --max-columns=200
 --max-columns-preview

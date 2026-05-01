@@ -1,22 +1,19 @@
-# Theme (matching Ghostty and VSCode)
---theme="Catppuccin Macchiato"
+# Theme (follows macOS appearance)
+--theme-dark="Catppuccin Macchiato"
+--theme-light="Catppuccin Latte"
 
-# Display style
+# Display
 --style="numbers,changes,header,grid"
 --italic-text=always
 --tabs=4
 --wrap=auto
 
-# Pager behavior
+# Pager
 --pager="less --RAW-CONTROL-CHARS --quit-if-one-screen"
 
-# Syntax mappings
+# Syntax mappings (only entries bat does not map natively)
 --map-syntax ".gitignore:Git Ignore"
 --map-syntax ".dockerignore:Git Ignore"
 --map-syntax ".env*:Dotenv"
 --map-syntax "Brewfile:Ruby"
 --map-syntax "*.conf:INI"
---map-syntax "*.zsh:Zsh"
---map-syntax ".zshrc:Zsh"
---map-syntax ".zprofile:Zsh"
---map-syntax "*.toml:TOML"

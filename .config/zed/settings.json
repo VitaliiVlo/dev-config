@@ -1,4 +1,3 @@
-// Zed settings
 // https://zed.dev/docs/configuring-zed
 {
   // Theme
@@ -12,7 +11,6 @@
     "light": "Symbols Icon Theme",
     "dark": "Symbols Icon Theme"
   },
-  "base_keymap": "VSCode",
   // Font
   "buffer_font_family": "JetBrains Mono",
   "buffer_font_fallbacks": [
@@ -26,6 +24,7 @@
   "buffer_line_height": "comfortable",
   "ui_font_size": 16,
   // Editor UX
+  "base_keymap": "VSCode",
   "cursor_shape": "bar",
   "cursor_blink": true,
   "current_line_highlight": "all",
@@ -49,10 +48,7 @@
   "indent_guides": {
     "enabled": true
   },
-  "wrap_guides": [
-    80,
-    120
-  ],
+  "wrap_guides": [120],
   "show_wrap_guides": true,
   "soft_wrap": "none",
   "inlay_hints": {

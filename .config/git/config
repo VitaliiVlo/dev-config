@@ -7,10 +7,12 @@
 
 [core]
 	autocrlf = input
-	safecrlf = warn
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 	editor = code --wait
 	pager = delta
+
+[init]
+	defaultBranch = main
 
 [interactive]
 	diffFilter = delta --color-only
@@ -24,18 +26,6 @@
 	tabs = 4
 	syntax-theme = Catppuccin Macchiato
 
-[fetch]
-	prune = true
-
-[pull]
-	rebase = true
-
-[rebase]
-	autostash = true
-
-[init]
-	defaultBranch = main
-
 [diff]
 	colorMoved = default
 	algorithm = histogram
@@ -45,12 +35,33 @@
 [merge]
 	conflictstyle = zdiff3
 
+[log]
+	date = relative
+
+[branch]
+	sort = -committerdate
+
+[fetch]
+	prune = true
+
+[pull]
+	rebase = true
+
+[rebase]
+	autostash = true
+
+[push]
+	autoSetupRemote = true
+
 [rerere]
 	enabled = true
 	autoupdate = true
 
-[push]
-	autoSetupRemote = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 
 [alias]
 	# Daily basics
@@ -67,9 +78,3 @@
 	# Undo
 	undo = reset --soft HEAD~1
 	wipe = reset --hard HEAD
-
-[log]
-	date = relative
-
-[branch]
-	sort = -committerdate
