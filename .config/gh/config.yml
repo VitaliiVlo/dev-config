@@ -5,7 +5,7 @@ git_protocol: ssh
 http_unix_socket:
 
 # UI
-editor:
+editor: code --wait
 pager: delta
 spinner: enabled
 color_labels: enabled

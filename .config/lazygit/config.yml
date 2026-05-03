@@ -1,10 +1,19 @@
+# UI
 gui:
   nerdFontsVersion: "3"
-os:
-  editPreset: vscode
+
+# Git workflow
 git:
   autoFetch: true
   pagers:
     - pager: delta --paging=never
       colorArg: always
   disableForcePushing: true
+
+# OS integration
+os:
+  editPreset: vscode
+
+# Updates (Brew owns)
+update:
+  method: never

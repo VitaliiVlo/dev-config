@@ -66,6 +66,7 @@ The following files are automatically symlinked by running `make link`:
 - `.config/bottom/bottom.toml` - Bottom (`btm`) system monitor settings
 - `.config/glow/glow.yml` - Glow Markdown renderer settings
 - `.config/tlrc/config.toml` - tlrc (tldr client) settings (linked into Library/Application Support/tlrc)
+- `.config/superfile/config.toml` - Superfile (`spf`) terminal file manager settings (linked into Library/Application Support/superfile)
 - `.config/vscode/settings.json` - VSCode configuration (linked into `Library/Application Support/Code/User`)
 - `.config/zed/settings.json` - Zed editor settings
 - `.claude/settings.json` - Claude Code permissions
@@ -78,18 +79,18 @@ The following files are automatically symlinked by running `make link`:
 **Not symlinked (used directly from repo):**
 
 - `.Brewfile.core` - Core Brewfile (shell, fonts, daily-driver apps, VSCode extensions)
-- `.Brewfile.extra` - Extra Brewfile (work-specific tooling, IDEs, infra; curated manually)
+- `.Brewfile.extra` - Extra Brewfile (work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN; curated manually)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
 ## macOS Settings
 
-Run `make defaults` to configure:
+Run `make defaults` to configure (in order applied):
 
-- Projects folder (~/Projects)
+- Folders (~/Projects, ~/Screenshots)
+- System defaults (key repeat, natural scrolling, save to disk)
 - Screenshots (save to ~/Screenshots, no shadow, PNG)
 - Finder (list view, path bar, show extensions, folders first, search current folder)
 - Dock (autohide, no recents, minimize to app, fixed Spaces order, hot corners disabled)
-- System defaults (key repeat, natural scrolling, save to disk)
 
 ## Applications
 
@@ -133,12 +134,14 @@ Install via official installers or Homebrew Cask:
 | Calendar              | **Apple Calendar**, Fantastical                                                      |
 | Mail                  | **Apple Mail**, Mimestream                                                           |
 | Password Manager      | **Apple Passwords**, 1Password, Bitwarden                                            |
+| Office                | **Apple iWork** (Pages, Numbers, Keynote), Google Workspace, Microsoft 365           |
 | macOS Tools           | Raycast, Rectangle, Maccy, Keka, KeepingYouAwake, Ice, MiddleClick, balenaEtcher     |
+| Linux Distros         | **Bluefin**, elementary OS, Fedora Silverblue, Fedora Workstation, Pop!_OS           |
 
 **VSCode setup:**
 
 - Enable settings sync with GitHub
-- Enable Copilot
+- Enable Copilot (next-edit suggestions intentionally off via `github.copilot.nextEditSuggestions.enabled: false`)
 - Configure layout (View → Appearance / Customize Layout):
   - Quick input position: center
   - Panel alignment: justify
@@ -165,35 +168,42 @@ make versions           # Show installed Go, Node, Python versions
 | awscli                  | AWS command-line interface                              |
 | bat                     | `cat` with syntax highlighting                          |
 | bottom                  | System monitor TUI (`btm`, modern `htop`)               |
-| dust                    | Disk usage analyzer (modern `du`)                       |
+| dua-cli                 | Interactive disk usage analyzer (alternative to gdu)    |
+| exiftool                | Read/write image/audio/video metadata                   |
 | eza                     | Modern `ls` replacement                                 |
 | fd                      | Modern `find` replacement                               |
 | fnm                     | Fast Node Manager (auto-switches via `.node-version`)   |
 | fx                      | Terminal JSON viewer / processor                        |
 | fzf                     | Fuzzy finder (Ctrl+T files, Alt+C dirs)                 |
+| gdu                     | Fast parallel disk usage analyzer (Go)                  |
 | gh                      | GitHub CLI                                              |
 | git                     | Distributed version control                             |
 | git-delta               | Syntax-highlighting git pager (replaces `less`)         |
 | git-lfs                 | Git Large File Storage extension                        |
+| gitui                   | Git TUI (Rust, alternative to lazygit)                  |
 | glow                    | Terminal Markdown renderer                              |
 | go                      | Go toolchain (1.26)                                     |
 | helm                    | Kubernetes package manager                              |
 | jq / yq                 | JSON / YAML processors                                  |
 | k9s                     | Kubernetes TUI                                          |
+| kdash                   | Kubernetes dashboard TUI (Rust)                         |
 | kubectl                 | Kubernetes CLI                                          |
 | kustomize               | Kubernetes manifest overlays/patches                    |
 | lazydocker              | Docker TUI                                              |
 | lazygit                 | Git TUI                                                 |
+| lazysql                 | Multi-engine SQL TUI                                    |
 | litecli                 | SQLite CLI with autocomplete                            |
 | micro                   | Terminal text editor                                    |
 | pgcli                   | PostgreSQL CLI with autocomplete                        |
 | protobuf                | Protocol Buffers compiler (`protoc`)                    |
+| rainfrog                | Postgres/MySQL/SQLite database TUI (alternative to lazysql) |
 | ripgrep                 | Fast `grep` replacement                                 |
 | sevenzip                | 7-Zip file archiver                                     |
 | shellcheck              | Shell script static analyzer                            |
 | shfmt                   | Shell script formatter                                  |
 | starship                | Cross-shell prompt                                      |
-| tlrc                    | `tldr` client (Rust)                                    |
+| superfile               | Modern terminal file manager (alternative to yazi)      |
+| tlrc                    | `tldr` client (Rust); binary is `tldr`                  |
 | uv                      | Python version/package manager                          |
 | yazi                    | Terminal file manager                                   |
 | zoxide                  | Smarter `cd` (learns from usage)                        |
@@ -215,7 +225,7 @@ For full audit recipe (TOML/JSON/YAML/JSONC parsers, `brew bundle check`, `shell
 ## Updating
 
 - `brew update && brew upgrade` — update Homebrew formulae and casks
-- `make brew-export` — refresh `.Brewfile.core` from current install state (then add any new extras to `.Brewfile.extra` manually)
+- `make brew-export` — refresh `.Brewfile.core` from current install state (then add any new extras to `.Brewfile.extra` manually; see CLAUDE.md "Brewfile maintenance" for strip step semantics)
 - `make brew-cleanup` — prune old versions and cache
 - VSCode / Zed / Ghostty — auto-update enabled, no action needed
 - Go: `brew upgrade go`. Node: `fnm install <version>`. Python: `uv python install <version>`.

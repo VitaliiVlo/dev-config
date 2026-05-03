@@ -1,0 +1,30 @@
+# Symlinked into ~/Library/Application Support/superfile/ (macOS ignores XDG here)
+
+# Defaults
+editor = "code --wait"
+dir_editor = "code --wait"
+auto_check_update = false
+cd_on_quit = false
+file_size_use_si = false
+default_open_file_preview = true
+show_image_preview = true
+show_panel_footer_info = true
+ignore_missing_fields = true
+
+# Sort & display
+default_sort_type = 0
+sort_order_reversed = false
+case_sensitive_sort = false
+file_panel_extra_columns = 0
+
+# Styling
+theme = "catppuccin-macchiato"
+code_previewer = "bat"
+nerdfont = true
+show_select_icons = true
+enable_file_preview_border = true
+
+# Plugins
+metadata = true
+enable_md5_checksum = true
+zoxide_support = true

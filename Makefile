@@ -7,7 +7,7 @@ help: ## List available targets
 
 setup: defaults link brew-install versions ## Full setup: configure macOS, symlink configs, install packages, show versions
 
-defaults: ## Configure macOS defaults (interactive): folders, Finder, Dock, screenshots, system
+defaults: ## Configure macOS defaults: folders, system, screenshots, Finder, Dock
 	./bootstrap-defaults.sh
 
 link: ## Symlink configs to home directory
@@ -26,7 +26,7 @@ brew-install: brew-install-core brew-install-extra ## Install all packages from 
 brew-install-core: ## Install core packages (shell, fonts, daily-driver apps)
 	brew bundle install --file=.Brewfile.core
 
-brew-install-extra: ## Install extra packages (languages, tooling, IDEs, infra)
+brew-install-extra: ## Install extra packages (work GUIs: API, K8s, DB, runtime, comms, VPN)
 	brew bundle install --file=.Brewfile.extra
 
 brew-check: ## Check for missing Brewfile packages

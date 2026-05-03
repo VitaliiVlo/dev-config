@@ -11,7 +11,7 @@ macOS dotfiles repository for setting up a development environment. All configs 
 ```bash
 make setup              # Full setup: configure macOS, symlink configs, install packages, show versions
 make link               # Symlink configs to home directory
-make defaults           # Configure macOS defaults (interactive): folders, Finder, Dock, screenshots, system
+make defaults           # Configure macOS defaults: folders, system, screenshots, Finder, Dock
 make versions           # Show installed Go, Node, Python versions
 make brew-install       # Install all packages (core + extra)
 make brew-install-core  # Install core packages only
@@ -24,10 +24,10 @@ make brew-export        # Export installed packages (incl. VSCode extensions) to
 ## Repository Structure
 
 - `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
-- `bootstrap-defaults.sh` - macOS defaults via `defaults write` (interactive prompts)
+- `bootstrap-defaults.sh` - macOS defaults via `defaults write` (non-interactive, idempotent)
 - `Makefile` - Task runner targets (`make help` for list)
 - `.Brewfile.core` - Core packages: shell essentials, fonts, daily-driver apps, VSCode extensions
-- `.Brewfile.extra` - Extra packages: work-specific tooling, IDEs, infra (curated manually)
+- `.Brewfile.extra` - Extra packages: work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN (curated manually)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
 - `.config/git/config` / `.config/git/ignore` - Git settings (delta pager, rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere, git-lfs filters) — XDG path
 - `.config/ripgrep/ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks); resolved via `RIPGREP_CONFIG_PATH`
@@ -39,9 +39,10 @@ make brew-export        # Export installed packages (incl. VSCode extensions) to
 - `.config/micro/settings.json` - Terminal text editor
 - `.config/yazi/yazi.toml` - Terminal file manager settings
 - `.config/atuin/config.toml` - Atuin shell history (filter parity with `hist_ignore_space`)
-- `.config/bottom/bottom.toml` - Bottom (`btm`) system monitor (tree view, command column, battery, byte/binary network units)
+- `.config/bottom/bottom.toml` - Bottom (`btm`) system monitor (tree view + command column + battery, cache memory shown, unnormalized per-core CPU, byte/binary network units, table scroll position)
 - `.config/glow/glow.yml` - Glow Markdown renderer (auto theme, pager on, line numbers in TUI)
 - `.config/tlrc/config.toml` - tlrc (tldr client) — show platform title, short+long flags
+- `.config/superfile/config.toml` - Superfile (`spf`) terminal file manager (Catppuccin Macchiato, bat preview with border, binary file sizes, zoxide integration; macOS-native path)
 - `.config/vscode/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.config/zed/settings.json` - Zed editor (Catppuccin Macchiato/Latte, JetBrains Mono, same UX as VSCode, auto_install_extensions)
@@ -56,7 +57,7 @@ make brew-export        # Export installed packages (incl. VSCode extensions) to
 
 When adding a new tool, config file, cask, or formula, update all of these in lockstep — missing any one causes documentation drift:
 
-- **Install** — add line to `.Brewfile.core` or `.Brewfile.extra` (cask, brew, vscode, go, uv, etc.)
+- **Install** — add line to `.Brewfile.core` or `.Brewfile.extra` (tap, cask, brew, vscode, go, uv, etc.)
 - **Symlink** — add `mkdir -p` + `ln -sf` block to `bootstrap.sh` if the tool reads a config file from a fixed path
 - **README "Configuration Files" list** — add bullet under `## Configuration Files` if a config file is symlinked
 - **README "CLI Tools" or "Casks" table** — add row if user-facing CLI/GUI tool
@@ -88,11 +89,11 @@ When adding or editing config files, follow this style across all of them:
 - Repo holds all source-of-truth configs under `.config/<tool>/`. Tools that ignore XDG on macOS are linked into native paths inside `bootstrap.sh`:
   - VSCode → `~/Library/Application Support/Code/User/`
   - glow → `~/Library/Preferences/glow/`
-- Symlinks grouped by category (in this order): Shell → Shell tools (terminal/prompt/history/search/pager) → Git/file tools → Editors → TUI utilities → macOS-native paths → AI agents. Add new symlinks under the matching group.
+- Symlinks grouped by category (in this order): Shell → Shell tools (history/pager/system monitor/terminal/search/prompt) → Git/file tools → Editors → macOS-native paths → AI agents. Within each group, tools are alphabetized. Add new symlinks under the matching group in alpha order.
 
 **bootstrap-defaults.sh:**
 
-- Interactive: prompts for each category (Projects folder, Screenshots, Finder, Dock, System defaults)
+- Non-interactive: applies all categories unconditionally (Folders, System defaults, Screenshots, Finder, Dock)
 - Restarts affected processes (Finder, Dock, SystemUIServer)
 - Safe to re-run: idempotent `mkdir -p` and `defaults write` commands
 
@@ -182,7 +183,8 @@ uv python list --only-installed             # Should show installed Python versi
 ```bash
 # 1. Parse every TOML
 for f in .codex/config.toml .config/atuin/config.toml .config/bottom/bottom.toml \
-         .config/yazi/yazi.toml .config/starship/starship.toml .config/tlrc/config.toml; do
+         .config/yazi/yazi.toml .config/starship/starship.toml .config/tlrc/config.toml \
+         .config/superfile/config.toml; do
   python3 -c "import tomllib,sys; tomllib.loads(open(sys.argv[1]).read()); print('OK', sys.argv[1])" "$f"
 done
 
@@ -227,7 +229,8 @@ for p in ~/.zprofile ~/.zshrc ~/.config/git/config ~/.config/git/ignore \
          ~/.codex/rules/dev.rules ~/.codex/rules/shell.rules ~/.codex/rules/infra.rules \
          "$HOME/Library/Application Support/Code/User/settings.json" \
          "$HOME/Library/Preferences/glow/glow.yml" \
-         "$HOME/Library/Application Support/tlrc/config.toml"; do
+         "$HOME/Library/Application Support/tlrc/config.toml" \
+         "$HOME/Library/Application Support/superfile/config.toml"; do
   [[ -L "$p" ]] && echo "OK $p" || echo "MISSING $p"
 done
 ```
@@ -241,7 +244,7 @@ When modifying `.config/vscode/settings.json`:
 - Compare against `defaultSettings.jsonc` to check if a setting matches the default (keep explicit defaults — intentional)
 - Settings use JSONC format (JSON with comments and trailing commas allowed)
 - Section dividers use `// Name` (single-line) for parity with `.config/zed/settings.json`; do not use `/* Name */` block-style
-- Section order: Theme → Workbench → Window → Font & Indentation → Cursor & Scrolling → Editor UX → Inline diagnostics (ErrorLens) → IntelliSense → Formatting → Search → Files → Terminal → Git → Testing & Debug → JS/TS → Python → Go tooling → AI → Updates → Telemetry → Liveshare → Clipboard manager
+- Section order: Theme → Workbench → Window → Font & Indentation → Cursor & Scrolling → Editor UX → Inline diagnostics (ErrorLens) → IntelliSense → Formatting → Search → Files → Terminal → Git → Testing & Debug → JavaScript/TypeScript → Python → Go tooling → AI → Updates → Telemetry → Liveshare → Clipboard manager
 - Configured for Go, Python, and Node.js backend development
 - Uses Ruff for Python formatting/linting
 
@@ -340,14 +343,17 @@ When modifying any config file, ensure these values stay consistent across all t
 | Claude Code | `feedbackSurveyRate` | `0` |
 | Codex | `analytics.enabled` / `feedback.enabled` | `false` / `false` |
 
-**File search/listing tools** must stay in sync across: `fd` alias in `.zshrc`, `.config/ripgrep/ripgreprc`, yazi, eza aliases, Finder defaults
+**File search/listing tools** must stay in sync across: `fd` alias in `.zshrc`, `.config/ripgrep/ripgreprc`, yazi, eza aliases, Finder defaults, superfile
 
-| Behavior | fd | rg | yazi | eza | Finder |
-|---|---|---|---|---|---|
-| Hidden files | `--hidden` | `--hidden` | `show_hidden = true` | `-a` (in `ll`/`lt`) | `AppleShowAllFiles` |
-| Follow symlinks | `--follow` | `--follow` | `show_symlink = true` | — | — |
-| Dirs first | — | — | `sort_dir_first = true` | `--group-directories-first` | `_FXSortFoldersFirst` |
-| Case insensitive | — | `--smart-case` | `sort_sensitive = false` | — | — |
+| Behavior | fd | rg | yazi | eza | Finder | superfile |
+|---|---|---|---|---|---|---|
+| Hidden files | `--hidden` | `--hidden` | `show_hidden = true` | `-a` (in `ll`/`lt`) | `AppleShowAllFiles` | runtime toggle only (no config key) |
+| Follow symlinks | `--follow` | `--follow` | `show_symlink = true` | — | — | always shown (no config key) |
+| Dirs first | — | — | `sort_dir_first = true` | `--group-directories-first` | `_FXSortFoldersFirst` | hardcoded behavior (no config key) |
+| Case insensitive | — | `--smart-case` | `sort_sensitive = false` | — | — | `case_sensitive_sort = false` |
+| Sort by name (alphabetical) | — | — | `sort_by = "alphabetical"` | — | — | `default_sort_type = 0` |
+| Sort reverse | — | — | `sort_reverse = false` | — | — | `sort_order_reversed = false` |
+| No extra columns | — | — | `linemode = "none"` | — | — | `file_panel_extra_columns = 0` |
 
 **Italic text rendering** must stay consistent:
 
@@ -397,6 +403,7 @@ When modifying any config file, ensure these values stay consistent across all t
 - bat: `--theme-dark="Catppuccin Macchiato"` + `--theme-light="Catppuccin Latte"` (auto-detects via macOS appearance)
 - glow: `style: "auto"` (auto-detects)
 - Codex: `tui.theme = "catppuccin-macchiato"` (TUI only, no light/system mode)
+- Superfile: `theme = "catppuccin-macchiato"` (TUI only, no light/system mode; built-in theme file at `Library/Application Support/superfile/theme/catppuccin-macchiato.toml`)
 
 **Inline diagnostics** (errors/warnings shown on affected lines):
 
@@ -433,8 +440,9 @@ When modifying any config file, ensure these values stay consistent across all t
 - eza: `--icons=auto` in aliases
 - lazygit: `nerdFontsVersion: "3"`
 - yazi: auto-detected
+- superfile: `nerdfont = true` + `show_select_icons = true` (explicit)
 - VSCode/Zed: via font fallback chain
-- Ghostty: via font fallback chain
+- Ghostty: via font fallback chain (`Symbols Nerd Font Mono`)
 
 **Shell integration:**
 
@@ -459,6 +467,8 @@ When modifying any config file, ensure these values stay consistent across all t
 | Zed extensions | auto-install on launch | — | `auto_install_extensions` |
 | Go tools (VSCode) | enabled | — | `go.toolsManagement.autoUpdate: true` |
 | atuin | disabled (Brew owns) | — | `update_check = false` |
+| superfile | disabled (Brew owns) | — | `auto_check_update = false` |
+| lazygit | disabled (Brew owns) | — | `update.method: never` |
 | tlrc cache | enabled | — | `[cache].auto_update = true` |
 | Homebrew | manual (`make brew-install`) | — | No auto-update |
 
@@ -487,7 +497,7 @@ Zed delegates git workflow (rebase, autostash, prune, SSH) to `.config/git/confi
 
 `.config/git/config` section order: Identity (`user`, `url`) → Core (`core`, `init`, `interactive`) → Pager (`delta`) → Display (`diff`, `merge`, `log`, `branch`) → Workflow (`fetch`, `pull`, `rebase`, `push`, `rerere`) → Filters (`filter "lfs"`) → Aliases (`alias`, last). Add new sections under the matching group.
 
-**`EDITOR` env var** must match across: `.zprofile` (`code --wait`), `.config/git/config` (`core.editor`), lazygit (`editPreset: vscode`), Codex (`file_opener = "vscode"`)
+**`EDITOR` env var** must match across: `.zprofile` (`code --wait`), `.config/git/config` (`core.editor`), `.config/gh/config.yml` (`editor: code --wait`), `.config/yazi/yazi.toml` (`[opener.edit]` runs `code --wait "$@"`), lazygit (`editPreset: vscode`), Codex (`file_opener = "vscode"`), Superfile (`editor`/`dir_editor = "code --wait"`)
 
 **Claude ↔ Codex** allowed commands must stay in sync between `.claude/settings.json` and `.codex/rules/`
 

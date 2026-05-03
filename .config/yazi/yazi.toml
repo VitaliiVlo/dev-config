@@ -1,7 +1,8 @@
 [mgr]
 show_hidden = true
 show_symlink = true
-sort_by = "natural"
+sort_by = "alphabetical"
+sort_reverse = false
 sort_dir_first = true
 sort_sensitive = false
 linemode = "none"
@@ -10,3 +11,8 @@ scrolloff = 3
 [preview]
 wrap = "no"
 tab_size = 4
+
+[opener]
+edit = [
+  { run = 'code --wait "$@"', block = false, desc = "VSCode", for = "unix" },
+]
