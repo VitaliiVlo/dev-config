@@ -26,6 +26,8 @@ Run `make help` to list all available targets.
 
 ## Prerequisites
 
+> Apple Silicon only. Homebrew prefix is hardcoded to `/opt/homebrew` in `.zshrc` / `.zprofile`; Intel Macs (`/usr/local`) are not supported.
+
 - **Install Xcode Command Line Tools:** git, make, grep, tar etc.
   ```bash
   xcode-select --install
@@ -54,7 +56,7 @@ The following files are automatically symlinked by running `make link`:
 - `.zshrc` - Shell configuration and aliases
 - `.config/git/config` - Git user and global settings (XDG path)
 - `.config/git/ignore` - Global gitignore (XDG path)
-- `.config/ripgrep/ripgreprc` - Ripgrep defaults (smart-case, hidden files); resolved via `RIPGREP_CONFIG_PATH`
+- `.config/ripgrep/ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks); resolved via `RIPGREP_CONFIG_PATH`
 - `.config/ghostty/config` - Ghostty configuration
 - `.config/starship/starship.toml` - Starship configuration (symlinked to `~/.config/starship.toml`, flat path per starship.rs)
 - `.config/bat/config` - Bat configuration
@@ -274,9 +276,9 @@ GUI applications and fonts installed via Homebrew Cask:
 
 The `.claude/settings.json` configures permissions and plugins:
 
-- **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, `fd` and `rg` for file search
+- **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), `fd`/`rg`/`grep`/`find`/`which`/`tldr`/`date` for file search and inspection
 - **Denied:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
-- **Requires approval:** Package installs, direct code execution (`python`, `node`, `go run`), git writes, docker mutations
+- **Requires approval:** Arbitrary package install (`brew install`, `npm install`, `uv add`), direct code execution (`python`, `node`, `go run`), git writes, docker mutations
 - **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman, context7, slack, atlassian, posthog, datadog, pr-review-toolkit
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
 - **Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)

@@ -523,9 +523,9 @@ Do not attempt to rename the Codex side to `caveman` — Codex will treat it as 
 
 The `.claude/settings.json` configures permissions and plugins:
 
-- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, web search, web fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), `fd` and `rg` for file search
+- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), web search, web fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), `fd`/`rg`/`grep`/`find`/`which`/`tldr`/`date` for file search and inspection
 - **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
-- **Requires approval:** Package install, direct code execution, git writes, docker mutations
+- **Requires approval:** Arbitrary package install (`brew install`, `npm install`, `uv add`), direct code execution, git writes, docker mutations
 - **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman, context7, slack, atlassian, posthog, datadog, pr-review-toolkit
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
 - **Status line:** Custom layout via `ccstatusline` (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)

@@ -15,7 +15,7 @@ enter_accept = false
 ctrl_n_shortcuts = false
 show_numeric_shortcuts = false
 
-# Layout — Ctrl+R full-screen, Up arrow inline (~50% height)
+# Layout — Ctrl+R full-screen, Up arrow inline (20 lines)
 inline_height = 0
 inline_height_shell_up_key_binding = 20
 

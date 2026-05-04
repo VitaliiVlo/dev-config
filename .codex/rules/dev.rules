@@ -1,15 +1,24 @@
 # Go
-prefix_rule(pattern=["go", ["build", "test", "vet", "list", "env", "doc"]], decision="allow")
+prefix_rule(pattern=["go", ["build", "test", "vet", "generate", "version", "list", "env", "doc"]], decision="allow")
+prefix_rule(pattern=["go", "mod", ["tidy", "download"]], decision="allow")
 prefix_rule(pattern=["golangci-lint"], decision="allow")
 
 # Python
 prefix_rule(pattern=[["pytest", "pyright"]], decision="allow")
 prefix_rule(pattern=["ruff", "check"], decision="allow")
+prefix_rule(pattern=["uv", ["sync", "lock"]], decision="allow")
+prefix_rule(pattern=["uv", "pip", "show"], decision="allow")
+prefix_rule(pattern=["uv", "python", "list"], decision="allow")
+prefix_rule(pattern=["uv", "--version"], decision="allow")
+prefix_rule(pattern=[["python", "python3"], "--version"], decision="allow")
 
 # Node
 prefix_rule(pattern=["npm", "run", ["build", "test", "lint", "typecheck"]], decision="allow")
 prefix_rule(pattern=[["vitest", "jest", "eslint"]], decision="allow")
 prefix_rule(pattern=["tsc", "--noEmit"], decision="allow")
+prefix_rule(pattern=["npm", ["ci", "view"]], decision="allow")
+prefix_rule(pattern=[["npm", "node"], "--version"], decision="allow")
+prefix_rule(pattern=["fnm", ["list", "current"]], decision="allow")
 
 # Shell
 prefix_rule(pattern=[["shellcheck", "shfmt"]], decision="allow")

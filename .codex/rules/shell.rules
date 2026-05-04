@@ -1,8 +1,8 @@
 # Modern CLI tools
-prefix_rule(pattern=[["fd", "rg", "bat", "eza"]], decision="allow")
+prefix_rule(pattern=[["fd", "rg", "bat", "eza", "tldr"]], decision="allow")
 
 # Standard utilities
-prefix_rule(pattern=[["head", "tail", "ls", "wc"]], decision="allow")
+prefix_rule(pattern=[["head", "tail", "ls", "wc", "grep", "find", "which", "date"]], decision="allow")
 
 # Structured data
 prefix_rule(pattern=[["jq", "yq"]], decision="allow")

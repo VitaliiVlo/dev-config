@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Core user-level guidance for Claude Code. Project-specific instructions, repository docs, and direct user requests override this file.
+User-level guidance for Claude Code. Project-specific instructions, repository docs, and direct user requests override this file.
 
 ## Consistency
 
@@ -13,7 +13,7 @@ Be extremely consistent with the current project's existing patterns:
 - **Issues / Jira** — match existing task title and description style in the project.
 - **Everything else** — when unsure, look at recent examples in the project and follow them exactly.
 
-Never introduce new conventions. Always check existing patterns first.
+Never introduce new conventions — check existing patterns first.
 Identify the work scope: a single repo or a folder grouping multiple repos for the same project.
 In a multi-repo project, check sibling repos for shared conventions — match like with like (service to service, frontend to frontend, infra to infra).
 If consistency is impossible or clearly inefficient, ask for approval before deviating.
@@ -27,7 +27,7 @@ Fallbacks only when a repo gives no signal:
 
 ## Tools
 
-- Prefer repo-native commands first: `make`, `task`, package scripts, checked-in scripts.
+- Prefer repo-native commands: `make`, `task`, package scripts, checked-in scripts.
 - Prefer modern CLI equivalents: `rg` over `grep`, `fd` over `find`, `bat` over `cat`, `eza` over `ls`.
 - Use `gh` CLI for GitHub workflows.
 - Respect `.gitignore`, lockfiles, toolchain files, and existing automation.
@@ -38,12 +38,13 @@ Fallbacks only when a repo gives no signal:
 - Rebase workflow; keep commits atomic.
 - Don't amend published commits.
 - Protect `main` and `master` — never force-push.
+- No AI attribution in artifacts. No `Co-Authored-By` tags, no "Generated with Claude" footers, no signature lines in commits, PRs, issues, or docs. Match the repo's voice as if the user wrote them.
 
 ## Sensitive Data
 
 Forbidden by default — do not search, read, edit, print, summarize, or commit secrets or private credentials.
 
-Treat at least the following as sensitive unless the user explicitly approves access:
+Treat as sensitive unless explicitly approved (list is not exhaustive):
 
 - `.env`, `.env.*`, `*.env`, `.ssh/*`, `*.pem`, `*.key`, `*_rsa`, `*_ed25519`
 - `.aws/credentials`, `.kube/config`, `.git-credentials`, `.npmrc`, `.pypirc`, `.netrc`
@@ -56,4 +57,12 @@ If access is truly required — ask for approval first. Never echo secret values
 - Read before editing. Change the smallest sensible surface area.
 - Keep related docs, tests, and config in sync when code changes make that necessary.
 - Do not add abstractions or boilerplate unless the repository already uses them.
-- Ask before proceeding when: secrets access is required, a destructive action is needed, convention is unclear with team-facing impact, or an architectural decision is needed.
+- Ask first when: secrets access is required, a destructive action is needed, convention is unclear with team-facing impact, or an architectural decision is needed.
+
+## Recommendations
+
+When presenting options, alternatives, fixes, or approaches, mark one as recommended with a short reason. Add detail on weaker alternatives only when it helps the decision. The user may override based on context you lack — never present a menu without a recommendation.
+
+## Scratch Files
+
+Use `/tmp/claude` for all temporary internal artifacts: scratch outputs, notes, drafts, intermediate files, throwaway scripts. Never write ephemera to `/tmp` root or the working directory. Create the directory on demand if missing (`mkdir -p /tmp/claude`). Clean up your own files when the task is done.
