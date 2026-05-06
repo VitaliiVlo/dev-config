@@ -82,6 +82,7 @@ The following files are automatically symlinked by running `make link`:
 
 - `.Brewfile.core` - Core Brewfile (shell, fonts, daily-driver apps, VSCode extensions)
 - `.Brewfile.extra` - Extra Brewfile (work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN; curated manually)
+- `CLAUDE.md` - Repository instructions for Claude Code (auto-discovered in cwd; Codex reads it via `project_doc_fallback_filenames`)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
 ## macOS Settings

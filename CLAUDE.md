@@ -41,7 +41,7 @@ make brew-export        # Export installed packages (incl. VSCode extensions) to
 - `.config/atuin/config.toml` - Atuin shell history (filter parity with `hist_ignore_space`)
 - `.config/bottom/bottom.toml` - Bottom (`btm`) system monitor (tree view + command column + battery, cache memory shown, unnormalized per-core CPU, byte/binary network units, table scroll position)
 - `.config/glow/glow.yml` - Glow Markdown renderer (auto theme, pager on, line numbers in TUI)
-- `.config/tlrc/config.toml` - tlrc (tldr client) — show platform title, short+long flags
+- `.config/tlrc/config.toml` - tlrc (tldr client) — show platform title, short+long flags (macOS-native path)
 - `.config/superfile/config.toml` - Superfile (`spf`) terminal file manager (Catppuccin Macchiato, bat preview with border, binary file sizes, zoxide integration; macOS-native path)
 - `.config/vscode/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
@@ -87,8 +87,10 @@ When adding or editing config files, follow this style across all of them:
 - Uses `ln -sf` (force symlink) - overwrites existing files
 - Creates parent directories as needed for nested configs
 - Repo holds all source-of-truth configs under `.config/<tool>/`. Tools that ignore XDG on macOS are linked into native paths inside `bootstrap.sh`:
-  - VSCode → `~/Library/Application Support/Code/User/`
   - glow → `~/Library/Preferences/glow/`
+  - superfile → `~/Library/Application Support/superfile/`
+  - tlrc → `~/Library/Application Support/tlrc/`
+  - VSCode → `~/Library/Application Support/Code/User/`
 - Symlinks grouped by category (in this order): Shell → Shell tools (history/pager/system monitor/terminal/search/prompt) → Git/file tools → Editors → macOS-native paths → AI agents. Within each group, tools are alphabetized. Add new symlinks under the matching group in alpha order.
 
 **bootstrap-defaults.sh:**
@@ -111,7 +113,7 @@ Defined in `.zshrc`:
 | `ls`     | `eza --icons=auto --group-directories-first`        |
 | `ll`     | `eza` with git, timestamps, headers    |
 | `lt`     | `eza` tree view (2 levels)             |
-| `lr`     | `eza` sorted by modified (recent last) |
+| `lr`     | `eza` sorted by modified (recent first) |
 
 ## Shell Tool Integration
 
@@ -481,7 +483,7 @@ When modifying any config file, ensure these values stay consistent across all t
 | Setting | `.config/git/config` | VSCode | gh CLI | lazygit | Zed |
 |---|---|---|---|---|---|
 | Protocol | `url.insteadOf` (SSH) | `gitProtocol: "ssh"` | `git_protocol: ssh` | (uses git) | (uses git) |
-| Auto fetch | — | `autofetch: true` (300s) | — | `autoFetch: true` (60s) | no setting (gap) |
+| Auto fetch | — | `autofetch: true` (300s) | — | `autoFetch: true` (default 60s) | no setting (gap) |
 | Prune on fetch | `fetch.prune = true` | `pruneOnFetch: true` | — | — | (uses git) |
 | Rebase on pull | `pull.rebase = true` | `rebaseWhenSync: true` | — | — | (uses git) |
 | Autostash | `rebase.autostash = true` | `autoStash: true` | — | — | (uses git) |
