@@ -245,7 +245,6 @@
 	//  - vscode.json-language-features: Provides rich language support for JSON files.
 	//  - yzhang.markdown-all-in-one: All you need to write Markdown (keyboard shortcuts, table of contents, auto preview and more)
 	//  - charliermarsh.ruff: A Visual Studio Code extension with support for the Ruff linter and formatter for Python.
-	//  - redhat.vscode-yaml: YAML Language Support by Red Hat, with built-in Kubernetes syntax support
 	//  - aaron-bond.better-comments: Improve your code commenting by annotating with alert, informational, TODOs, and more!
 	//  - GitHub.copilot-chat: AI chat features powered by Copilot
 	//  - vscode.css-language-features: Provides rich language support for CSS, LESS and SCSS files.
@@ -262,6 +261,7 @@
 	//  - vscode.typescript-language-features: Provides rich language support for JavaScript and TypeScript.
 	//  - ms-azuretools.vscode-containers: Makes it easy to create, manage, and debug containerized applications.
 	//  - ms-python.vscode-pylance: A performant, feature-rich language server for Python in VS Code
+	//  - redhat.vscode-yaml: YAML Language Support by Red Hat, with built-in Kubernetes syntax support
 	//  - alefragnani.Bookmarks: Mark lines and jump to them
 	//  - Catppuccin.catppuccin-vsc: 🦌 Soothing pastel theme for VSCode
 	//  - Catppuccin.catppuccin-vsc-icons: 🦊 Soothing pastel icon theme for VSCode
@@ -2147,6 +2147,8 @@
 	"update.showPostInstallInfo": false,
 	// Show Release Notes after an update. The Release Notes are fetched from a Microsoft online service.
 	"update.showReleaseNotes": true,
+	// Show the update indicator in the title bar.
+	"update.titleBar": true,
 	// Comments
 	// Controls whether the comment thread should collapse when the thread is resolved.
 	"comments.collapseOnResolve": true,
@@ -2363,7 +2365,7 @@
 	"json.trace.server": "off",
 	// Enable/disable JSON validation.
 	"json.validate.enable": true,
-	// Markdown
+	// Language Features
 	// Configures the path and file name of files created by copy/paste or drag and drop. This is a map of globs that match against a Markdown document path to the destination path where the new file should be created.
 	//
 	// The destination path may use the following variables:
@@ -2391,7 +2393,7 @@
 	//  - mediaFiles: Try to copy external image and video files into the workspace.
 	//  - never: Do not copy external files into the workspace.
 	"markdown.editor.drop.copyIntoWorkspace": "mediaFiles",
-	// Enable dropping files into a Markdown editor while holding Shift. Requires enabling `editor.dropIntoEditor.enabled`.
+	// Controls whether dropping files into a Markdown editor while holding Shift inserts Markdown links. Requires enabling `editor.dropIntoEditor.enabled`.
 	//  - always: Always insert Markdown links.
 	//  - smart: Smartly create Markdown links by default when not dropping into a code block or other special element. Use the drop widget to switch between pasting as plain text or as Markdown links.
 	//  - never: Never create Markdown links.
@@ -2406,7 +2408,7 @@
 	//  - mediaFiles: Try to copy external image and video files into the workspace.
 	//  - never: Do not copy external files into the workspace.
 	"markdown.editor.filePaste.copyIntoWorkspace": "mediaFiles",
-	// Enable pasting files into a Markdown editor to create Markdown links. Requires enabling `editor.pasteAs.enabled`.
+	// Controls whether pasting files into a Markdown editor creates Markdown links. Requires enabling `editor.pasteAs.enabled`.
 	//  - always: Always insert Markdown links.
 	//  - smart: Smartly create Markdown links by default when not pasting into a code block or other special element. Use the paste widget to switch between pasting as plain text or as Markdown links.
 	//  - never: Never create Markdown links.
@@ -2429,50 +2431,20 @@
 	//  - currentGroup: Open links in the active editor group.
 	//  - beside: Open links beside the active editor.
 	"markdown.links.openLocation": "currentGroup",
-	// Enable highlighting link occurrences in the current document.
+	// Controls whether link occurrences in the current document are highlighted.
 	"markdown.occurrencesHighlight.enabled": false,
 	// Controls if file extensions (for example `.md`) are added or not for links to Markdown files. This setting is used when file paths are added by tooling such as path completions or file renames.
 	//  - auto: For existing paths, try to maintain the file extension style. For new paths, add file extensions.
 	//  - includeExtension: Prefer including the file extension. For example, path completions to a file named `file.md` will insert `file.md`.
 	//  - removeExtension: Prefer removing the file extension. For example, path completions to a file named `file.md` will insert `file` without the `.md`.
 	"markdown.preferredMdPathExtensionStyle": "auto",
-	// Sets how line-breaks are rendered in the Markdown preview. Setting it to `true` creates a `<br>` for newlines inside paragraphs.
-	"markdown.preview.breaks": false,
-	// Double-click in the Markdown preview to switch to the editor.
-	"markdown.preview.doubleClickToSwitchToEditor": true,
-	// Controls the font family used in the Markdown preview.
-	"markdown.preview.fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif",
-	// Controls the font size in pixels used in the Markdown preview.
-	"markdown.preview.fontSize": 14,
-	// Controls the line height used in the Markdown preview. This number is relative to the font size.
-	"markdown.preview.lineHeight": 1.6,
-	// Convert URL-like text to links in the Markdown preview.
-	"markdown.preview.linkify": true,
-	// Mark the current editor selection in the Markdown preview.
-	"markdown.preview.markEditorSelection": true,
-	// Controls how links to other Markdown files in the Markdown preview should be opened.
-	//  - inPreview: Try to open links in the Markdown preview.
-	//  - inEditor: Try to open links in the editor.
-	"markdown.preview.openMarkdownLinks": "inPreview",
-	// When a Markdown preview is scrolled, update the view of the editor.
-	"markdown.preview.scrollEditorWithPreview": true,
-	// When a Markdown editor is scrolled, update the view of the preview.
-	"markdown.preview.scrollPreviewWithEditor": true,
-	// Enable some language-neutral replacement and quotes beautification in the Markdown preview.
-	"markdown.preview.typographer": false,
-	// Controls the logging level of the Markdown language server.
-	"markdown.server.log": "off",
-	// A list of URLs or local paths to CSS style sheets to use from the Markdown preview. Relative paths are interpreted relative to the folder open in the Explorer. If there is no open folder, they are interpreted relative to the location of the Markdown file. All '\' need to be written as '\\'.
-	"markdown.styles": [],
-	// Enable path suggestions while writing links in Markdown files.
+	// Controls whether path suggestions are shown while writing links in Markdown files.
 	"markdown.suggest.paths.enabled": true,
 	// Enable suggestions for headers in other Markdown files in the current workspace. Accepting one of these suggestions inserts the full path to header in that file, for example: `[link text](/path/to/file.md#header)`.
 	//  - never: Disable workspace header suggestions.
 	//  - onDoubleHash: Enable workspace header suggestions after typing `` in a path, for example: `[link text](##`.
 	//  - onSingleOrDoubleHash: Enable workspace header suggestions after typing either `` or `#` in a path, for example: `[link text](#` or `[link text](##`.
 	"markdown.suggest.paths.includeWorkspaceHeaderCompletions": "onDoubleHash",
-	// Traces the communication between VS Code and the Markdown language server.
-	"markdown.trace.server": "off",
 	// Try to update links in Markdown files when a file is renamed/moved in the workspace. Use `markdown.updateLinksOnFileMove.include` to configure which files trigger link updates.
 	//  - prompt: Prompt on each file move.
 	//  - always: Always update links automatically.
@@ -2485,22 +2457,6 @@
 		"**/*.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}",
 		"**/*.{jpg,jpe,jpeg,png,bmp,gif,ico,webp,avif,tiff,svg,mp4}"
 	],
-	// Validate duplicated definitions in the current file.
-	"markdown.validate.duplicateLinkDefinitions.enabled": "warning",
-	// Enable all error reporting in Markdown files.
-	"markdown.validate.enabled": false,
-	// Validate links to other files in Markdown files, for example `[link](/path/to/file.md)`. This checks that the target files exists. Requires enabling `markdown.validate.enabled`.
-	"markdown.validate.fileLinks.enabled": "warning",
-	// Validate the fragment part of links to headers in other files in Markdown files, for example: `[link](/path/to/file.md#header)`. Inherits the setting value from `markdown.validate.fragmentLinks.enabled` by default.
-	"markdown.validate.fileLinks.markdownFragmentLinks": "inherit",
-	// Validate fragment links to headers in the current Markdown file, for example: `[link](#header)`. Requires enabling `markdown.validate.enabled`.
-	"markdown.validate.fragmentLinks.enabled": "warning",
-	// Configure links that should not be validated. For example adding `/about` would not validate the link `[about](/about)`, while the glob `/assets/**/*.svg` would let you skip validation for any link to `.svg` files under the `assets` directory.
-	"markdown.validate.ignoredLinks": [],
-	// Validate reference links in Markdown files, for example: `[link][ref]`. Requires enabling `markdown.validate.enabled`.
-	"markdown.validate.referenceLinks.enabled": "warning",
-	// Validate link definitions that are unused in the current file.
-	"markdown.validate.unusedLinkDefinitions.enabled": "hint",
 	// PHP
 	// Controls whether the built-in PHP language suggestions are enabled. The support suggests PHP globals and variables.
 	"php.suggest.basic": true,
@@ -2640,6 +2596,23 @@
 	"css.trace.server": "off",
 	// Enables or disables all validations.
 	"css.validate": true,
+	// Validation
+	// Validate duplicated definitions in the current file.
+	"markdown.validate.duplicateLinkDefinitions.enabled": "warning",
+	// Controls whether error reporting is enabled in Markdown files.
+	"markdown.validate.enabled": false,
+	// Controls whether links to other files in Markdown files are validated, for example `[link](/path/to/file.md)`. This checks that the target files exist. Requires enabling `markdown.validate.enabled`.
+	"markdown.validate.fileLinks.enabled": "warning",
+	// Validate the fragment part of links to headers in other files in Markdown files, for example: `[link](/path/to/file.md#header)`. Inherits the setting value from `markdown.validate.fragmentLinks.enabled` by default.
+	"markdown.validate.fileLinks.markdownFragmentLinks": "inherit",
+	// Controls whether fragment links to headers in the current Markdown file are validated, for example: `[link](#header)`. Requires enabling `markdown.validate.enabled`.
+	"markdown.validate.fragmentLinks.enabled": "warning",
+	// Configure links that should not be validated. For example adding `/about` would not validate the link `[about](/about)`, while the glob `/assets/**/*.svg` would let you skip validation for any link to `.svg` files under the `assets` directory.
+	"markdown.validate.ignoredLinks": [],
+	// Controls whether reference links in Markdown files are validated, for example: `[link][ref]`. Requires enabling `markdown.validate.enabled`.
+	"markdown.validate.referenceLinks.enabled": "warning",
+	// Validate link definitions that are unused in the current file.
+	"markdown.validate.unusedLinkDefinitions.enabled": "hint",
 	// LESS
 	// Insert semicolon at end of line when completing CSS properties.
 	"less.completion.completePropertyWithSemicolon": true,
@@ -2705,6 +2678,38 @@
 	"less.lint.zeroUnits": "ignore",
 	// Enables or disables all validations.
 	"less.validate": true,
+	// Preview
+	// Sets how line-breaks are rendered in the Markdown preview. Setting it to `true` creates a `<br>` for newlines inside paragraphs.
+	"markdown.preview.breaks": false,
+	// Double-click in the Markdown preview to switch to the editor.
+	"markdown.preview.doubleClickToSwitchToEditor": true,
+	// Controls the font family used in the Markdown preview.
+	"markdown.preview.fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif",
+	// Controls the font size in pixels used in the Markdown preview.
+	"markdown.preview.fontSize": 14,
+	// Controls the line height used in the Markdown preview. This number is relative to the font size.
+	"markdown.preview.lineHeight": 1.6,
+	// Convert URL-like text to links in the Markdown preview.
+	"markdown.preview.linkify": true,
+	// Mark the current editor selection in the Markdown preview.
+	"markdown.preview.markEditorSelection": true,
+	// Controls how links to other Markdown files in the Markdown preview should be opened.
+	//  - inPreview: Try to open links in the Markdown preview.
+	//  - inEditor: Try to open links in the editor.
+	"markdown.preview.openMarkdownLinks": "inPreview",
+	// When a Markdown preview is scrolled, update the view of the editor.
+	"markdown.preview.scrollEditorWithPreview": true,
+	// When a Markdown editor is scrolled, update the view of the preview.
+	"markdown.preview.scrollPreviewWithEditor": true,
+	// Enable some language-neutral replacement and quotes beautification in the Markdown preview.
+	"markdown.preview.typographer": false,
+	// A list of URLs or local paths to CSS style sheets to use from the Markdown preview. Relative paths are interpreted relative to the folder open in the Explorer. If there is no open folder, they are interpreted relative to the location of the Markdown file. All `\` need to be written as `\\`.
+	"markdown.styles": [],
+	// Advanced
+	// Controls the logging level of the Markdown language server.
+	"markdown.server.log": "off",
+	// Traces the communication between VS Code and the Markdown language server.
+	"markdown.trace.server": "off",
 	// SCSS (Sass)
 	// Insert semicolon at end of line when completing CSS properties.
 	"scss.completion.completePropertyWithSemicolon": true,
@@ -2822,7 +2827,7 @@
 	//  - GPT-5 mini (copilot): Lightweight GPT model for quick responses and simple tasks with low latency.
 	//  - Raptor mini (Preview) (copilot)
 	//  - Claude Haiku 4.5 (copilotcli): Fastest and most compact Claude model. Ideal for quick responses and simple tasks.
-	//  - Claude Haiku 4.5 (claude-code)
+	//  - Claude Haiku 4.5 (claude-code): Fastest and most compact Claude model. Ideal for quick responses and simple tasks.
 	//  - GPT-4.1 (copilotcli): Enhanced GPT-4 model with improved instruction following and coding performance.
 	//  - GPT-5 mini (copilotcli): Lightweight GPT model for quick responses and simple tasks with low latency.
 	"inlineChat.defaultModel": "",
@@ -2881,23 +2886,20 @@
 	// Controls whether agent mode uses sandboxing to restrict what tools can do. When enabled, tools like the terminal are run in a sandboxed environment to limit access to the system.
 	//  - off: Disable sandboxing for agent mode tools.
 	//  - on: Enable sandboxing for agent mode tools.
+	//  - allowNetwork: Enable sandboxing for agent mode tools and allow all network domains.
 	"chat.agent.sandbox.enabled": "off",
 	// Note: this setting is applicable only when `chat.agent.sandbox.enabled` is enabled. Controls file system access in sandbox on Linux. Paths do not support glob patterns, only literal paths (ex: ./src/, ~/.ssh, .env). **bubblewrap** and **socat** should be installed for this setting to work.
 	"chat.agent.sandbox.fileSystem.linux": {
 		"denyRead": [],
 		"allowRead": [],
-		"allowWrite": [
-			"."
-		],
+		"allowWrite": [],
 		"denyWrite": []
 	},
 	// Note: this setting is applicable only when `chat.agent.sandbox.enabled` is enabled. Controls file system access in sandbox on macOS. Paths also support git-style glob patterns(ex: *.ts, ./src, ./src/**/*.ts, file?.txt).
 	"chat.agent.sandbox.fileSystem.mac": {
 		"denyRead": [],
 		"allowRead": [],
-		"allowWrite": [
-			"."
-		],
+		"allowWrite": [],
 		"denyWrite": []
 	},
 	// Use `chat.agent.sandbox.fileSystem.linux` instead
@@ -4488,6 +4490,9 @@
 	//  - open-in-window: $(open-in-window)
 	//  - new-session: $(new-session)
 	//  - terminal-secure: $(terminal-secure)
+	//  - chat-import: $(chat-import)
+	//  - chat-export: $(chat-export)
+	//  - share-window: $(share-window)
 	//  - dialog-error: $(dialog-error)
 	//  - dialog-warning: $(dialog-warning)
 	//  - dialog-info: $(dialog-info)
@@ -4516,8 +4521,6 @@
 	//  - git-fetch: $(git-fetch)
 	//  - lightbulb-sparkle-autofix: $(lightbulb-sparkle-autofix)
 	//  - debug-breakpoint-pending: $(debug-breakpoint-pending)
-	//  - chat-import: $(chat-import)
-	//  - chat-export: $(chat-export)
 	"terminal.integrated.tabs.defaultIcon": "terminal",
 	// Controls the terminal description, which appears to the right of the title. Variables are substituted based on the context:
 	// - `${cwd}`: the terminal's current working directory.
@@ -4628,7 +4631,6 @@
 	//  - vscode.json-language-features: Provides rich language support for JSON files.
 	//  - yzhang.markdown-all-in-one: All you need to write Markdown (keyboard shortcuts, table of contents, auto preview and more)
 	//  - charliermarsh.ruff: A Visual Studio Code extension with support for the Ruff linter and formatter for Python.
-	//  - redhat.vscode-yaml: YAML Language Support by Red Hat, with built-in Kubernetes syntax support
 	//  - aaron-bond.better-comments: Improve your code commenting by annotating with alert, informational, TODOs, and more!
 	//  - GitHub.copilot-chat: AI chat features powered by Copilot
 	//  - vscode.css-language-features: Provides rich language support for CSS, LESS and SCSS files.
@@ -4645,6 +4647,7 @@
 	//  - vscode.typescript-language-features: Provides rich language support for JavaScript and TypeScript.
 	//  - ms-azuretools.vscode-containers: Makes it easy to create, manage, and debug containerized applications.
 	//  - ms-python.vscode-pylance: A performant, feature-rich language server for Python in VS Code
+	//  - redhat.vscode-yaml: YAML Language Support by Red Hat, with built-in Kubernetes syntax support
 	//  - alefragnani.Bookmarks: Mark lines and jump to them
 	//  - Catppuccin.catppuccin-vsc: 🦌 Soothing pastel theme for VSCode
 	//  - Catppuccin.catppuccin-vsc-icons: 🦊 Soothing pastel icon theme for VSCode
@@ -5281,18 +5284,16 @@
 	"inlineChat.affordance": "off",
 	// Controls whether files in a chat editing session use Ask in Chat instead of Inline Chat.
 	"inlineChat.askInChat": true,
-	// Whether to use the next version of inline chat.
-	"inlineChat.enableV2": false,
 	// Controls whether the Fix action is shown for diagnostics in the editor.
 	"inlineChat.fixDiagnostics": true,
 	// Enable agent-like behavior for inline chat widget in notebooks.
 	"inlineChat.notebookAgent": false,
 	// Chat
-	// Allowed domains for network access by agent tools (fetch tool, integrated browser). Applies when `chat.agent.networkFilter` or `chat.agent.sandbox.enabled` is enabled. When `chat.agent.sandbox.enabled` is enabled, this also configures terminal sandbox networking. Supports wildcards like `*.example.com`. When both allowed and denied lists are empty, all domains are blocked. Denied domains (see `chat.agent.deniedNetworkDomains`) take precedence.
+	// Allowed domains for network access by agent tools (fetch tool, integrated browser). Applies when `chat.agent.networkFilter` or `chat.agent.sandbox.enabled` is enabled. When `chat.agent.sandbox.enabled` is set to `allowNetwork`, all domains are allowed. Supports wildcards like `*.example.com`. When both allowed and denied lists are empty, all domains are blocked. Denied domains (see `chat.agent.deniedNetworkDomains`) take precedence.
 	"chat.agent.allowedNetworkDomains": [],
 	// When applying edits, show a progress animation in the code block pill. If disabled, shows the progress percentage instead.
 	"chat.agent.codeBlockProgress": true,
-	// Denied domains for network access by agent tools (fetch tool, integrated browser). Applies when `chat.agent.networkFilter` or `chat.agent.sandbox.enabled` is enabled. When `chat.agent.sandbox.enabled` is enabled, this also configures terminal sandbox networking. Takes precedence over `chat.agent.allowedNetworkDomains`. Supports wildcards like `*.example.com`.
+	// Denied domains for network access by agent tools (fetch tool, integrated browser). Applies when `chat.agent.networkFilter` or `chat.agent.sandbox.enabled` is enabled. This does not apply when `chat.agent.sandbox.enabled` is set to `allowNetwork`. Takes precedence over `chat.agent.allowedNetworkDomains`. Supports wildcards like `*.example.com`.
 	"chat.agent.deniedNetworkDomains": [],
 	// When enabled, agent mode can be activated from chat and tools in agentic contexts with side effects can be used.
 	"chat.agent.enabled": true,
@@ -5392,6 +5393,8 @@
 	"chat.contextUsage.enabled": true,
 	// Controls whether the harness selector is shown in the Chat Customizations editor sidebar. When disabled, the editor always shows all customizations without filtering.
 	"chat.customizations.harnessSelector.enabled": true,
+	// When enabled, custom agents shown in the chat mode picker are sourced from the customization harness service (scoped per session type) instead of the prompts service.
+	"chat.customizations.useChatSessionCustomizationsForCustomAgents": false,
 	// Enables chat participant autodetection for panel chat.
 	"chat.detectParticipant.enabled": true,
 	// Disable and hide built-in AI features provided by GitHub Copilot, including chat and inline suggestions.
@@ -5458,7 +5461,7 @@
 	//  - GPT-5 mini (copilot): Lightweight GPT model for quick responses and simple tasks with low latency.
 	//  - Raptor mini (Preview) (copilot)
 	//  - Claude Haiku 4.5 (copilotcli): Fastest and most compact Claude model. Ideal for quick responses and simple tasks.
-	//  - Claude Haiku 4.5 (claude-code)
+	//  - Claude Haiku 4.5 (claude-code): Fastest and most compact Claude model. Ideal for quick responses and simple tasks.
 	//  - GPT-4.1 (copilotcli): Enhanced GPT-4 model with improved instruction following and coding performance.
 	//  - GPT-5 mini (copilotcli): Lightweight GPT model for quick responses and simple tasks with low latency.
 	"chat.exploreAgent.defaultModel": "",
@@ -5573,7 +5576,7 @@
 	//  - GPT-5 mini (copilot): Lightweight GPT model for quick responses and simple tasks with low latency.
 	//  - Raptor mini (Preview) (copilot)
 	//  - Claude Haiku 4.5 (copilotcli): Fastest and most compact Claude model. Ideal for quick responses and simple tasks.
-	//  - Claude Haiku 4.5 (claude-code)
+	//  - Claude Haiku 4.5 (claude-code): Fastest and most compact Claude model. Ideal for quick responses and simple tasks.
 	//  - GPT-4.1 (copilotcli): Enhanced GPT-4 model with improved instruction following and coding performance.
 	//  - GPT-5 mini (copilotcli): Lightweight GPT model for quick responses and simple tasks with low latency.
 	"chat.planAgent.defaultModel": "",
@@ -5586,8 +5589,8 @@
 		"github/copilot-plugins",
 		"github/awesome-copilot"
 	],
-	// Show an animated gradient border around the chat input while the agent is working or thinking. When enabled, this overrides `chat.persistentProgress.enabled` to be off.
-	"chat.progressBorder.enabled": false,
+	// Show an animated gradient border around the chat input while the agent is working or thinking. When enabled and reduced motion is not enabled, this overrides `chat.persistentProgress.enabled` to be off. Has no effect when reduced motion is enabled.
+	"chat.progressBorder.enabled": true,
 	// Specify location(s) of reusable prompt files (`*.prompt.md`) that can be run in Chat sessions. [Learn More](https://aka.ms/vscode-ghcp-prompt-snippets).
 	//
 	// Relative paths are resolved from the root folder(s) of your workspace.
@@ -5606,8 +5609,10 @@
 	"chat.sendElementsToChat.attachCSS": true,
 	// Controls whether a screenshot of the selected element will be added to the chat.
 	"chat.sendElementsToChat.attachImages": true,
-	// Controls whether to show a sign-in button in the title bar for users who are not signed in.
-	"chat.signInTitleBar.enabled": false,
+	// Enable session sync to GitHub.com. When enabled, Copilot session data is synced to your GitHub account for cross-device access and richer insights. Requires local session tracking to also be enabled.
+	"chat.sessionSync.enabled": false,
+	// Repository patterns to exclude from session sync. Use exact `owner/repo` names or glob patterns like `my-org/*`. Sessions from matching repositories will only be stored locally.
+	"chat.sessionSync.excludeRepositories": [],
 	// Controls whether subagents can invoke other subagents. When enabled, nesting is limited to a maximum depth of 5.
 	"chat.subagents.allowInvocationsFromSubagents": false,
 	// Controls whether tips are shown above user messages in chat. New tips are added frequently, so this is a helpful way to stay up to date with the latest features.
@@ -5638,6 +5643,10 @@
 	"chat.tools.global.autoApprove": false,
 	// Controls whether the rename tool is available for renaming code symbols across the workspace.
 	"chat.tools.renameTool.enabled": true,
+	// When enabled, terminal tool confirmations show an LLM-generated risk level (Safe / Caution / Review carefully) and a short explanation.
+	"chat.tools.riskAssessment.enabled": false,
+	// The language model id used to generate tool risk assessments. Should be a small, fast model.
+	"chat.tools.riskAssessment.model": "copilot-fast",
 	// When enabled, terminal tool calls are always displayed in a collapsible container with a simplified view.
 	"chat.tools.terminal.simpleCollapsible": true,
 	// Controls whether to show the todo list widget above the chat input. When enabled, the widget displays todo items created by the agent and updates as progress is made.
@@ -6017,6 +6026,8 @@
 	"github.copilot.chat.agent.largeToolResultsToDisk.enabled": true,
 	// The size threshold in bytes above which tool results are written to disk. Only applies when largeToolResultsToDisk.enabled is true.
 	"github.copilot.chat.agent.largeToolResultsToDisk.thresholdBytes": 8192,
+	// Show model details (model name and request multiplier) on agent chat responses when using Copilot CLI or Claude agent in VS Code. Requires VS Code reload to update already loaded sessions.
+	"github.copilot.chat.agent.modelDetails.enabled": true,
 	// Omit summarized file contents from file attachments in agent mode, to encourage the agent to properly read and explore.
 	"github.copilot.chat.agent.omitFileAttachmentContents": false,
 	// Temperature setting for agent mode requests.
@@ -6032,8 +6043,6 @@
 	"github.copilot.chat.agentDebugLog.fileLogging.maxRetainedSessionLogs": 50,
 	// Maximum size in megabytes for a single chat debug session log file. When the log exceeds this size, older entries are truncated to retain the most recent data. Defaults to 100 MB.
 	"github.copilot.chat.agentDebugLog.fileLogging.maxSessionLogSizeMB": 100,
-	// Summarize conversation inline within the agent loop instead of a separate LLM call, maximizing prompt cache hits.
-	"github.copilot.chat.agentHistorySummarizationInline": true,
 	// Mode for agent history summarization.
 	"github.copilot.chat.agentHistorySummarizationMode": "",
 	// Enables an experimental alternate prompt for Gemini Model F instead of the default prompt.
@@ -6071,6 +6080,8 @@
 	"github.copilot.chat.askAgent.model": "",
 	// Enable the Copilot CLI. When disabled, the Copilot CLI will not be available in 'Continue In' context menus.
 	"github.copilot.chat.backgroundAgent.enabled": true,
+	// Enables the updated system prompt tuned for the Claude Opus 4.7 model.
+	"github.copilot.chat.claude47OpusPrompt.enabled": false,
 	// Allow bypass permissions mode. Recommended only for sandboxes with no internet access.
 	"github.copilot.chat.claudeAgent.allowDangerouslySkipPermissions": false,
 	// Enable Claude Agent sessions in VS Code. Start and resume agentic coding sessions powered by Anthropic's Claude Agent SDK directly in the editor. Uses your existing Copilot subscription.
@@ -6092,11 +6103,11 @@
 	// Enable Model Context Protocol (MCP) server for Copilot CLI.
 	"github.copilot.chat.cli.mcp.enabled": true,
 	// Enable the /plan command in Copilot CLI to create implementation plans before coding.
-	"github.copilot.chat.cli.planCommand.enabled": false,
+	"github.copilot.chat.cli.planCommand.enabled": true,
 	// Enable Plan Mode exit handling in Copilot CLI.
-	"github.copilot.chat.cli.planExitMode.enabled": false,
+	"github.copilot.chat.cli.planExitMode.enabled": true,
 	// Enable the /remote command for Copilot CLI sessions, allowing you to view and steer from GitHub.com and the GitHub mobile app.
-	"github.copilot.chat.cli.remote.enabled": false,
+	"github.copilot.chat.cli.remote.enabled": true,
 	// Enable the new session controller API for Copilot CLI. Requires VS Code reload.
 	"github.copilot.chat.cli.sessionController.enabled": false,
 	// Enable the new session controller API for Sessions App. Requires VS Code reload.
@@ -6216,6 +6227,10 @@
 	"github.copilot.chat.inlineEdits.renameSymbolSuggestions": true,
 	// Trigger inline edits after editor has been idle for this many seconds.
 	"github.copilot.chat.inlineEdits.triggerOnEditorChangeAfterSeconds": 10,
+	// Advanced model configuration for the next edit suggestions xtab provider.
+	//
+	// **Note**: This is an advanced setting.
+	"github.copilot.chat.inlineEdits.xtabProvider.modelConfiguration": null,
 	// Whether to enable the install extension skill for Copilot.
 	"github.copilot.chat.installExtensionSkill.enabled": false,
 	// Token limit for short context instant apply.
@@ -6287,6 +6302,8 @@
 	"github.copilot.chat.otel.enabled": false,
 	// OTel exporter type for Copilot Chat telemetry. Requires window reload.
 	"github.copilot.chat.otel.exporterType": "otlp-http",
+	// Maximum size **in characters** for free-form OTel content attributes (prompts, responses, tool arguments/results, hook input/output). `0` (the default) disables truncation so backends without per-attribute size limits receive full JSON payloads. Set to a positive value when your OTel backend caps attribute size — consult your backend's documentation for its per-attribute limit. Truncated values are suffixed with `...[truncated, original N chars]`. Env var `COPILOT_OTEL_MAX_ATTRIBUTE_SIZE_CHARS` takes precedence. Requires window reload.
+	"github.copilot.chat.otel.maxAttributeSizeChars": 0,
 	// OTLP collector endpoint URL for Copilot Chat OTel data. Env var `OTEL_EXPORTER_OTLP_ENDPOINT` takes precedence. Requires window reload.
 	"github.copilot.chat.otel.otlpEndpoint": "http://localhost:4318",
 	// File path for file-based OTel exporter output (JSON-lines). When set, overrides exporter type to `file`. Requires window reload.
@@ -6388,10 +6405,10 @@
 	//
 	// May be set to `0` to disable virtual tools.
 	"github.copilot.chat.virtualTools.threshold": 128,
+	// Enable external ingest for semantic codebase search.
+	"github.copilot.chat.workspace.codeSearchExternalIngest.enabled": false,
 	// Enable code search in workspace context.
 	"github.copilot.chat.workspace.enableCodeSearch": true,
-	// Maximum number of local changes before we start using using external ingest.
-	"github.copilot.chat.workspace.maxDiffSizeBeforeUsingExternalIngest": 100,
 	// Maximum size of the local workspace index.
 	"github.copilot.chat.workspace.maxLocalIndexSize": 100000,
 	// Preferred embeddings model for semantic search.
@@ -6466,7 +6483,7 @@
 	//  - off: Never add the AI co-author trailer.
 	//  - chatAndAgent: Add the AI co-author trailer when code from chat or agent edits is included.
 	//  - all: Add the AI co-author trailer when any AI-generated code is included, such as inline completions, chat, or agent edits.
-	"git.addAICoAuthor": "chatAndAgent",
+	"git.addAICoAuthor": "off",
 	// Controls whether force push (with or without lease) is enabled.
 	"git.allowForcePush": false,
 	// Controls whether commits without running pre-commit and commit-msg hooks are allowed.
@@ -8132,6 +8149,27 @@
 	"clipboard-manager.snippet.max": 10,
 	// Default prefix for snippets completion (clip1, clip2, ...)
 	"clipboard-manager.snippet.prefix": "clip",
+	// shell-format configuration
+	// the trigger effect  on the language
+	"shellformat.effectLanguages": [
+		"shellscript",
+		"dockerfile",
+		"dotenv",
+		"hosts",
+		"jvmoptions",
+		"ignore",
+		"gitignore",
+		"properties",
+		"spring-boot-properties",
+		"azcli",
+		"bats"
+	],
+	// shfmt -h to see detail usage, example: -p -bn -ci
+	"shellformat.flag": null,
+	// the shfmt fullpath  example[mac,linux] /usr/local/bin/shfmt  [windows] C:/bin/shfmt.exe   download from https://github.com/mvdan/sh/releases
+	"shellformat.path": null,
+	// Use EditorConfig for shfmt configuration
+	"shellformat.useEditorConfig": false,
 	// Go
 	// Tags and options configured here will be used by the Add Tags command to add tags to struct fields. If promptForTags is true, then user will be prompted for tags and options. By default, json tags are added.
 	"go.addTags": {
@@ -9664,6 +9702,8 @@
 	"yaml.hover": true,
 	// Enable/disable hover feature for anchors
 	"yaml.hoverAnchor": true,
+	// Enable/disable showing the schema source in hover tooltips
+	"yaml.hoverSchemaSource": "true",
 	// Enforces alphabetical ordering of keys in mappings when set to true
 	"yaml.keyOrdering": false,
 	// Enable/disable validation of Kubernetes custom resources using schemas from well-known Custom Resource Definitions (CRDs)
@@ -9770,6 +9810,55 @@
 	"evenBetterToml.taplo.extraArgs": [],
 	// An absolute path to the `taplo` executable. `evenBetterToml.taplo.bundled` needs to be set to `false` for this to have any effect.
 	"evenBetterToml.taplo.path": null,
+	// ShellCheck
+	// Custom arguments to pass when calling the `shellcheck` binary. Always prefer to use a `.shellcheckrc` file instead of this setting.
+	"shellcheck.customArgs": [],
+	// Whether to disable shellcheck binary version check, which prompts for updating when an outdated version is found.
+	"shellcheck.disableVersionCheck": false,
+	// Whether ShellCheck is enabled or not.
+	"shellcheck.enable": true,
+	// Whether to enable the _Quick Fix_ feature or not.
+	"shellcheck.enableQuickFix": true,
+	// Exclude certain error codes. For example, to exclude [SC1017](https://shellcheck.net/wiki/SC1017), enter _1017_. Enumerated error codes can be found [in this gist](https://gist.github.com/nicerobot/53cee11ee0abbdc997661e65b348f375). Always prefer to use a `.shellcheckrc` file instead of this setting.
+	"shellcheck.exclude": [],
+	// Path to the `shellcheck` executable (bundled binaries will be used if empty).
+	"shellcheck.executablePath": "",
+	// Matching file schemes are being ignored by shellcheck.
+	"shellcheck.ignoreFileSchemes": [
+		"git",
+		"gitfs",
+		"output"
+	],
+	// Configure glob patterns for excluding files and folders by ShellCheck. Glob patterns are interpreted relative to the workspace's root folder. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/glob-patterns).
+	"shellcheck.ignorePatterns": {
+		"**/*.csh": true,
+		"**/*.cshrc": true,
+		"**/*.fish": true,
+		"**/*.login": true,
+		"**/*.logout": true,
+		"**/*.tcsh": true,
+		"**/*.tcshrc": true,
+		"**/*.xonshrc": true,
+		"**/*.xsh": true,
+		"**/*.zsh": true,
+		"**/*.zshrc": true,
+		"**/zshrc": true,
+		"**/*.zprofile": true,
+		"**/zprofile": true,
+		"**/*.zlogin": true,
+		"**/zlogin": true,
+		"**/*.zlogout": true,
+		"**/zlogout": true,
+		"**/*.zshenv": true,
+		"**/zshenv": true,
+		"**/*.zsh-theme": true
+	},
+	// The trace level the extension logs at, defaults to 'info'.
+	"shellcheck.logLevel": "info",
+	// Whether ShellCheck is run on save, on type, or manually.
+	"shellcheck.run": "onType",
+	// Whether to use the workspace root directory as the current working directory when launching `shellcheck`. Otherwise, the directory of the file being linted will be used.
+	"shellcheck.useWorkspaceRootAsCwd": false,
 	// Error Lens
 	// Align inline error message (either by starting position or ending position). Only works for monospace fonts. Set "start" and "end" to **0** to disable. ❗Will conflict with other extension decorations. [demo](https://github.com/usernamehw/vscode-error-lens/blob/master/docs/docs.md#errorlensalignmessage)
 	"errorLens.alignMessage": {
@@ -10195,74 +10284,4 @@
 	"markdown.extension.toc.unorderedList.marker": "-",
 	// Auto update TOC on save.
 	"markdown.extension.toc.updateOnSave": true,
-	// shell-format configuration
-	// the trigger effect  on the language
-	"shellformat.effectLanguages": [
-		"shellscript",
-		"dockerfile",
-		"dotenv",
-		"hosts",
-		"jvmoptions",
-		"ignore",
-		"gitignore",
-		"properties",
-		"spring-boot-properties",
-		"azcli",
-		"bats"
-	],
-	// shfmt -h to see detail usage, example: -p -bn -ci
-	"shellformat.flag": null,
-	// the shfmt fullpath  example[mac,linux] /usr/local/bin/shfmt  [windows] C:/bin/shfmt.exe   download from https://github.com/mvdan/sh/releases
-	"shellformat.path": null,
-	// Use EditorConfig for shfmt configuration
-	"shellformat.useEditorConfig": false,
-	// ShellCheck
-	// Custom arguments to pass when calling the `shellcheck` binary. Always prefer to use a `.shellcheckrc` file instead of this setting.
-	"shellcheck.customArgs": [],
-	// Whether to disable shellcheck binary version check, which prompts for updating when an outdated version is found.
-	"shellcheck.disableVersionCheck": false,
-	// Whether ShellCheck is enabled or not.
-	"shellcheck.enable": true,
-	// Whether to enable the _Quick Fix_ feature or not.
-	"shellcheck.enableQuickFix": true,
-	// Exclude certain error codes. For example, to exclude [SC1017](https://shellcheck.net/wiki/SC1017), enter _1017_. Enumerated error codes can be found [in this gist](https://gist.github.com/nicerobot/53cee11ee0abbdc997661e65b348f375). Always prefer to use a `.shellcheckrc` file instead of this setting.
-	"shellcheck.exclude": [],
-	// Path to the `shellcheck` executable (bundled binaries will be used if empty).
-	"shellcheck.executablePath": "",
-	// Matching file schemes are being ignored by shellcheck.
-	"shellcheck.ignoreFileSchemes": [
-		"git",
-		"gitfs",
-		"output"
-	],
-	// Configure glob patterns for excluding files and folders by ShellCheck. Glob patterns are interpreted relative to the workspace's root folder. Read more about glob patterns [here](https://code.visualstudio.com/docs/editor/glob-patterns).
-	"shellcheck.ignorePatterns": {
-		"**/*.csh": true,
-		"**/*.cshrc": true,
-		"**/*.fish": true,
-		"**/*.login": true,
-		"**/*.logout": true,
-		"**/*.tcsh": true,
-		"**/*.tcshrc": true,
-		"**/*.xonshrc": true,
-		"**/*.xsh": true,
-		"**/*.zsh": true,
-		"**/*.zshrc": true,
-		"**/zshrc": true,
-		"**/*.zprofile": true,
-		"**/zprofile": true,
-		"**/*.zlogin": true,
-		"**/zlogin": true,
-		"**/*.zlogout": true,
-		"**/zlogout": true,
-		"**/*.zshenv": true,
-		"**/zshenv": true,
-		"**/*.zsh-theme": true
-	},
-	// The trace level the extension logs at, defaults to 'info'.
-	"shellcheck.logLevel": "info",
-	// Whether ShellCheck is run on save, on type, or manually.
-	"shellcheck.run": "onType",
-	// Whether to use the workspace root directory as the current working directory when launching `shellcheck`. Otherwise, the directory of the file being linted will be used.
-	"shellcheck.useWorkspaceRootAsCwd": false,
 }
