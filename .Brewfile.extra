@@ -1,3 +1,4 @@
+cask "beekeeper-studio"
 cask "bruno"
 cask "headlamp"
 cask "mongodb-compass"

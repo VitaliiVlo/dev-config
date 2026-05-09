@@ -125,10 +125,10 @@ Install via official installers or Homebrew Cask:
 | Containers            | **OrbStack**, Colima, Podman Desktop                                                 |
 | Kubernetes            | **Headlamp**, Aptakube, Freelens                                                     |
 | Kubernetes Remote Dev | **Telepresence**, mirrord                                                            |
-| Database              | TablePlus, Postico, MongoDB Compass, Beekeeper Studio                                |
+| Database              | **Beekeeper Studio**, TablePlus, Postico, MongoDB Compass                            |
 | API Testing           | **Bruno**, Yaak, Hoppscotch                                                          |
 | Browser (Gecko)       | **Firefox**, Zen + **uBlock Origin**                                                 |
-| Browser (Chromium)    | **Chrome**, Helium, Arc + **uBlock Origin Lite**                                     |
+| Browser (Chromium)    | **Brave**, Helium + **uBlock Origin Lite**                                           |
 | Browser (WebKit)      | **Safari**, Orion + **wBlock**, Wipr 2                                               |
 | Diagrams              | **Excalidraw**, tldraw                                                               |
 | Diagram as Code       | **Mermaid**, D2                                                                      |
@@ -138,8 +138,9 @@ Install via official installers or Homebrew Cask:
 | Mail                  | **Apple Mail**, Mimestream                                                           |
 | Password Manager      | **Apple Passwords**, 1Password, Bitwarden                                            |
 | Office                | **Apple iWork** (Pages, Numbers, Keynote), Google Workspace, Microsoft 365           |
-| macOS Tools           | Raycast, Rectangle, Maccy, Keka, KeepingYouAwake, Ice, MiddleClick, balenaEtcher     |
-| Linux Distros         | **Bluefin**, elementary OS, Fedora Silverblue, Fedora Workstation, Pop!_OS           |
+| macOS Tools           | Rectangle, Maccy, Keka, KeepingYouAwake, Thaw, MiddleClick, LinearMouse, balenaEtcher |
+| Networking            | Cloudflare WARP, LocalSend, Tailscale                                                |
+| Linux Distros         | Bluefin, elementary OS, Fedora Silverblue, Fedora Workstation, Pop!_OS               |
 
 **VSCode setup:**
 
@@ -235,15 +236,16 @@ For full audit recipe (TOML/JSON/YAML/JSONC parsers, `brew bundle check`, `shell
 
 ## Casks
 
-GUI applications and fonts installed via Homebrew Cask:
+GUI applications, CLIs, and fonts installed via Homebrew Cask:
 
 ### Core Casks
 
 | Cask                        | Description                      |
 | --------------------------- | -------------------------------- |
-| arc                         | Web browser (Chromium)           |
 | balenaetcher                | USB flash tool                   |
+| brave-browser               | Web browser (Chromium)           |
 | claude-code                 | Anthropic Claude CLI             |
+| cloudflare-warp             | VPN / 1.1.1.1 client             |
 | codex                       | OpenAI Codex CLI                 |
 | firefox                     | Web browser                      |
 | font-fira-code              | Fallback monospace font          |
@@ -252,26 +254,29 @@ GUI applications and fonts installed via Homebrew Cask:
 | ghostty                     | Terminal emulator                |
 | google-chrome               | Web browser                      |
 | helium-browser              | Web browser (Chromium)           |
-| jordanbaird-ice             | Menu bar manager (Ice)           |
 | keepingyouawake             | Prevent sleep                    |
 | keka                        | File archiver                    |
+| linearmouse                 | Per-device mouse customization   |
+| localsend                   | Cross-platform LAN file sharing  |
 | maccy                       | Clipboard manager                |
 | middleclick                 | Three-finger tap as middle click |
 | rectangle                   | Window manager                   |
+| thaw                        | Menu bar manager                 |
 | visual-studio-code          | Code editor                      |
 | zed                         | Code editor                      |
 | zen                         | Web browser (Gecko)              |
 
 ### Extra Casks
 
-| Cask            | Description                               |
-| --------------- | ----------------------------------------- |
-| bruno           | API testing client                        |
-| headlamp        | Kubernetes GUI                            |
-| mongodb-compass | MongoDB GUI                               |
-| orbstack        | Docker/Linux VM (replaces Docker Desktop) |
-| slack           | Team messaging                            |
-| tailscale-app   | VPN/mesh networking                       |
+| Cask             | Description                               |
+| ---------------- | ----------------------------------------- |
+| beekeeper-studio | Multi-engine SQL GUI                      |
+| bruno            | API testing client                        |
+| headlamp         | Kubernetes GUI                            |
+| mongodb-compass  | MongoDB GUI                               |
+| orbstack         | Docker/Linux VM (replaces Docker Desktop) |
+| slack            | Team messaging                            |
+| tailscale-app    | VPN/mesh networking                       |
 
 ## Claude Code
 
