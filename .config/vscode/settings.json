@@ -19,6 +19,7 @@
     "workbench.layoutControl.enabled": true,
     "workbench.layoutControl.type": "menu",
     "workbench.activityBar.location": "bottom",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
     // Window
     "window.autoDetectColorScheme": true,
     "window.commandCenter": false,

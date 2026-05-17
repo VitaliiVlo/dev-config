@@ -72,12 +72,12 @@ The following files are automatically symlinked by running `make link`:
 - `.config/superfile/config.toml` - Superfile (`spf`) terminal file manager settings (linked into Library/Application Support/superfile)
 - `.config/vscode/settings.json` - VSCode configuration (linked into `Library/Application Support/Code/User`)
 - `.config/zed/settings.json` - Zed editor settings
-- `.claude/settings.json` - Claude Code permissions
-- `.claude/CLAUDE.md` - Claude Code user-level instructions
+- `.config/claude/settings.json` - Claude Code permissions
+- `.config/claude/CLAUDE.md` - Claude Code user-level instructions
 - `.config/ccstatusline/settings.json` - Claude Code status line layout
-- `.codex/config.toml` - Codex CLI config (model, sandbox, plugins)
-- `.codex/AGENTS.md` - Codex user-level instructions
-- `.codex/rules/` - Codex permission rules (git, dev, shell, infra)
+- `.config/codex/config.toml` - Codex CLI config (model, sandbox, plugins)
+- `.config/codex/AGENTS.md` - Codex user-level instructions
+- `.config/codex/rules/` - Codex permission rules (git, dev, shell, infra)
 
 **Not symlinked (used directly from repo):**
 
@@ -85,7 +85,7 @@ The following files are automatically symlinked by running `make link`:
 - `.Brewfile.work` - Work Brewfile (work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN; curated manually)
 - `.flatpaks` - Base Flathub app IDs for Linux (paired with `.Brewfile` casks where an equivalent exists)
 - `.flatpaks.work` - Work Flathub app IDs for Linux (paired with `.Brewfile.work` casks; curated manually)
-- `flatpaks-install.sh` - Installs `.flatpaks` / `.flatpaks.work` at user scope (Linux only, no-op on macOS)
+- `scripts/flatpaks-install.sh` - Installs `.flatpaks` / `.flatpaks.work` at user scope (Linux only, no-op on macOS)
 - `CLAUDE.md` - Repository instructions for Claude Code (auto-discovered in cwd; Codex reads it via `project_doc_fallback_filenames`)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
@@ -332,7 +332,7 @@ All targets no-op on macOS. Requires `flatpak` (install via `brew install flatpa
 
 ## Claude Code
 
-The `.claude/settings.json` configures permissions and plugins:
+The `.config/claude/settings.json` configures permissions and plugins:
 
 - **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), `fd`/`rg`/`grep`/`find`/`which`/`tldr`/`date` for file search and inspection
 - **Denied:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
@@ -344,11 +344,11 @@ The `.claude/settings.json` configures permissions and plugins:
 
 ## Codex
 
-The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
+The `.config/codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
 
 - **Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, analytics/feedback disabled
 - **Profiles:** `quick` and `research` (`research` enables live web search)
-- **Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
+- **Rules:** `.config/codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
 - **Enabled plugins:** Slack, caveman
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)
 - **MCP servers:** Atlassian, Datadog, Context7, PostHog

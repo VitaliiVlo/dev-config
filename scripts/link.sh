@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 echo "Creating symbolic links from $DOTFILES_DIR to $HOME..."
 
@@ -72,17 +72,17 @@ mkdir -p "$HOME/.config/ccstatusline"
 ln -sf "$DOTFILES_DIR/.config/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 
 mkdir -p "$HOME/.claude"
-ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
-ln -sf "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+ln -sf "$DOTFILES_DIR/.config/claude/settings.json" "$HOME/.claude/settings.json"
+ln -sf "$DOTFILES_DIR/.config/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
 mkdir -p "$HOME/.codex"
-ln -sf "$DOTFILES_DIR/.codex/config.toml" "$HOME/.codex/config.toml"
-ln -sf "$DOTFILES_DIR/.codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
+ln -sf "$DOTFILES_DIR/.config/codex/config.toml" "$HOME/.codex/config.toml"
+ln -sf "$DOTFILES_DIR/.config/codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
 
 mkdir -p "$HOME/.codex/rules"
-ln -sf "$DOTFILES_DIR/.codex/rules/dev.rules" "$HOME/.codex/rules/dev.rules"
-ln -sf "$DOTFILES_DIR/.codex/rules/git.rules" "$HOME/.codex/rules/git.rules"
-ln -sf "$DOTFILES_DIR/.codex/rules/infra.rules" "$HOME/.codex/rules/infra.rules"
-ln -sf "$DOTFILES_DIR/.codex/rules/shell.rules" "$HOME/.codex/rules/shell.rules"
+ln -sf "$DOTFILES_DIR/.config/codex/rules/dev.rules" "$HOME/.codex/rules/dev.rules"
+ln -sf "$DOTFILES_DIR/.config/codex/rules/git.rules" "$HOME/.codex/rules/git.rules"
+ln -sf "$DOTFILES_DIR/.config/codex/rules/infra.rules" "$HOME/.codex/rules/infra.rules"
+ln -sf "$DOTFILES_DIR/.config/codex/rules/shell.rules" "$HOME/.codex/rules/shell.rules"
 
 echo "✅ Symbolic links created successfully!"

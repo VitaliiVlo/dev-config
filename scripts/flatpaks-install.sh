@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# Usage: ./flatpaks-install.sh [.flatpaks | .flatpaks.work]
+# Usage: ./scripts/flatpaks-install.sh [.flatpaks | .flatpaks.work]
 
 file="${1:-.flatpaks}"
 

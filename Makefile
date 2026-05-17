@@ -10,10 +10,10 @@ setup: defaults link brew-install-base versions ## Base setup: configure macOS, 
 setup-all: defaults link brew-install versions ## Full setup: base setup + work packages
 
 defaults: ## Configure macOS defaults: folders, system, screenshots, Finder, Dock
-	./macos-defaults.sh
+	./scripts/macos-defaults.sh
 
 link: ## Symlink configs to home directory
-	./link.sh
+	./scripts/link.sh
 
 versions: ## Show installed Go, Node, Python versions
 	@printf '%s\n' "--- Go ---"
@@ -42,10 +42,10 @@ brew-export: ## Export installed packages to .Brewfile, then strip .Brewfile.wor
 flatpaks-install: flatpaks-install-base flatpaks-install-work ## Install all flatpaks from .flatpaks files (Linux only)
 
 flatpaks-install-base: ## Install base flatpaks (Linux only; no-op on macOS)
-	./flatpaks-install.sh .flatpaks
+	./scripts/flatpaks-install.sh .flatpaks
 
 flatpaks-install-work: ## Install work flatpaks (Linux only; no-op on macOS)
-	./flatpaks-install.sh .flatpaks.work
+	./scripts/flatpaks-install.sh .flatpaks.work
 
 flatpaks-export: ## Export installed user flatpaks to .flatpaks, then strip .flatpaks.work entries; add new work entries to .flatpaks.work manually
 	@if [ "$$(uname -s)" != "Linux" ]; then echo "flatpaks-export: Linux only, skipping."; exit 0; fi; \

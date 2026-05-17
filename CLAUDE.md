@@ -27,9 +27,9 @@ make flatpaks-export         # Export installed user flatpaks to .flatpaks, then
 
 ## Repository Structure
 
-- `link.sh` - Creates symlinks (uses `set -euo pipefail`)
-- `macos-defaults.sh` - macOS defaults via `defaults write` (non-interactive, idempotent)
-- `flatpaks-install.sh` - Installs Flathub apps at user scope from `.flatpaks` / `.flatpaks.work` (Linux only, no-op on macOS, adds flathub user remote on first run)
+- `scripts/link.sh` - Creates symlinks (uses `set -euo pipefail`)
+- `scripts/macos-defaults.sh` - macOS defaults via `defaults write` (non-interactive, idempotent)
+- `scripts/flatpaks-install.sh` - Installs Flathub apps at user scope from `.flatpaks` / `.flatpaks.work` (Linux only, no-op on macOS, adds flathub user remote on first run)
 - `Makefile` - Task runner targets (`make help` for list)
 - `.Brewfile` - Base packages: shell essentials, fonts, daily-driver apps, VSCode extensions
 - `.Brewfile.work` - Work packages: work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN (curated manually)
@@ -53,12 +53,12 @@ make flatpaks-export         # Export installed user flatpaks to .flatpaks, then
 - `.config/vscode/settings.json` - VSCode settings (JSONC format with comments)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults reference (for comparing settings)
 - `.config/zed/settings.json` - Zed editor (Catppuccin Macchiato/Latte, JetBrains Mono, same UX as VSCode, auto_install_extensions)
-- `.claude/CLAUDE.md` - Claude Code user-level instructions (symlinked to `~/`)
-- `.claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
+- `.config/claude/CLAUDE.md` - Claude Code user-level instructions (symlinked to `~/.claude/CLAUDE.md`)
+- `.config/claude/settings.json` - Claude Code permissions (web, git, docker, build tools, sensitive file protection)
 - `.config/ccstatusline/settings.json` - Claude Code status line layout (via ccstatusline)
-- `.codex/AGENTS.md` - Codex user-level instructions (symlinked to `~/`)
-- `.codex/config.toml` - Codex CLI config (model, sandbox, profiles, plugins)
-- `.codex/rules/` - Codex permission rules: `git`, `dev`, `shell`, `infra` (symlinked to `~/`)
+- `.config/codex/AGENTS.md` - Codex user-level instructions (symlinked to `~/.codex/AGENTS.md`)
+- `.config/codex/config.toml` - Codex CLI config (model, sandbox, profiles, plugins)
+- `.config/codex/rules/` - Codex permission rules: `git`, `dev`, `shell`, `infra` (symlinked to `~/.codex/rules/`)
 
 ## When Adding a New Tool/Config (Doc Drift Checklist)
 
@@ -72,7 +72,7 @@ When adding a new tool, config file, cask, or formula, update all of these in lo
   - **Font cask** (e.g. `font-*`) — add cask name to README "macOS-only → Fonts" sub-list.
   - **macOS-system tool** (e.g. `rectangle`, `maccy`, no Linux concept) — add cask name to README "macOS-only → macOS-system tools" sub-list.
   - Every cask in `.Brewfile` / `.Brewfile.work` must appear in exactly one of: a Flatpaks Base/Work table, or one of the four macOS-only sub-lists.
-- **Symlink** — add `mkdir -p` + `ln -sf` block to `link.sh` if the tool reads a config file from a fixed path
+- **Symlink** — add `mkdir -p` + `ln -sf` block to `scripts/link.sh` if the tool reads a config file from a fixed path
 - **README "Configuration Files" list** — add bullet under `## Configuration Files` if a config file is symlinked
 - **README "CLI Tools" or "Casks" table** — add row if user-facing CLI/GUI tool
 - **README "Flatpaks" tables** — add row to Base or Work Flatpaks table if Flathub equivalent paired
@@ -97,24 +97,25 @@ When adding or editing config files, follow this style across all of them:
 
 ## Script Behavior
 
-**link.sh:**
+**scripts/link.sh:**
 
 - Uses `ln -sf` (force symlink) - overwrites existing files
 - Creates parent directories as needed for nested configs
-- Repo holds all source-of-truth configs under `.config/<tool>/`. Tools that ignore XDG on macOS are linked into native paths inside `link.sh`:
+- `DOTFILES_DIR` resolves to repo root via `cd "$(dirname "$0")/.." && pwd` (script lives one level deep in `scripts/`)
+- Repo holds all source-of-truth configs under `.config/<tool>/`. Tools that ignore XDG on macOS are linked into native paths inside `scripts/link.sh`:
   - glow → `~/Library/Preferences/glow/`
   - superfile → `~/Library/Application Support/superfile/`
   - tlrc → `~/Library/Application Support/tlrc/`
   - VSCode → `~/Library/Application Support/Code/User/`
 - Symlinks grouped by category (in this order): Shell → Shell tools (history/pager/system monitor/terminal/search/prompt) → Git/file tools → Editors → macOS-native paths → AI agents. Within each group, tools are alphabetized. Add new symlinks under the matching group in alpha order.
 
-**macos-defaults.sh:**
+**scripts/macos-defaults.sh:**
 
 - Non-interactive: applies all categories unconditionally (Folders, System defaults, Screenshots, Finder, Dock)
 - Restarts affected processes (Finder, Dock, SystemUIServer)
 - Safe to re-run: idempotent `mkdir -p` and `defaults write` commands
 
-**flatpaks-install.sh:**
+**scripts/flatpaks-install.sh:**
 
 - Linux only. On any non-Linux host: prints a skip message and exits 0 (Makefile targets remain safe to invoke on macOS)
 - Requires `flatpak` binary (install via `brew install flatpak` on Linux)
@@ -209,14 +210,14 @@ uv python list --only-installed             # Should show installed Python versi
 
 ```bash
 # 1. Parse every TOML
-for f in .codex/config.toml .config/atuin/config.toml .config/bottom/bottom.toml \
+for f in .config/codex/config.toml .config/atuin/config.toml .config/bottom/bottom.toml \
          .config/yazi/yazi.toml .config/starship/starship.toml .config/tlrc/config.toml \
          .config/superfile/config.toml; do
   python3 -c "import tomllib,sys; tomllib.loads(open(sys.argv[1]).read()); print('OK', sys.argv[1])" "$f"
 done
 
 # 2. Parse every plain JSON
-for f in .claude/settings.json .config/micro/settings.json .config/ccstatusline/settings.json; do
+for f in .config/claude/settings.json .config/micro/settings.json .config/ccstatusline/settings.json; do
   python3 -c "import json,sys; json.loads(open(sys.argv[1]).read()); print('OK', sys.argv[1])" "$f"
 done
 
@@ -247,8 +248,8 @@ for f in .flatpaks .flatpaks.work; do
 done
 
 # 7. Lint shell scripts (shfmt available for formatting new scripts ad-hoc;
-#    not enforced here because macos-defaults.sh uses intentional column alignment)
-shellcheck link.sh macos-defaults.sh flatpaks-install.sh
+#    not enforced here because scripts/macos-defaults.sh uses intentional column alignment)
+shellcheck scripts/link.sh scripts/macos-defaults.sh scripts/flatpaks-install.sh
 
 # 8. Verify every documented symlink resolves to repo
 for p in ~/.zprofile ~/.zshrc ~/.config/git/config ~/.config/git/ignore \
@@ -287,6 +288,7 @@ When modifying `.config/vscode/settings.json`:
 - `workbench.navigationControl.enabled`: false (no back/forward buttons)
 - `workbench.layoutControl.type`: "menu" (dropdown instead of toggles)
 - `workbench.activityBar.location`: bottom (compact, under primary side bar)
+- `workbench.secondarySideBar.defaultVisibility`: "hidden" (toggle with `Cmd+Option+B` on demand)
 
 **Layout (UI only, View → Appearance / Customize Layout):**
 
@@ -532,16 +534,16 @@ Zed delegates git workflow (rebase, autostash, prune, SSH) to `.config/git/confi
 
 **`EDITOR` env var** must match across: `.zprofile` (`code --wait`), `.config/git/config` (`core.editor`), `.config/gh/config.yml` (`editor: code --wait`), `.config/yazi/yazi.toml` (`[opener.edit]` runs `code --wait "$@"`), lazygit (`editPreset: vscode`), Codex (`file_opener = "vscode"`), Superfile (`editor`/`dir_editor = "code --wait"`)
 
-**Claude ↔ Codex** allowed commands must stay in sync between `.claude/settings.json` and `.codex/rules/`
+**Claude ↔ Codex** allowed commands must stay in sync between `.config/claude/settings.json` and `.config/codex/rules/`
 
 **Marketplace identifiers** are intentionally divergent between Claude and Codex when both tools register the same upstream repo, because Codex CLI does not support renaming a marketplace key after `codex plugin marketplace add` (the key is fixed by the add command). Current state for the shared `caveman` repo (https://github.com/JuliusBrussee/caveman):
 
-- `.claude/settings.json` → `extraKnownMarketplaces.caveman`
-- `.codex/config.toml` → `[marketplaces.caveman-repo]` + `[plugins."caveman@caveman-repo"]`
+- `.config/claude/settings.json` → `extraKnownMarketplaces.caveman`
+- `.config/codex/config.toml` → `[marketplaces.caveman-repo]` + `[plugins."caveman@caveman-repo"]`
 
 Do not attempt to rename the Codex side to `caveman` — Codex will treat it as a new, unregistered marketplace and the plugin enable line will dangle.
 
-**Built-in Codex marketplaces:** `openai-curated` is pre-registered by the Codex CLI binary — do not declare `[marketplaces.openai-curated]` in `.codex/config.toml`. Plugin references like `[plugins."slack@openai-curated"]` resolve through the built-in registry. Only third-party marketplaces (e.g. `caveman-repo`) need explicit `[marketplaces.<name>]` blocks.
+**Built-in Codex marketplaces:** `openai-curated` is pre-registered by the Codex CLI binary — do not declare `[marketplaces.openai-curated]` in `.config/codex/config.toml`. Plugin references like `[plugins."slack@openai-curated"]` resolve through the built-in registry. Only third-party marketplaces (e.g. `caveman-repo`) need explicit `[marketplaces.<name>]` blocks.
 
 **VSCode `git.blame.*` is split** into `git.blame.editorDecoration.enabled` (inline editor decoration) and `git.blame.statusBarItem.enabled` (status bar item), each with its own `template`. Do not use the legacy flat `git.blame.enabled` key — it is silently ignored.
 
@@ -569,7 +571,7 @@ The Brewfile DSL gained a `flatpak` keyword in brew 5.0.4+. Install side is cros
 
 ## Claude Code Settings
 
-The `.claude/settings.json` configures permissions and plugins:
+The `.config/claude/settings.json` configures permissions and plugins:
 
 - **Allowed:** Read-only git/docker/k8s, build/test/lint tools, dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), web search, web fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), `fd`/`rg`/`grep`/`find`/`which`/`tldr`/`date` for file search and inspection
 - **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
@@ -579,17 +581,17 @@ The `.claude/settings.json` configures permissions and plugins:
 - **Status line:** Custom layout via `ccstatusline` (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
 - **Usage tracking:** `ccusage` via npx for token usage and cost analysis
 
-See `.claude/settings.json` for the full permission list.
+See `.config/claude/settings.json` for the full permission list.
 
 ## Codex Settings
 
-The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
+The `.config/codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
 
 - **Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, analytics/feedback disabled
 - **Profiles:** `quick` and `research` (`research` enables live web search)
-- **Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
+- **Rules:** `.config/codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
 - **Enabled plugins:** Slack, caveman
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)
 - **MCP servers:** Atlassian, Datadog, Context7, PostHog
 
-See `.codex/config.toml` and `.codex/rules/` for the full configuration.
+See `.config/codex/config.toml` and `.config/codex/rules/` for the full configuration.
