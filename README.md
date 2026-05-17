@@ -263,6 +263,7 @@ GUI applications, CLIs, and fonts installed via Homebrew Cask:
 | localsend                   | Cross-platform LAN file sharing  |
 | maccy                       | Clipboard manager                |
 | middleclick                 | Three-finger tap as middle click |
+| obsidian                    | Notes / knowledge base           |
 | rectangle                   | Window manager                   |
 | thaw                        | Menu bar manager                 |
 | visual-studio-code          | Code editor                      |
