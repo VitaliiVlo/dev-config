@@ -17,18 +17,24 @@ make versions           # Show installed Go, Node, Python versions
 make brew-install       # Install all packages (base + work)
 make brew-install-base  # Install base packages only
 make brew-install-work  # Install work packages only
-make brew-check         # Check for missing Brewfile packages
 make brew-cleanup       # Clean up old versions and cache
 make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile, then strip .Brewfile.work entries; add new work entries to .Brewfile.work manually
+make flatpaks-install        # Install all flatpaks (base + work); Linux only, no-op on macOS
+make flatpaks-install-base   # Install base flatpaks only
+make flatpaks-install-work   # Install work flatpaks only
+make flatpaks-export         # Export installed user flatpaks to .flatpaks, then strip .flatpaks.work entries; add new work entries to .flatpaks.work manually
 ```
 
 ## Repository Structure
 
 - `link.sh` - Creates symlinks (uses `set -euo pipefail`)
 - `macos-defaults.sh` - macOS defaults via `defaults write` (non-interactive, idempotent)
+- `flatpaks-install.sh` - Installs Flathub apps at user scope from `.flatpaks` / `.flatpaks.work` (Linux only, no-op on macOS, adds flathub user remote on first run)
 - `Makefile` - Task runner targets (`make help` for list)
 - `.Brewfile` - Base packages: shell essentials, fonts, daily-driver apps, VSCode extensions
 - `.Brewfile.work` - Work packages: work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN (curated manually)
+- `.flatpaks` - Base Flathub app IDs for Linux, bare one-per-line (no comments — `make flatpaks-export` would wipe them; see "Flatpaks maintenance" below). Paired with `.Brewfile` casks where a Flathub equivalent exists; see README "Flatpaks" section for cross-ref table.
+- `.flatpaks.work` - Work Flathub app IDs for Linux (paired with `.Brewfile.work` casks; curated manually, same bare-line format as `.flatpaks`)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
 - `.config/git/config` / `.config/git/ignore` - Git settings (delta pager, rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere, git-lfs filters) — XDG path
 - `.config/ripgrep/ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks); resolved via `RIPGREP_CONFIG_PATH`
@@ -59,9 +65,17 @@ make brew-export        # Export installed packages (incl. VSCode extensions) to
 When adding a new tool, config file, cask, or formula, update all of these in lockstep — missing any one causes documentation drift:
 
 - **Install** — add line to `.Brewfile` or `.Brewfile.work` (tap, cask, brew, vscode, go, uv, etc.)
+- **Linux equivalent** — when adding a `cask`, classify and document:
+  - **GUI app with Flathub equivalent** — add paired Flathub ID to `.flatpaks` or `.flatpaks.work` (verify via `curl -sI https://flathub.org/api/v2/appstream/<id>` returns 200), and add row to README "Flatpaks" Base/Work table.
+  - **GUI app not on Flathub** — add cask name to README "macOS-only → GUI apps not on Flathub" sub-list under `## Flatpaks`.
+  - **CLI tool** (e.g. `codex`, `claude-code`, `1password-cli`) — add cask name to README "macOS-only → CLI tools" sub-list.
+  - **Font cask** (e.g. `font-*`) — add cask name to README "macOS-only → Fonts" sub-list.
+  - **macOS-system tool** (e.g. `rectangle`, `maccy`, no Linux concept) — add cask name to README "macOS-only → macOS-system tools" sub-list.
+  - Every cask in `.Brewfile` / `.Brewfile.work` must appear in exactly one of: a Flatpaks Base/Work table, or one of the four macOS-only sub-lists.
 - **Symlink** — add `mkdir -p` + `ln -sf` block to `link.sh` if the tool reads a config file from a fixed path
 - **README "Configuration Files" list** — add bullet under `## Configuration Files` if a config file is symlinked
 - **README "CLI Tools" or "Casks" table** — add row if user-facing CLI/GUI tool
+- **README "Flatpaks" tables** — add row to Base or Work Flatpaks table if Flathub equivalent paired
 - **README "Applications" table** — add row if GUI app fits an existing category, or add new category row
 - **CLAUDE.md "Repository Structure" list** — add bullet describing the file's purpose
 - **CLAUDE.md "Cross-Config Consistency Rules" tables** — add row(s) if the tool shares behavior (theme, font, tab size, hidden files, telemetry, auto-update, git pager, etc.) with existing tools
@@ -99,6 +113,16 @@ When adding or editing config files, follow this style across all of them:
 - Non-interactive: applies all categories unconditionally (Folders, System defaults, Screenshots, Finder, Dock)
 - Restarts affected processes (Finder, Dock, SystemUIServer)
 - Safe to re-run: idempotent `mkdir -p` and `defaults write` commands
+
+**flatpaks-install.sh:**
+
+- Linux only. On any non-Linux host: prints a skip message and exits 0 (Makefile targets remain safe to invoke on macOS)
+- Requires `flatpak` binary (install via `brew install flatpak` on Linux)
+- User scope only (`--user`): writes to `~/.local/share/flatpak`, no sudo
+- Adds `flathub` as user remote on first run (`flatpak remote-add --user --if-not-exists`)
+- Idempotent: uses `--noninteractive --or-update`, so repeated runs upgrade existing apps
+- Accepts an optional file path arg (default `.flatpaks`); strips `#` comments and blank lines before invoking `flatpak install`
+- Scope decision rationale: see "Plain .flatpaks vs Brewfile flatpak keyword" below
 
 ## Shell Aliases
 
@@ -216,11 +240,17 @@ done
 brew bundle check --file=.Brewfile --verbose
 brew bundle check --file=.Brewfile.work --verbose
 
-# 6. Lint shell scripts (shfmt available for formatting new scripts ad-hoc;
-#    not enforced here because macos-defaults.sh uses intentional column alignment)
-shellcheck link.sh macos-defaults.sh
+# 6. Flatpaks files — sanity parse (Linux-only check; on mac just verify format)
+for f in .flatpaks .flatpaks.work; do
+  grep -vE '^\s*(#|$)' "$f" | awk 'NF && $0 !~ /^[A-Za-z0-9_.-]+$/ {print "BAD ID line " NR ": " $0; bad=1} END {exit bad+0}' \
+    && echo "OK $f"
+done
 
-# 7. Verify every documented symlink resolves to repo
+# 7. Lint shell scripts (shfmt available for formatting new scripts ad-hoc;
+#    not enforced here because macos-defaults.sh uses intentional column alignment)
+shellcheck link.sh macos-defaults.sh flatpaks-install.sh
+
+# 8. Verify every documented symlink resolves to repo
 for p in ~/.zprofile ~/.zshrc ~/.config/git/config ~/.config/git/ignore \
          ~/.config/ripgrep/ripgreprc ~/.config/starship.toml \
          ~/.config/ghostty/config ~/.config/bat/config ~/.config/atuin/config.toml \
@@ -522,6 +552,21 @@ Do not attempt to rename the Codex side to `caveman` — Codex will treat it as 
 - `.Brewfile.work` lines must use the same format `brew bundle dump` emits (`cask "name"`, `brew "name"`, etc.). The strip step prefilters `.Brewfile.work` through `grep -E '^(brew|cask|tap|vscode|mas) "'` before whole-line fixed-string match, so blank lines and comments in `.Brewfile.work` are tolerated, but malformed entries (wrong prefix, trailing whitespace) still leak through.
 - Do not re-sort either Brewfile by hand — `brew bundle dump` owns ordering.
 
+**Flatpaks maintenance:**
+
+- `.flatpaks` is **the dump target**: `make flatpaks-export` overwrites it via `flatpak list --user --app --columns=application`, then strips any line that also appears in `.flatpaks.work` (same `.tmp` + atomic `mv` pattern as `brew-export`). The `.tmp` file is a shell limitation, not a design choice — `> .flatpaks` would truncate the file before `grep` reads it.
+- `.flatpaks.work` is **manually curated**: `flatpak list` has no file-boundary awareness, so new work entries must be added by hand to `.flatpaks.work` after install. Otherwise the next `make flatpaks-export` will leak them into base.
+- **No comments in either file.** Both use bare Flathub IDs (one per line). Comments and blank lines are tolerated by the install loop but wiped by `make flatpaks-export` on first run (the `flatpak list` dump emits only IDs). Symmetric with `.Brewfile` / `.Brewfile.work` which are also comment-free. The install-side `grep -vE '^\s*(#|$)'` filter exists only as a defensive guard.
+- `flatpak list --columns=application` emits sorted alphabetically by app ID — do not re-sort by hand.
+- Both files are **user-scope** (`--user`); system-scope entries from `/var/lib/flatpak` will not appear in `flatpak list --user` and will be lost on `make flatpaks-export`. Stick to one scope (user). See "Plain .flatpaks vs Brewfile flatpak keyword" below.
+
+**Plain .flatpaks vs Brewfile flatpak keyword:**
+
+The Brewfile DSL gained a `flatpak` keyword in brew 5.0.4+. Install side is cross-OS-safe — `brew bundle` skips cask entries on Linux and flatpak entries on macOS with a friendly warning. But this repo uses a separate `.flatpaks` file for two reasons:
+
+- **Dump asymmetry destroys the other-OS side.** `brew bundle dump --force` on macOS emits zero flatpak lines (no flatpak installed), wiping every `flatpak "X"` entry from `.Brewfile` on each `make brew-export`. Same in reverse: dump on Linux drops all `cask` entries. A single cross-OS Brewfile cannot survive `dump --force` on alternating hosts. Separate per-OS files sidestep the problem entirely — each file is owned by its host and never touched by the other.
+- **Brewfile flatpak DSL has no `--user` parameter.** It defaults to system scope (`/var/lib/flatpak`, sudo required). Personal-laptop convention is `--user`: no sudo, no `/var/lib` bloat, app state lives in `$HOME`, all Flathub apps work identically in user scope on a single-user laptop (sandbox is per-app, not per-scope), and mixing scopes duplicates runtime extensions (`org.freedesktop.Platform.*`) on disk. Community consensus (Arch Wiki, Flathub docs, Bluefin docs, openSUSE forums) recommends `--user` for personal laptops. Brew analogy: `brew` installs to `/opt/homebrew` without sudo; `flatpak --user` installs to `~/.local/share/flatpak` without sudo — same model.
+
 ## Claude Code Settings
 
 The `.claude/settings.json` configures permissions and plugins:
@@ -541,7 +586,7 @@ See `.claude/settings.json` for the full permission list.
 The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
 
 - **Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, analytics/feedback disabled
-- **Profiles:** `quick`, `deep`, and `research` (`research` enables live web search)
+- **Profiles:** `quick` and `research` (`research` enables live web search)
 - **Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
 - **Enabled plugins:** Slack, caveman
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)

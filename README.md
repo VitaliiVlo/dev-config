@@ -13,6 +13,7 @@ Dotfiles configured with **Catppuccin Macchiato** (dark) / **Catppuccin Latte** 
 - [Validate](#validate)
 - [Updating](#updating)
 - [Casks](#casks)
+- [Flatpaks](#flatpaks)
 - [Claude Code](#claude-code)
 - [Codex](#codex)
 
@@ -26,7 +27,7 @@ Run `make help` to list all available targets.
 
 ## Prerequisites
 
-> Apple Silicon only. Homebrew prefix is hardcoded to `/opt/homebrew` in `.zshrc` / `.zprofile`; Intel Macs (`/usr/local`) are not supported.
+> Apple Silicon only. Homebrew prefix defaults to `/opt/homebrew` in `.zshrc` / `.zprofile` (override via `BREW_PREFIX` env), but Intel `/usr/local` layout is not tested or supported.
 
 - **Install Xcode Command Line Tools:** git, make, grep, tar etc.
   ```bash
@@ -82,6 +83,9 @@ The following files are automatically symlinked by running `make link`:
 
 - `.Brewfile` - Base Brewfile (shell, fonts, daily-driver apps, VSCode extensions)
 - `.Brewfile.work` - Work Brewfile (work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN; curated manually)
+- `.flatpaks` - Base Flathub app IDs for Linux (paired with `.Brewfile` casks where an equivalent exists)
+- `.flatpaks.work` - Work Flathub app IDs for Linux (paired with `.Brewfile.work` casks; curated manually)
+- `flatpaks-install.sh` - Installs `.flatpaks` / `.flatpaks.work` at user scope (Linux only, no-op on macOS)
 - `CLAUDE.md` - Repository instructions for Claude Code (auto-discovered in cwd; Codex reads it via `project_doc_fallback_filenames`)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
@@ -139,14 +143,14 @@ Install via official installers or Homebrew Cask:
 | Mail                  | **Apple Mail**, Mimestream                                                           |
 | Password Manager      | **Apple Passwords**, 1Password, Bitwarden                                            |
 | Office                | **Apple iWork** (Pages, Numbers, Keynote), Google Workspace, Microsoft 365           |
-| macOS Tools           | Rectangle, Maccy, Keka, KeepingYouAwake, Thaw, MiddleClick, LinearMouse, balenaEtcher |
+| macOS Utilities       | Rectangle, Maccy, Keka, KeepingYouAwake, Thaw, MiddleClick, LinearMouse, balenaEtcher |
 | Networking            | Cloudflare WARP, LocalSend, Tailscale                                                |
 | Linux Distros         | Bluefin, elementary OS, Fedora Silverblue, Fedora Workstation, Pop!_OS               |
 
 **VSCode setup:**
 
 - Enable settings sync with GitHub
-- Enable Copilot (next-edit suggestions intentionally off via `github.copilot.nextEditSuggestions.enabled: false`)
+- Sign in to Copilot Chat (base `github.copilot` installs as a dependency; next-edit suggestions intentionally off via `github.copilot.nextEditSuggestions.enabled: false`)
 - Configure layout (View → Appearance / Customize Layout):
   - Quick input position: center
   - Panel alignment: justify
@@ -160,7 +164,6 @@ Installed via Homebrew formulae and casks (see `.Brewfile` and `.Brewfile.work`)
 make brew-install       # Install all packages (base + work)
 make brew-install-base  # Install base packages only
 make brew-install-work  # Install work packages only
-make brew-check         # Check for missing packages
 make brew-cleanup       # Clean up old versions and cache
 make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile, then strip .Brewfile.work entries; add new work entries to .Brewfile.work manually
 make versions           # Show installed Go, Node, Python versions
@@ -220,7 +223,6 @@ make versions           # Show installed Go, Node, Python versions
 
 After `make setup`, verify everything wired up:
 
-- `make brew-check` — every Brewfile package installed
 - `make versions` — Go / Node / Python toolchains print
 - `git config --list --show-origin | head -5` — settings come from `~/.config/git/config`
 - `ls -l ~/.config/ghostty/config ~/.zshrc ~/.config/git/config` — symlinks point at this repo
@@ -232,6 +234,8 @@ For full audit recipe (TOML/JSON/YAML/JSONC parsers, `brew bundle check`, `shell
 - `brew update && brew upgrade` — update Homebrew formulae and casks
 - `make brew-export` — refresh `.Brewfile` from current install state (then add any new work entries to `.Brewfile.work` manually; see CLAUDE.md "Brewfile maintenance" for strip step semantics)
 - `make brew-cleanup` — prune old versions and cache
+- `flatpak update --user` — update installed Flathub apps (Linux)
+- `make flatpaks-export` — refresh `.flatpaks` from current install state (then add any new work entries to `.flatpaks.work` manually; same strip semantics as `brew-export`)
 - VSCode / Zed / Ghostty — auto-update enabled, no action needed
 - Go: `brew upgrade go`. Node: `fnm install <version>`. Python: `uv python install <version>`.
 
@@ -283,6 +287,49 @@ GUI applications, CLIs, and fonts installed via Homebrew Cask:
 | slack            | Team messaging                            |
 | tailscale-app    | VPN/mesh networking                       |
 
+## Flatpaks
+
+GUI applications for Linux installed via Flathub at **user scope** (`~/.local/share/flatpak`, no sudo). Mirrors the `.Brewfile` / `.Brewfile.work` split.
+
+- `make flatpaks-install-base` — install `.flatpaks`
+- `make flatpaks-install-work` — install `.flatpaks.work`
+- `make flatpaks-install` — both
+- `make flatpaks-export` — refresh `.flatpaks` from installed state (strips `.flatpaks.work` entries; add new work entries manually)
+
+All targets no-op on macOS. Requires `flatpak` (install via `brew install flatpak` on Linux). Bootstrap adds the Flathub user remote automatically on first run.
+
+### Base Flatpaks
+
+| Flathub ID                  | Paired cask        | Description                     |
+| --------------------------- | ------------------ | ------------------------------- |
+| app.zen_browser.zen         | zen                | Web browser (Gecko)             |
+| com.brave.Browser           | brave-browser      | Web browser (Chromium)          |
+| com.github.tchx84.Flatseal  | —                  | Flatpak permission editor       |
+| com.onepassword.OnePassword | 1password          | Password manager                |
+| com.visualstudio.code       | visual-studio-code | Code editor                     |
+| dev.zed.Zed                 | zed                | Code editor                     |
+| md.obsidian.Obsidian        | obsidian           | Notes / knowledge base          |
+| org.localsend.localsend_app | localsend          | Cross-platform LAN file sharing |
+| org.mozilla.firefox         | firefox            | Web browser                     |
+
+### Work Flatpaks
+
+| Flathub ID                | Paired cask      | Description          |
+| ------------------------- | ---------------- | -------------------- |
+| com.google.Chrome         | google-chrome    | Web browser          |
+| com.mongodb.Compass       | mongodb-compass  | MongoDB GUI          |
+| com.slack.Slack           | slack            | Team messaging       |
+| com.usebruno.Bruno        | bruno            | API testing client   |
+| io.beekeeperstudio.Studio | beekeeper-studio | Multi-engine SQL GUI |
+| io.kinvolk.Headlamp       | headlamp         | Kubernetes GUI       |
+
+### macOS-only (no Flathub equivalent)
+
+- **CLI tools** — `1password-cli`, `claude-code`, `codex`, `cloudflare-warp` (use brew formulae or distro packages on Linux).
+- **Fonts** — `font-fira-code`, `font-jetbrains-mono`, `font-symbols-only-nerd-font` (install via distro packages or directly from upstream releases on Linux; Flathub is not a font distribution channel).
+- **GUI apps not on Flathub** — `arc`, `balenaetcher`, `ghostty`, `horos`, `orbstack`, `tailscale-app` (use distro packages, upstream binaries, or alternatives on Linux).
+- **macOS-system tools** — `keepingyouawake`, `keka`, `linearmouse`, `maccy`, `middleclick`, `rectangle`, `thaw` (no direct Linux concept; equivalents are distro-specific GNOME/KDE settings or extensions).
+
 ## Claude Code
 
 The `.claude/settings.json` configures permissions and plugins:
@@ -300,7 +347,7 @@ The `.claude/settings.json` configures permissions and plugins:
 The `.codex/config.toml` configures model selection, sandboxing, profiles, plugins, and MCP integrations:
 
 - **Default behavior:** On-request approvals, `workspace-write` sandbox, cached web search by default, analytics/feedback disabled
-- **Profiles:** `quick`, `deep`, and `research` (`research` enables live web search)
+- **Profiles:** `quick` and `research` (`research` enables live web search)
 - **Rules:** `.codex/rules/` defines allowed command groups for `git`, `dev`, `shell`, and `infra`
 - **Enabled plugins:** Slack, caveman
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)
