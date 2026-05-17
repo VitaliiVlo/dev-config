@@ -16,6 +16,7 @@ Dotfiles configured with **Catppuccin Macchiato** (dark) / **Catppuccin Latte** 
 - [Flatpaks](#flatpaks)
 - [Claude Code](#claude-code)
 - [Codex](#codex)
+- [Templates](#templates)
 
 ## Quick Start
 
@@ -334,13 +335,13 @@ All targets no-op on macOS. Requires `flatpak` (install via `brew install flatpa
 
 The `.config/claude/settings.json` configures permissions and plugins:
 
-- **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools, dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), `fd`/`rg`/`grep`/`find`/`which`/`tldr`/`date` for file search and inspection
-- **Denied:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
+- **Allowed:** Web search, fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), git/docker/k8s read-only commands, build/test/lint tools (`shellcheck`, `shfmt`), dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), file search and inspection (`fd`, `rg`, `grep`, `find`, `which`, `bat`, `eza`, `head`, `tail`, `ls`, `wc`, `jq`, `yq`, `tldr`, `date`)
+- **Denied:** `.env` files, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars` (covers the `Read` tool only; allowed `Bash` readers like `bat`/`head`/`jq` can still target these paths — the model-level `Sensitive Data` rule in user CLAUDE.md is the actual guarantee)
 - **Requires approval:** Arbitrary package install (`brew install`, `npm install`, `uv add`), direct code execution (`python`, `node`, `go run`), git writes, docker mutations
 - **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman, context7, slack, atlassian, posthog, datadog, pr-review-toolkit
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
 - **Status line:** Custom layout via [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
-- **Usage tracking:** [`ccusage`](https://github.com/ryoppippi/ccusage) for token usage and cost analysis
+- **Usage tracking:** [`ccstatusline`](https://www.npmjs.com/package/ccstatusline) surfaces session/weekly usage and cost in the status bar via the [`ccusage`](https://github.com/ryoppippi/ccusage) library it embeds. Run `npx ccusage` for ad-hoc cost reports.
 
 ## Codex
 
@@ -352,3 +353,26 @@ The `.config/codex/config.toml` configures model selection, sandboxing, profiles
 - **Enabled plugins:** Slack, caveman
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman)
 - **MCP servers:** Atlassian, Datadog, Context7, PostHog
+
+## Templates
+
+One-shot starter files for new projects. Not symlinked — import or copy as needed.
+
+| File                       | Format             | Usage                                                |
+| -------------------------- | ------------------ | ---------------------------------------------------- |
+| `templates/bookmarks.html` | Netscape bookmarks | Browser Bookmarks Manager → Import. See notes below. |
+
+**`bookmarks.html`** ships universal-only URLs (no org-specific subdomains, no project domains). `Services`, `Dev`, `Stage`, `Prod` ship empty — fill with org/project-specific URLs in the browser after import.
+
+**Folder contents:**
+
+- **`<Employer>`** — Employer-wide accounts shared across all client projects. Personal mail, calendar, timetracking, HR portal, employer-wide tools.
+- **`<Project>`** — Client/project-specific daily hits. Project mail/calendar account, Jira board, GitHub PR queues + org repos + code search, planning poker, most-used Confluence docs and pages.
+- **`Services`** — Third-party SaaS dashboards with a single URL (no per-env split). Observability, analytics, feature flags, cloud DB console, payments (e.g. Stripe), IdP, cloud SSO (e.g. AWS), VPN console, code quality, secrets manager.
+- **`Dev`** — `*.dev.<domain>` URLs (one entry per env-specific service). Web portal, admin panel, API, GitOps console, mail catcher, broker console, internal tooling.
+- **`Stage`** — `*.staging.<domain>` mirror of `Dev`.
+- **`Prod`** — `*.<domain>` mirror of `Dev`. Read-only / restricted access in practice.
+- **`AI`** — LLM chat entrypoints. ChatGPT, Claude, Gemini new-chat URLs + status pages.
+- **`Tools`** — One-shot web utilities. Regex tester, cron parser, JWT decoder, epoch converter, time zone, diagram editors, API tester.
+
+**Google account slots:** Gmail/Calendar URLs use `/u/0/` (first signed-in account, employer) and `/u/1/` (second, project). Swap the slot index to reorder.

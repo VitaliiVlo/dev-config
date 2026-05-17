@@ -60,6 +60,10 @@ make flatpaks-export         # Export installed user flatpaks to .flatpaks, then
 - `.config/codex/config.toml` - Codex CLI config (model, sandbox, profiles, plugins)
 - `.config/codex/rules/` - Codex permission rules: `git`, `dev`, `shell`, `infra` (symlinked to `~/.codex/rules/`)
 
+Templates (not symlinked, import or copy as needed):
+
+- `templates/bookmarks.html` - Netscape bookmark template (universal URLs only: GitHub `/pulls/*`, AI chats, web tools). One-shot import per project; rename `<Employer>` / `<Project>` folders after import.
+
 ## When Adding a New Tool/Config (Doc Drift Checklist)
 
 When adding a new tool, config file, cask, or formula, update all of these in lockstep — missing any one causes documentation drift:
@@ -269,7 +273,7 @@ for p in ~/.zprofile ~/.zshrc ~/.config/git/config ~/.config/git/ignore \
 done
 ```
 
-**Web verification rule:** when a config key looks suspect (unfamiliar value, version-specific), confirm against the tool's official docs before flagging it as invalid. Examples that look wrong but are valid: Codex `model = "gpt-5.5"`/`gpt-5.4`/`gpt-5.4-mini`, Codex `personality = "friendly"`, Codex `[features].fast_mode`/`prevent_idle_sleep`, Codex `commit_attribution`, Claude `effortLevel = "xhigh"`, Claude `model = "opus[1m]"`, atuin `inline_height_shell_up_key_binding`, ghostty `cursor-opacity`/`adjust-cursor-thickness`. All confirmed valid via vendor docs.
+**Web verification rule:** when a config key looks suspect (unfamiliar value, version-specific), confirm against the tool's official docs before flagging it as invalid. Examples that look wrong but are valid: Codex `model = "gpt-5.5"`/`gpt-5.4`/`gpt-5.4-mini`, Codex `personality = "friendly"`, Codex `[features].fast_mode`/`prevent_idle_sleep`, Codex `commit_attribution`, Claude `effortLevel = "xhigh"`, Claude `model = "opus[1m]"`, atuin `inline_height_shell_up_key_binding`, atuin `enter_accept = false` (intentional default-flip: Enter selects/edits, doesn't auto-execute), ghostty `cursor-opacity`/`adjust-cursor-thickness`. All confirmed valid via vendor docs.
 
 ## VSCode Settings
 
@@ -552,6 +556,7 @@ Do not attempt to rename the Codex side to `caveman` — Codex will treat it as 
 - `.Brewfile` is **the dump target**: `make brew-export` overwrites it via `brew bundle dump --force`, then strips any line that also appears in `.Brewfile.work`. Net effect: base stays curated, work entries stay separate.
 - `.Brewfile.work` is **manually curated**: `brew bundle dump` does not respect file boundaries, so new work entries must be added by hand to `.Brewfile.work` after install. Otherwise the next `make brew-export` will leak them into base.
 - `.Brewfile.work` lines must use the same format `brew bundle dump` emits (`cask "name"`, `brew "name"`, etc.). The strip step prefilters `.Brewfile.work` through `grep -E '^(brew|cask|tap|vscode|mas) "'` before whole-line fixed-string match, so blank lines and comments in `.Brewfile.work` are tolerated, but malformed entries (wrong prefix, trailing whitespace) still leak through.
+- **Known gap:** the strip regex does not cover `go "..."` / `uv "..."` DSL prefixes. `.Brewfile.work` is casks-only today, so no live leak — but a future work-only `go`/`uv` entry would not be eligible for stripping, and the next `make brew-export` would drop it from `.Brewfile` on the round-trip. Extend the regex in `Makefile` and this block if that scope ever expands.
 - Do not re-sort either Brewfile by hand — `brew bundle dump` owns ordering.
 
 **Flatpaks maintenance:**
@@ -573,13 +578,14 @@ The Brewfile DSL gained a `flatpak` keyword in brew 5.0.4+. Install side is cros
 
 The `.config/claude/settings.json` configures permissions and plugins:
 
-- **Allowed:** Read-only git/docker/k8s, build/test/lint tools, dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), web search, web fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), `fd`/`rg`/`grep`/`find`/`which`/`tldr`/`date` for file search and inspection
-- **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars`
+- **Allowed:** Read-only git/docker/k8s, build/test/lint tools (`shellcheck`, `shfmt`), dependency sync (`go mod tidy/download`, `uv sync/lock`, `npm ci`), version probes (`go/uv/python/python3/node/npm --version`, `fnm list/current`), web search, web fetch from dev docs (GitHub, Stack Overflow, MDN, Go/Python/Node/Terraform/Docker/Kubernetes/Claude docs), file search and inspection (`fd`, `rg`, `grep`, `find`, `which`, `bat`, `eza`, `head`, `tail`, `ls`, `wc`, `jq`, `yq`, `tldr`, `date`)
+- **Denied:** `.env`, `.ssh/*`, `.kube/config`, `.git-credentials`, credentials, private keys, `.tfvars` (`Read` tool only — see note below)
 - **Requires approval:** Arbitrary package install (`brew install`, `npm install`, `uv add`), direct code execution, git writes, docker mutations
+- **Sensitive-data trust boundary:** `Read(...)` deny rules only cover the `Read` tool. Allowed `Bash(...)` readers (`bat`, `head`, `tail`, `cat` via alias, `jq`, `yq`, `grep`, `rg`, `ls`, `wc`, `find`, `fd`) can target the same paths without prompting. Actual protection comes from the model-level `Sensitive Data` rule in `.config/claude/CLAUDE.md`, not from the JSON allow/deny.
 - **Enabled plugins:** pyright-lsp, gopls-lsp, typescript-lsp, code-review, feature-dev, code-simplifier, claude-md-management, caveman, context7, slack, atlassian, posthog, datadog, pr-review-toolkit
 - **Marketplace:** [caveman](https://github.com/JuliusBrussee/caveman) (auto-update enabled)
 - **Status line:** Custom layout via `ccstatusline` (model, thinking effort, cwd, git branch, context %, session/weekly usage, cost)
-- **Usage tracking:** `ccusage` via npx for token usage and cost analysis
+- **Usage tracking:** `ccstatusline` surfaces session/weekly usage and cost in the status bar via the `ccusage` library it embeds. Run `npx ccusage` for ad-hoc cost reports.
 
 See `.config/claude/settings.json` for the full permission list.
 

@@ -4,7 +4,7 @@
 auto-update = download
 auto-update-channel = stable
 desktop-notifications = true
-macos-icon = retro
+macos-icon = official
 shell-integration = zsh
 
 # Theme (follows system appearance via window-theme = system)
