@@ -9,25 +9,26 @@ macOS dotfiles repository for setting up a development environment. All configs 
 ## Key Commands
 
 ```bash
-make setup              # Full setup: configure macOS, symlink configs, install packages, show versions
+make setup              # Base setup: configure macOS, symlink configs, install base packages, show versions
+make setup-all          # Full setup: base setup + work packages
 make link               # Symlink configs to home directory
 make defaults           # Configure macOS defaults: folders, system, screenshots, Finder, Dock
 make versions           # Show installed Go, Node, Python versions
-make brew-install       # Install all packages (core + extra)
-make brew-install-core  # Install core packages only
-make brew-install-extra # Install extra packages only
+make brew-install       # Install all packages (base + work)
+make brew-install-base  # Install base packages only
+make brew-install-work  # Install work packages only
 make brew-check         # Check for missing Brewfile packages
 make brew-cleanup       # Clean up old versions and cache
-make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile.core, then strip .Brewfile.extra entries; add new extras to .Brewfile.extra manually
+make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile, then strip .Brewfile.work entries; add new work entries to .Brewfile.work manually
 ```
 
 ## Repository Structure
 
-- `bootstrap.sh` - Creates symlinks (uses `set -euo pipefail`)
-- `bootstrap-defaults.sh` - macOS defaults via `defaults write` (non-interactive, idempotent)
+- `link.sh` - Creates symlinks (uses `set -euo pipefail`)
+- `macos-defaults.sh` - macOS defaults via `defaults write` (non-interactive, idempotent)
 - `Makefile` - Task runner targets (`make help` for list)
-- `.Brewfile.core` - Core packages: shell essentials, fonts, daily-driver apps, VSCode extensions
-- `.Brewfile.extra` - Extra packages: work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN (curated manually)
+- `.Brewfile` - Base packages: shell essentials, fonts, daily-driver apps, VSCode extensions
+- `.Brewfile.work` - Work packages: work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN (curated manually)
 - `.zshrc` / `.zprofile` - Zsh config (starship prompt, fnm, uv, fzf with bat preview, eza aliases, syntax-highlighting, autosuggestions)
 - `.config/git/config` / `.config/git/ignore` - Git settings (delta pager, rebase workflow, SSH for GitHub, zdiff3 conflicts, rerere, git-lfs filters) — XDG path
 - `.config/ripgrep/ripgreprc` - Ripgrep defaults (smart-case, hidden files, follow symlinks); resolved via `RIPGREP_CONFIG_PATH`
@@ -57,8 +58,8 @@ make brew-export        # Export installed packages (incl. VSCode extensions) to
 
 When adding a new tool, config file, cask, or formula, update all of these in lockstep — missing any one causes documentation drift:
 
-- **Install** — add line to `.Brewfile.core` or `.Brewfile.extra` (tap, cask, brew, vscode, go, uv, etc.)
-- **Symlink** — add `mkdir -p` + `ln -sf` block to `bootstrap.sh` if the tool reads a config file from a fixed path
+- **Install** — add line to `.Brewfile` or `.Brewfile.work` (tap, cask, brew, vscode, go, uv, etc.)
+- **Symlink** — add `mkdir -p` + `ln -sf` block to `link.sh` if the tool reads a config file from a fixed path
 - **README "Configuration Files" list** — add bullet under `## Configuration Files` if a config file is symlinked
 - **README "CLI Tools" or "Casks" table** — add row if user-facing CLI/GUI tool
 - **README "Applications" table** — add row if GUI app fits an existing category, or add new category row
@@ -82,18 +83,18 @@ When adding or editing config files, follow this style across all of them:
 
 ## Script Behavior
 
-**bootstrap.sh:**
+**link.sh:**
 
 - Uses `ln -sf` (force symlink) - overwrites existing files
 - Creates parent directories as needed for nested configs
-- Repo holds all source-of-truth configs under `.config/<tool>/`. Tools that ignore XDG on macOS are linked into native paths inside `bootstrap.sh`:
+- Repo holds all source-of-truth configs under `.config/<tool>/`. Tools that ignore XDG on macOS are linked into native paths inside `link.sh`:
   - glow → `~/Library/Preferences/glow/`
   - superfile → `~/Library/Application Support/superfile/`
   - tlrc → `~/Library/Application Support/tlrc/`
   - VSCode → `~/Library/Application Support/Code/User/`
 - Symlinks grouped by category (in this order): Shell → Shell tools (history/pager/system monitor/terminal/search/prompt) → Git/file tools → Editors → macOS-native paths → AI agents. Within each group, tools are alphabetized. Add new symlinks under the matching group in alpha order.
 
-**bootstrap-defaults.sh:**
+**macos-defaults.sh:**
 
 - Non-interactive: applies all categories unconditionally (Folders, System defaults, Screenshots, Finder, Dock)
 - Restarts affected processes (Finder, Dock, SystemUIServer)
@@ -212,12 +213,12 @@ for f in .config/zed/settings.json .config/vscode/settings.json; do
 done
 
 # 5. Brewfiles — verify all listed packages installable/installed
-brew bundle check --file=.Brewfile.core --verbose
-brew bundle check --file=.Brewfile.extra --verbose
+brew bundle check --file=.Brewfile --verbose
+brew bundle check --file=.Brewfile.work --verbose
 
 # 6. Lint shell scripts (shfmt available for formatting new scripts ad-hoc;
-#    not enforced here because bootstrap-defaults.sh uses intentional column alignment)
-shellcheck bootstrap.sh bootstrap-defaults.sh
+#    not enforced here because macos-defaults.sh uses intentional column alignment)
+shellcheck link.sh macos-defaults.sh
 
 # 7. Verify every documented symlink resolves to repo
 for p in ~/.zprofile ~/.zshrc ~/.config/git/config ~/.config/git/ignore \
@@ -414,13 +415,13 @@ When modifying any config file, ensure these values stay consistent across all t
 
 **Shell linting/formatting** — extension + binary pairs (both must be present):
 
-- `shellcheck` (brew) ↔ `timonwong.shellcheck` (VSCode extension); both in `.Brewfile.core`. Extension auto-discovers binary from `PATH`.
-- `shfmt` (brew) ↔ `foxundermoon.shell-format` (VSCode extension); both in `.Brewfile.core`. Extension auto-discovers binary from `PATH`.
+- `shellcheck` (brew) ↔ `timonwong.shellcheck` (VSCode extension); both in `.Brewfile`. Extension auto-discovers binary from `PATH`.
+- `shfmt` (brew) ↔ `foxundermoon.shell-format` (VSCode extension); both in `.Brewfile`. Extension auto-discovers binary from `PATH`.
 - Zed: built-in shell highlighting; no extension installed. `shellcheck`/`shfmt` invoked directly from `PATH` if a project formatter is configured.
 
 **Extension management** — reproducible across machines:
 
-- VSCode: `vscode` entries in `.Brewfile.core` (managed by `brew bundle dump` / `brew bundle install`)
+- VSCode: `vscode` entries in `.Brewfile` (managed by `brew bundle dump` / `brew bundle install`)
 - Zed: `auto_install_extensions` in `.config/zed/settings.json` (auto-installed on launch)
 
 **Zed overrides from defaults:** `auto_signature_help: true` (Zed default is `false`, set to match VSCode `parameterHints.enabled`)
@@ -516,9 +517,9 @@ Do not attempt to rename the Codex side to `caveman` — Codex will treat it as 
 
 **Brewfile maintenance:**
 
-- `.Brewfile.core` is **the dump target**: `make brew-export` overwrites it via `brew bundle dump --force`, then strips any line that also appears in `.Brewfile.extra`. Net effect: core stays curated, extras stay separate.
-- `.Brewfile.extra` is **manually curated**: `brew bundle dump` does not respect file boundaries, so new extras must be added by hand to `.Brewfile.extra` after install. Otherwise the next `make brew-export` will leak them into core.
-- `.Brewfile.extra` lines must use the same format `brew bundle dump` emits (`cask "name"`, `brew "name"`, etc.). The strip step prefilters `.Brewfile.extra` through `grep -E '^(brew|cask|tap|vscode|mas) "'` before whole-line fixed-string match, so blank lines and comments in `.Brewfile.extra` are tolerated, but malformed entries (wrong prefix, trailing whitespace) still leak through.
+- `.Brewfile` is **the dump target**: `make brew-export` overwrites it via `brew bundle dump --force`, then strips any line that also appears in `.Brewfile.work`. Net effect: base stays curated, work entries stay separate.
+- `.Brewfile.work` is **manually curated**: `brew bundle dump` does not respect file boundaries, so new work entries must be added by hand to `.Brewfile.work` after install. Otherwise the next `make brew-export` will leak them into base.
+- `.Brewfile.work` lines must use the same format `brew bundle dump` emits (`cask "name"`, `brew "name"`, etc.). The strip step prefilters `.Brewfile.work` through `grep -E '^(brew|cask|tap|vscode|mas) "'` before whole-line fixed-string match, so blank lines and comments in `.Brewfile.work` are tolerated, but malformed entries (wrong prefix, trailing whitespace) still leak through.
 - Do not re-sort either Brewfile by hand — `brew bundle dump` owns ordering.
 
 ## Claude Code Settings

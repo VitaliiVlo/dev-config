@@ -20,7 +20,7 @@ Dotfiles configured with **Catppuccin Macchiato** (dark) / **Catppuccin Latte** 
 
 1. Complete [Prerequisites](#prerequisites) (Xcode CLT, Homebrew, SSH key, Touch ID).
 2. Clone this repository.
-3. Run `make setup` to configure macOS, symlink configs, install packages, and show versions.
+3. Run `make setup` (base packages) or `make setup-all` (base + work packages) to configure macOS, symlink configs, install packages, and show versions.
 
 Run `make help` to list all available targets.
 
@@ -80,8 +80,8 @@ The following files are automatically symlinked by running `make link`:
 
 **Not symlinked (used directly from repo):**
 
-- `.Brewfile.core` - Core Brewfile (shell, fonts, daily-driver apps, VSCode extensions)
-- `.Brewfile.extra` - Extra Brewfile (work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN; curated manually)
+- `.Brewfile` - Base Brewfile (shell, fonts, daily-driver apps, VSCode extensions)
+- `.Brewfile.work` - Work Brewfile (work-specific GUIs — API client, K8s GUI, DB GUI, container runtime, comms, VPN; curated manually)
 - `CLAUDE.md` - Repository instructions for Claude Code (auto-discovered in cwd; Codex reads it via `project_doc_fallback_filenames`)
 - `.config/vscode/defaultSettings.jsonc` - VSCode defaults for comparing settings
 
@@ -127,9 +127,10 @@ Install via official installers or Homebrew Cask:
 | Kubernetes Remote Dev | **Telepresence**, mirrord                                                            |
 | Database              | **Beekeeper Studio**, TablePlus, Postico, MongoDB Compass                            |
 | API Testing           | **Bruno**, Yaak, Hoppscotch                                                          |
+| Medical Imaging       | **Horos**, Weasis, OsiriX Lite                                                       |
 | Browser (Gecko)       | **Firefox**, Zen + **uBlock Origin**                                                 |
-| Browser (Chromium)    | **Brave**, Helium + **uBlock Origin Lite**                                           |
-| Browser (WebKit)      | **Safari**, Orion + **wBlock**, Wipr 2                                               |
+| Browser (Chromium)    | **Brave**, Arc, Helium + **uBlock Origin Lite**                                      |
+| Browser (WebKit)      | **Safari**, Orion + **wBlock**                                                       |
 | Diagrams              | **Excalidraw**, tldraw                                                               |
 | Diagram as Code       | **Mermaid**, D2                                                                      |
 | Notes                 | **Apple Notes**, Bear, Obsidian                                                      |
@@ -153,15 +154,15 @@ Install via official installers or Homebrew Cask:
 
 ## CLI Tools
 
-Installed via Homebrew formulae and casks (see `.Brewfile.core` and `.Brewfile.extra`):
+Installed via Homebrew formulae and casks (see `.Brewfile` and `.Brewfile.work`):
 
 ```bash
-make brew-install       # Install all packages (core + extra)
-make brew-install-core  # Install core packages only
-make brew-install-extra # Install extra packages only
+make brew-install       # Install all packages (base + work)
+make brew-install-base  # Install base packages only
+make brew-install-work  # Install work packages only
 make brew-check         # Check for missing packages
 make brew-cleanup       # Clean up old versions and cache
-make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile.core, then strip .Brewfile.extra entries; add new extras to .Brewfile.extra manually
+make brew-export        # Export installed packages (incl. VSCode extensions) to .Brewfile, then strip .Brewfile.work entries; add new work entries to .Brewfile.work manually
 make versions           # Show installed Go, Node, Python versions
 ```
 
@@ -229,7 +230,7 @@ For full audit recipe (TOML/JSON/YAML/JSONC parsers, `brew bundle check`, `shell
 ## Updating
 
 - `brew update && brew upgrade` — update Homebrew formulae and casks
-- `make brew-export` — refresh `.Brewfile.core` from current install state (then add any new extras to `.Brewfile.extra` manually; see CLAUDE.md "Brewfile maintenance" for strip step semantics)
+- `make brew-export` — refresh `.Brewfile` from current install state (then add any new work entries to `.Brewfile.work` manually; see CLAUDE.md "Brewfile maintenance" for strip step semantics)
 - `make brew-cleanup` — prune old versions and cache
 - VSCode / Zed / Ghostty — auto-update enabled, no action needed
 - Go: `brew upgrade go`. Node: `fnm install <version>`. Python: `uv python install <version>`.
@@ -238,10 +239,13 @@ For full audit recipe (TOML/JSON/YAML/JSONC parsers, `brew bundle check`, `shell
 
 GUI applications, CLIs, and fonts installed via Homebrew Cask:
 
-### Core Casks
+### Base Casks
 
 | Cask                        | Description                      |
 | --------------------------- | -------------------------------- |
+| 1password                   | Password manager                 |
+| 1password-cli               | 1Password CLI                    |
+| arc                         | Web browser (Chromium)           |
 | balenaetcher                | USB flash tool                   |
 | brave-browser               | Web browser (Chromium)           |
 | claude-code                 | Anthropic Claude CLI             |
@@ -252,8 +256,7 @@ GUI applications, CLIs, and fonts installed via Homebrew Cask:
 | font-jetbrains-mono         | Primary monospace font           |
 | font-symbols-only-nerd-font | Nerd Font icons (symbols only)   |
 | ghostty                     | Terminal emulator                |
-| google-chrome               | Web browser                      |
-| helium-browser              | Web browser (Chromium)           |
+| horos                       | Medical imaging viewer (DICOM)   |
 | keepingyouawake             | Prevent sleep                    |
 | keka                        | File archiver                    |
 | linearmouse                 | Per-device mouse customization   |
@@ -266,12 +269,13 @@ GUI applications, CLIs, and fonts installed via Homebrew Cask:
 | zed                         | Code editor                      |
 | zen                         | Web browser (Gecko)              |
 
-### Extra Casks
+### Work Casks
 
 | Cask             | Description                               |
 | ---------------- | ----------------------------------------- |
 | beekeeper-studio | Multi-engine SQL GUI                      |
 | bruno            | API testing client                        |
+| google-chrome    | Web browser                               |
 | headlamp         | Kubernetes GUI                            |
 | mongodb-compass  | MongoDB GUI                               |
 | orbstack         | Docker/Linux VM (replaces Docker Desktop) |
