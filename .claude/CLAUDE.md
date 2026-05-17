@@ -23,11 +23,12 @@ Fallbacks only when a repo gives no signal:
 ## Tools
 
 - Prefer repo-native commands: `make`, `task`, package scripts, checked-in scripts.
-- For ad-hoc shell only (search, listing, inspection): prefer `rg` over `grep`, `fd` over `find`, `bat` over `cat`, `eza` over `ls`. Never replace a repo-defined script or `make` target with these.
+- For ad-hoc shell only (search, listing, inspection): prefer `rg` over `grep`, `fd` over `find`, `bat` over `cat`, `eza` over `ls`, `jq`/`yq` for JSON/YAML parsing, `tldr` for quick command reference. Never replace a repo-defined script or `make` target with these.
 - Use `gh` CLI for GitHub workflows.
 - Respect `.gitignore`, lockfiles, toolchain files, and existing automation.
 - Use read-only inspection first. Ask before installs, migrations, or destructive actions.
 - Do not install packages or add dependencies without explicit approval. This includes `brew install`, `npm install <pkg>`, `pip install`, `uv add`, `go get`, `cargo add`. Lockfile-only refresh commands (`npm ci`, `uv sync`, `go mod tidy`) are fine.
+- Avoid spawning subagents by default. Use direct tools first. Delegate only when the task clearly benefits — independent parallel work, large search surface that would pollute main context, or a specialist agent fits the job. User request always overrides.
 
 ## Git
 
